@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ví dụ nhúng Logo PNG pqv</title>
+    <style>
+        /* Thiết lập nền Navy đậm cho toàn trang để hiển thị logo rõ nét */
+        body {
+            background-color: #001C2F; /* Màu nền Navy đậm khớp với Header website */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: sans-serif;
+            color: white;
+        }
+
+        /* Container cho logo để kiểm soát kích thước */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+        }
+
+        .logo-image {
+            height: 36px; /* Kích thước phóng lớn hơn chút để xem chi tiết */
+            width: auto;
+            display: block;
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-name {
+            font-size: 1.25rem;
+            font-weight: bold;
+            line-height: 1.1;
+        }
+
+        .logo-sub {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="logo-container">
+        <!-- Logo đã được cắt viền trắng và xử lý trong suốt nền -->
+        <img class="logo-image" src="pictures/logo.png" alt="Logo pqv" />
+        <div class="logo-text">
+            <span class="logo-name">Phan Quang Vinh</span>
+            <span class="logo-sub">Tài chính · AI · Cuộc sống</span>
+        </div>
+    </div>
+
+</body>
+</html>

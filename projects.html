@@ -1,0 +1,1299 @@
+<!DOCTYPE html>
+<html lang="vi" data-lang="vi">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phan Quang Vinh — Tài chính · AI · Cuộc sống</title>
+  <meta name="description" content="Blog và portfolio cá nhân của Phan Quang Vinh. Tài chính, đầu tư, AI automation và cuộc sống." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* =====================
+       DESIGN TOKENS (tim.blog style - Neutral Navy & Slate)
+     ===================== */
+    :root {
+      --color-primary: #002E4E; /* Deep Neutral Navy Blue */
+      --color-secondary: #4A607A; /* Cool Slate Gray-Blue */
+      --color-accent: #B38E50; /* Elegant Bronze/Gold */
+      --color-bg-1: #FFFFFF; /* Pure White background */
+      --color-bg-2: #F7F9FA; /* Neutral Ice Blue-Gray */
+      --color-bg-3: #ECEFF1; /* Light Neutral Gray */
+      --color-bg-4: #D9E1E8; /* Border Slate-Gray */
+      --color-fg-1: #0A131A; /* Dark Navy Black */
+      --color-fg-2: #1E2D38; /* Deep Charcoal Slate */
+      --color-fg-3: #485966; /* Medium Slate */
+      --color-fg-4: #738491; /* Light Slate */
+      --color-nav-bg: #001C2F; /* Deep Navy Blue (tim.blog) */
+
+      --font-base: "DM Sans", sans-serif;
+      --font-serif: "Lora", Georgia, serif;
+      --fw-light: 300;
+      --fw-regular: 400;
+      --fw-medium: 500;
+      --fw-semibold: 600;
+      --fw-bold: 700;
+
+      --lh-tiny: 1.1;
+      --lh-small: 1.25;
+      --lh-medium: 1.4;
+      --lh-normal: 1.6;
+
+      --fs-xs: clamp(0.875rem, 0.875rem + 0.1vw, 0.9375rem);
+      --fs-sm: clamp(1rem, 1rem + 0.23vw, 1.125rem);
+      --fs-base: clamp(1.125rem, 1.125rem + 0.23vw, 1.25rem);
+      --fs-lg: clamp(1.25rem, 1.25rem + 1.36vw, 2rem);
+      --fs-xl: clamp(1.5rem, 1.5rem + 2.05vw, 2.625rem);
+      --fs-2xl: clamp(2rem, 2rem + 2.73vw, 3.5rem);
+      --fs-3xl: clamp(2.5rem, 2.5rem + 3.6vw, 5rem);
+
+      --sp-xs: clamp(0.5rem, 1vw, 1rem);
+      --sp-sm: clamp(0.75rem, 1.5vw, 1.5rem);
+      --sp-md: clamp(1rem, 2.5vw, 2rem);
+      --sp-lg: clamp(1.5rem, 4vw, 3rem);
+      --sp-xl: clamp(1.5rem, 6.5vw, 4rem);
+      --sp-2xl: clamp(2rem, 7.5vw, 6rem);
+      --sp-3xl: clamp(2rem, 8vw, 7.5rem);
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 20px;
+      --radius-pill: 100px;
+
+      --max-w: 1200px;
+      --max-w-text: 720px;
+
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 4px 18px rgba(0, 0, 0, 0.1);
+      --shadow-lg: 0 16px 50px rgba(0, 0, 0, 0.15);
+
+      --transition: 0.2s ease;
+    }
+
+    /* =====================
+       RESET & BASE
+    ===================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-base);
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-medium);
+      line-height: var(--lh-normal);
+      color: var(--color-fg-1);
+      background-color: var(--color-bg-2);
+    }
+
+    img { max-width: 100%; height: auto; display: block; }
+
+    a {
+      color: var(--color-primary);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color var(--transition);
+    }
+    a:hover { color: var(--color-fg-1); text-decoration: none; }
+
+    h1, h2, h3 {
+      font-family: var(--font-serif);
+      font-weight: var(--fw-bold);
+      letter-spacing: -0.01em;
+      line-height: var(--lh-tiny);
+      color: var(--color-fg-1);
+    }
+    h4, h5, h6 {
+      font-family: var(--font-base);
+      font-weight: var(--fw-semibold);
+      letter-spacing: -0.02em;
+      line-height: var(--lh-tiny);
+      color: var(--color-fg-1);
+    }
+    h1 { font-size: var(--fs-2xl); }
+    h2 { font-size: var(--fs-xl); font-weight: var(--fw-bold); }
+    h3 { font-size: var(--fs-lg); }
+    h4 { font-size: var(--fs-base); }
+    h5 { font-size: var(--fs-sm); text-transform: uppercase; letter-spacing: 0.05em; }
+
+    ul { list-style: none; }
+
+    /* =====================
+       LAYOUT UTILITIES
+    ===================== */
+    .container {
+      width: 100%;
+      max-width: var(--max-w);
+      margin-inline: auto;
+      padding-inline: var(--sp-md);
+    }
+    .container--text { max-width: var(--max-w-text); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+      padding: 0.625em var(--sp-sm);
+      border-radius: var(--radius-pill);
+      font-family: var(--font-base);
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-medium);
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: background-color var(--transition), color var(--transition);
+    }
+    .btn--primary {
+      background-color: var(--color-primary);
+      color: #fff;
+    }
+    .btn--primary:hover { background-color: var(--color-fg-1); color: #fff; }
+
+    .btn--outline {
+      background-color: transparent;
+      color: #fff;
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
+    }
+    .btn--outline:hover { background-color: rgba(255,255,255,0.15); color: #fff; }
+
+    .btn--accent {
+      background-color: var(--color-accent);
+      color: var(--color-fg-1);
+    }
+    .btn--accent:hover { background-color: #e5b330; color: var(--color-fg-1); }
+
+    .tag {
+      display: inline-block;
+      padding: 0.25em 0.75em;
+      border-radius: var(--radius-pill);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-semibold);
+      background-color: var(--color-bg-3);
+      color: var(--color-fg-2);
+      text-decoration: none;
+    }
+    .tag:hover { background-color: var(--color-bg-4); color: var(--color-fg-1); }
+    .tag--accent { background-color: #f5ece2; color: #785135; }
+    .tag--blue { background-color: #e2ede5; color: #2e4c38; }
+
+    /* i18n: hide/show by lang */
+    [data-vi], [data-en] { }
+    html[data-lang="vi"] [data-en] { display: none; }
+    html[data-lang="en"] [data-vi] { display: none; }
+
+    /* =====================
+       HEADER / NAV
+     ===================== */
+    .site-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: var(--color-nav-bg);
+      transition: box-shadow var(--transition);
+    }
+    .site-header.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.3); }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-block: var(--sp-sm);
+      gap: var(--sp-md);
+    }
+
+    .nav-logo {
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-logo__icon {
+      height: 24px;
+      width: auto;
+      flex-shrink: 0;
+      transition: transform var(--transition);
+    }
+    .nav-logo:hover .nav-logo__icon {
+      transform: scale(1.08);
+    }
+    .nav-logo__text {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .nav-logo__name {
+      font-size: 1.125rem;
+      font-weight: var(--fw-bold);
+      color: #fff;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+    .nav-logo__sub {
+      font-size: 0.75rem;
+      font-weight: var(--fw-regular);
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.01em;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: var(--sp-sm);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+    .nav-links a {
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-medium);
+      padding: 0.4em 0.75em;
+      border-radius: var(--radius-sm);
+      transition: color var(--transition), background-color var(--transition);
+    }
+    .nav-links a:hover { color: #fff; background-color: rgba(255,255,255,0.1); }
+    .nav-links a.active { color: #fff; background-color: rgba(255,255,255,0.15); font-weight: var(--fw-bold); }
+
+    .lang-toggle {
+      display: flex;
+      align-items: center;
+      background: rgba(255,255,255,0.1);
+      border-radius: var(--radius-pill);
+      padding: 2px;
+      gap: 2px;
+    }
+    .lang-btn {
+      border: none;
+      background: transparent;
+      color: rgba(255,255,255,0.6);
+      font-family: var(--font-base);
+      font-size: 0.75rem;
+      font-weight: var(--fw-semibold);
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+    .lang-btn.active {
+      background: #fff;
+      color: var(--color-fg-1);
+    }
+    .lang-btn:hover:not(.active) { color: #fff; }
+
+    .nav-hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .nav-hamburger span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background: #fff;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none;
+      background: var(--color-nav-bg);
+      padding: var(--sp-sm) var(--sp-md);
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a {
+      display: block;
+      color: rgba(255,255,255,0.8);
+      text-decoration: none;
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-medium);
+      padding: 0.75em 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .mobile-menu a:hover { color: #fff; }
+    .mobile-menu a.active { color: #fff; background-color: rgba(255,255,255,0.1); font-weight: var(--fw-bold); }
+    .mobile-menu a:last-child { border-bottom: none; }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+    }
+
+    /* =====================
+       HERO
+     ===================== */
+    .hero {
+      min-height: 100svh;
+      background:
+        linear-gradient(135deg, rgba(0, 28, 47, 0.95) 0%, rgba(0, 46, 78, 0.9) 70%, rgba(0, 28, 47, 0.98) 100%),
+        linear-gradient(135deg, #001C2F 0%, #002E4E 50%, #001C2F 100%);
+      display: flex;
+      align-items: center;
+      padding-top: 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* decorative grid pattern */
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
+
+    .hero__inner {
+      position: relative;
+      z-index: 1;
+      padding-block: var(--sp-3xl);
+    }
+
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+      color: var(--color-accent);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-semibold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: var(--sp-sm);
+    }
+    .hero__eyebrow::before {
+      content: "";
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--color-accent);
+      border-radius: 2px;
+    }
+
+    .hero__title {
+      font-size: var(--fs-3xl);
+      font-weight: var(--fw-bold);
+      color: #fff;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: var(--sp-md);
+      max-width: 16ch;
+    }
+    .hero__title .accent { color: var(--color-accent); }
+
+    .hero__desc {
+      font-size: var(--fs-base);
+      color: rgba(255,255,255,0.72);
+      line-height: var(--lh-medium);
+      max-width: 52ch;
+      margin-bottom: var(--sp-lg);
+    }
+
+    .hero__cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: var(--sp-2xl);
+    }
+
+    .hero__stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--sp-lg);
+      padding-top: var(--sp-lg);
+      border-top: 1px solid rgba(255,255,255,0.12);
+    }
+    .stat { display: flex; flex-direction: column; gap: 0.2em; }
+    .stat__num {
+      font-size: var(--fs-xl);
+      font-weight: var(--fw-bold);
+      color: #fff;
+      line-height: 1;
+    }
+    .stat__num .unit {
+      font-size: 0.55em;
+      color: var(--color-accent);
+      font-weight: var(--fw-semibold);
+    }
+    .stat__label {
+      font-size: var(--fs-xs);
+      color: rgba(255,255,255,0.5);
+      font-weight: var(--fw-medium);
+    }
+
+    /* scroll indicator */
+    .hero__scroll {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4em;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      animation: bounce 2s infinite;
+    }
+    .hero__scroll svg { opacity: 0.5; }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* =====================
+       SECTION COMMONS
+    ===================== */
+    section { padding-block: var(--sp-2xl); }
+
+    .section-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+      color: var(--color-primary);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-semibold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: var(--sp-xs);
+    }
+    .section-label::before {
+      content: "";
+      display: block;
+      width: 20px;
+      height: 2px;
+      background: var(--color-primary);
+      border-radius: 2px;
+    }
+
+    .section-title {
+      font-size: var(--fs-xl);
+      margin-bottom: var(--sp-sm);
+      color: var(--color-fg-1);
+    }
+
+    .section-desc {
+      font-size: var(--fs-base);
+      color: var(--color-fg-3);
+      max-width: 60ch;
+      line-height: var(--lh-medium);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--sp-sm);
+      margin-bottom: var(--sp-xl);
+    }
+    .section-header .link-all {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-semibold);
+      white-space: nowrap;
+    }
+
+    /* =====================
+       ABOUT SECTION
+    ===================== */
+    .about { background-color: var(--color-bg-1); }
+
+    .about__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-2xl);
+      align-items: center;
+    }
+
+    .about__avatar-wrap {
+      position: relative;
+    }
+    .about__avatar {
+      width: 100%;
+      aspect-ratio: 4/5;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, var(--color-bg-2) 0%, var(--color-bg-3) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+      border: 1px solid var(--color-bg-4);
+    }
+    .about__avatar-placeholder {
+      font-size: 1rem;
+      font-family: var(--font-base);
+      color: var(--color-fg-4);
+      user-select: none;
+    }
+    .about__avatar-badge {
+      position: absolute;
+      bottom: -1rem;
+      right: -1rem;
+      background: var(--color-accent);
+      color: #fff;
+      padding: 0.75em 1.25em;
+      border-radius: var(--radius-md);
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-bold);
+      box-shadow: var(--shadow-md);
+      line-height: 1.3;
+      text-align: center;
+    }
+    .about__avatar-badge strong { display: block; font-size: var(--fs-base); }
+
+    .about__content { display: flex; flex-direction: column; gap: var(--sp-md); }
+
+    .about__name {
+      font-size: var(--fs-xl);
+      font-weight: var(--fw-bold);
+      margin-bottom: 0.25em;
+    }
+    .about__role {
+      font-size: var(--fs-base);
+      color: var(--color-primary);
+      font-weight: var(--fw-medium);
+    }
+
+    .about__bio {
+      color: var(--color-fg-2);
+      line-height: var(--lh-medium);
+    }
+    .about__bio p + p { margin-top: 0.75em; }
+
+    .about__dna {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.75rem;
+    }
+    .dna-item {
+      display: flex;
+      align-items: center;
+      gap: 0.6em;
+      padding: 0.85em var(--sp-sm);
+      border-radius: var(--radius-sm);
+      background: var(--color-bg-2);
+      border-left: 3px solid var(--color-primary);
+    }
+    .dna-item__text {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-semibold);
+      color: var(--color-fg-1);
+      line-height: 1.4;
+    }
+
+    @media (max-width: 768px) {
+      .about__grid { grid-template-columns: 1fr; }
+      .about__avatar { aspect-ratio: 16/9; }
+      .about__avatar-badge { right: var(--sp-sm); }
+      .about__dna { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 480px) {
+      .about__dna { grid-template-columns: 1fr; }
+    }
+
+    /* =====================
+       SKILLS / COMPETENCIES
+    ===================== */
+    .skills { background-color: var(--color-bg-2); }
+
+    .skills__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--sp-sm);
+    }
+
+    .skill-card {
+      background: var(--color-bg-1);
+      border-radius: var(--radius-md);
+      padding: var(--sp-md);
+      box-shadow: none;
+      transition: border-color var(--transition), background-color var(--transition);
+      border: 1px solid var(--color-bg-4);
+    }
+    .skill-card:hover {
+      border-color: var(--color-accent);
+      background-color: var(--color-bg-1);
+    }
+    .skill-card__title {
+      font-size: var(--fs-sm);
+      font-weight: var(--fw-bold);
+      font-family: var(--font-serif);
+      color: var(--color-fg-1);
+      margin-bottom: 0.5em;
+    }
+    .skill-card__desc {
+      font-size: var(--fs-xs);
+      color: var(--color-fg-3);
+      line-height: var(--lh-medium);
+    }
+    .skill-card__tags {
+      margin-top: 0.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    @media (max-width: 900px) { .skills__grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 480px) { .skills__grid { grid-template-columns: 1fr; } }
+
+    /* =====================
+       FEATURED PROJECTS
+    ===================== */
+    .projects { background-color: var(--color-bg-1); }
+
+    .projects__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-sm);
+    }
+
+    .project-card {
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      background: var(--color-bg-2);
+      border: 1px solid var(--color-bg-4);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+    .project-card:hover {
+      border-color: var(--color-accent);
+    }
+    .project-card__thumb {
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, var(--thumb-from, var(--color-bg-3)) 0%, var(--thumb-to, var(--color-bg-4)) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-family: var(--font-base);
+      color: var(--color-fg-3);
+      border-bottom: 1px solid var(--color-bg-4);
+    }
+    .project-card__body {
+      padding: var(--sp-md);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .project-card__tags { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+    .project-card__title {
+      font-family: var(--font-serif);
+      font-size: var(--fs-base);
+      font-weight: var(--fw-bold);
+      color: var(--color-fg-1);
+      line-height: var(--lh-small);
+      text-decoration: none;
+    }
+    .project-card__title:hover { color: var(--color-primary); }
+    .project-card__desc {
+      font-size: var(--fs-xs);
+      color: var(--color-fg-3);
+      line-height: var(--lh-medium);
+      flex: 1;
+    }
+    .project-card__meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      font-size: var(--fs-xs);
+      color: var(--color-fg-3);
+      margin-top: auto;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--color-bg-4);
+    }
+    .project-card__result {
+      color: var(--color-fg-2);
+      font-weight: var(--fw-semibold);
+    }
+
+    @media (max-width: 900px) { .projects__grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 580px) { .projects__grid { grid-template-columns: 1fr; } }
+
+    /* =====================
+       BLOG PREVIEW
+    ===================== */
+    .blog { background-color: var(--color-fg-1); }
+    .blog .section-label { color: var(--color-secondary); }
+    .blog .section-label::before { background: var(--color-secondary); }
+    .blog .section-title { color: #fff; }
+    .blog .link-all { color: var(--color-secondary) !important; }
+
+    .blog__grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: var(--sp-sm);
+    }
+
+    .post-card {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: background-color var(--transition), border-color var(--transition);
+    }
+    .post-card:hover {
+      background: rgba(255, 255, 255, 0.06);
+      border-color: var(--color-secondary);
+    }
+    .post-card--featured .post-card__body { padding: var(--sp-md); }
+    .post-card__thumb {
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, var(--thumb-from, #2a352e) 0%, var(--thumb-to, #1c241f) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-family: var(--font-base);
+      color: rgba(255,255,255,0.4);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .post-card__body {
+      padding: var(--sp-sm);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+    .post-card__cat {
+      font-size: 0.7rem;
+      font-weight: var(--fw-bold);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--color-secondary);
+    }
+    .post-card__title {
+      font-family: var(--font-serif);
+      font-size: var(--fs-base);
+      font-weight: var(--fw-bold);
+      color: #fff;
+      line-height: var(--lh-small);
+      text-decoration: none;
+    }
+    .post-card--sm .post-card__title { font-size: var(--fs-sm); }
+    .post-card__title:hover { color: var(--color-secondary); }
+    .post-card__excerpt {
+      font-size: var(--fs-xs);
+      color: rgba(255, 255, 255, 0.6);
+      line-height: var(--lh-medium);
+      flex: 1;
+    }
+    .post-card__meta {
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.4);
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      margin-top: auto;
+      padding-top: 0.5rem;
+    }
+    .post-card__meta-dot { width: 3px; height: 3px; background: currentColor; border-radius: 50%; }
+
+    @media (max-width: 900px) { .blog__grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 580px) { .blog__grid { grid-template-columns: 1fr; } }
+
+    /* =====================
+       NEWSLETTER / CTA
+    ===================== */
+    .newsletter {
+      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-nav-bg) 100%);
+      text-align: center;
+    }
+    .newsletter__inner { max-width: 600px; margin-inline: auto; }
+    .newsletter h2 { color: #fff; margin-bottom: var(--sp-sm); }
+    .newsletter p { color: rgba(255,255,255,0.75); margin-bottom: var(--sp-md); }
+    .newsletter__form {
+      display: flex;
+      gap: 0.5rem;
+      max-width: 440px;
+      margin-inline: auto;
+    }
+    .newsletter__input {
+      flex: 1;
+      padding: 0.7em var(--sp-sm);
+      border-radius: var(--radius-pill);
+      border: none;
+      font-family: var(--font-base);
+      font-size: var(--fs-sm);
+      outline: none;
+    }
+    .newsletter__input:focus { box-shadow: 0 0 0 3px rgba(255,255,255,0.3); }
+
+    @media (max-width: 480px) {
+      .newsletter__form { flex-direction: column; }
+    }
+
+    /* =====================
+       FOOTER
+    ===================== */
+    .site-footer {
+      background: var(--color-fg-1);
+      color: rgba(255,255,255,0.5);
+      padding-block: var(--sp-xl);
+    }
+
+    .footer__grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: var(--sp-xl);
+      padding-bottom: var(--sp-xl);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: var(--sp-lg);
+    }
+
+    .footer__brand-name {
+      font-size: var(--fs-base);
+      font-weight: var(--fw-bold);
+      color: #fff;
+      margin-bottom: 0.5em;
+    }
+    .footer__brand-desc {
+      font-size: var(--fs-xs);
+      line-height: var(--lh-medium);
+      margin-bottom: var(--sp-sm);
+    }
+
+    .footer__socials-text {
+      font-size: var(--fs-xs);
+      color: rgba(255,255,255,0.4);
+      margin-top: var(--sp-sm);
+    }
+    .footer-social-link {
+      color: rgba(255,255,255,0.6) !important;
+      text-decoration: none !important;
+      font-weight: var(--fw-semibold);
+      transition: color var(--transition);
+    }
+    .footer-social-link:hover {
+      color: #fff !important;
+      text-decoration: underline !important;
+    }
+
+    .footer__col-title {
+      font-size: var(--fs-xs);
+      font-weight: var(--fw-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: var(--sp-sm);
+    }
+    .footer__links { display: flex; flex-direction: column; gap: 0.5rem; }
+    .footer__links a {
+      font-size: var(--fs-xs);
+      color: rgba(255,255,255,0.55);
+      text-decoration: none;
+      transition: color var(--transition);
+    }
+    .footer__links a:hover { color: #fff; }
+
+    .footer__bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      font-size: var(--fs-xs);
+    }
+    .footer__bottom a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    .footer__bottom a:hover { color: #fff; }
+
+    @media (max-width: 900px) { .footer__grid { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 480px) {
+      .footer__grid { grid-template-columns: 1fr; }
+      .footer__bottom { flex-direction: column; text-align: center; }
+    }
+
+    /* =====================
+       SCROLL ANIMATIONS
+    ===================== */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+
+<body>
+
+  <!-- ========================
+       HEADER
+  ======================== -->
+  <header class="site-header" id="site-header">
+    <div class="container">
+      <nav class="navbar">
+        <a href="index.html" class="nav-logo" aria-label="Trang chủ">
+          <img class="nav-logo__icon" src="pictures/logo.png" alt="Logo pqv" />
+          <div class="nav-logo__text">
+            <span class="nav-logo__name">Phan Quang Vinh</span>
+            <span class="nav-logo__sub" data-vi>Tài chính · AI · Cuộc sống</span>
+            <span class="nav-logo__sub" data-en>Finance · AI · Life</span>
+          </div>
+        </a>
+
+        <div class="nav-right">
+          <ul class="nav-links" role="list">
+            <li><a href="about.html" data-vi>Về tôi</a><a href="about.html" data-en>About</a></li>
+            <li><a href="projects.html" class="active" data-vi>Dự án</a><a href="projects.html" class="active" data-en>Work</a></li>
+            <li><a href="blog.html" data-vi>Blog</a><a href="blog.html" data-en>Blog</a></li>
+            <li><a href="mailto:pig4nckh@gmail.com" data-vi>Liên hệ</a><a href="mailto:pig4nckh@gmail.com" data-en>Contact</a></li>
+          </ul>
+
+          <div class="lang-toggle" role="group" aria-label="Chọn ngôn ngữ">
+            <button class="lang-btn active" data-lang-btn="vi" aria-pressed="true">VI</button>
+            <button class="lang-btn" data-lang-btn="en" aria-pressed="false">EN</button>
+          </div>
+
+          <button class="nav-hamburger" id="hamburger" aria-label="Mở menu" aria-expanded="false" aria-controls="mobile-menu">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
+      </nav>
+    </div>
+
+    <div class="mobile-menu" id="mobile-menu" role="navigation">
+      <a href="about.html" data-vi>Về tôi</a>
+      <a href="about.html" data-en>About</a>
+      <a href="projects.html" class="active" data-vi>Dự án</a>
+      <a href="projects.html" class="active" data-en>Work</a>
+      <a href="blog.html" data-vi>Blog</a>
+      <a href="blog.html" data-en>Blog</a>
+      <a href="mailto:pig4nckh@gmail.com" data-vi>Liên hệ</a>
+      <a href="mailto:pig4nckh@gmail.com" data-en>Contact</a>
+    </div>
+  </header>
+
+  <!-- ========================
+       SKILLS (SUB-PAGE CONTENT)
+  ======================== -->
+  <section class="skills" style="padding-top: 130px;">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="section-label" data-vi>Năng lực cốt lõi</div>
+          <div class="section-label" data-en>Core Competencies</div>
+          <h2 class="section-title" data-vi>Tôi giỏi gì?</h2>
+          <h2 class="section-title" data-en>What I bring to the table</h2>
+        </div>
+      </div>
+
+      <div class="skills__grid">
+        <div class="skill-card fade-up">
+          <div class="skill-card__title" data-vi>Tài chính & Đầu tư</div>
+          <div class="skill-card__title" data-en>Finance & Investment</div>
+          <div class="skill-card__desc" data-vi>Phân tích thị trường tài chính, chứng khoán phái sinh, crypto, RWA/tokenization và chiến lược đầu tư dài hạn.</div>
+          <div class="skill-card__desc" data-en>Financial market analysis, derivatives, crypto markets, RWA/tokenization and long-term investment strategy.</div>
+          <div class="skill-card__tags">
+            <span class="tag tag--blue">Derivatives</span>
+            <span class="tag tag--blue">Crypto</span>
+            <span class="tag tag--blue">RWA</span>
+          </div>
+        </div>
+
+        <div class="skill-card fade-up">
+          <div class="skill-card__title" data-vi>Quy trình & Vận hành</div>
+          <div class="skill-card__title" data-en>Process & Operations</div>
+          <div class="skill-card__desc" data-vi>Phân tích bottleneck, tối ưu quy trình nghiệp vụ, quản lý operations trong môi trường tài chính và công nghệ.</div>
+          <div class="skill-card__desc" data-en>Bottleneck analysis, business process optimization, operations management in finance and tech environments.</div>
+          <div class="skill-card__tags">
+            <span class="tag">Operations</span>
+            <span class="tag">BPM</span>
+            <span class="tag">SOP</span>
+          </div>
+        </div>
+
+        <div class="skill-card fade-up">
+          <div class="skill-card__title" data-vi>AI & Tự động hóa</div>
+          <div class="skill-card__title" data-en>AI & Automation</div>
+          <div class="skill-card__desc" data-vi>Python, n8n, AI prompt engineering, no-code tools. Xây dựng hệ thống tự động hóa xử lý hàng chục nghìn tác vụ.</div>
+          <div class="skill-card__desc" data-en>Python, n8n, AI prompt engineering, no-code tools. Building automation systems handling tens of thousands of tasks.</div>
+          <div class="skill-card__tags">
+            <span class="tag tag--accent">Python</span>
+            <span class="tag tag--accent">n8n</span>
+            <span class="tag tag--accent">AI</span>
+          </div>
+        </div>
+
+        <div class="skill-card fade-up">
+          <div class="skill-card__title" data-vi>Product & Strategy</div>
+          <div class="skill-card__title" data-en>Product & Strategy</div>
+          <div class="skill-card__desc" data-vi>Tư duy sản phẩm, phân tích dữ liệu, xây dựng chiến lược kinh doanh và quản lý dự án đa chức năng.</div>
+          <div class="skill-card__desc" data-en>Product thinking, data analysis, business strategy development and cross-functional project management.</div>
+          <div class="skill-card__tags">
+            <span class="tag">Strategy</span>
+            <span class="tag">Product</span>
+            <span class="tag">Analytics</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+
+  <!-- ========================
+       FEATURED PROJECTS
+  ======================== -->
+  <section class="projects" id="projects">
+    <div class="container">
+      <div class="section-header">
+        <div>
+          <div class="section-label" data-vi>Dự án nổi bật</div>
+          <div class="section-label" data-en>Featured Work</div>
+          <h2 class="section-title" data-vi>Những thứ tôi đã xây dựng</h2>
+          <h2 class="section-title" data-en>Things I've built</h2>
+        </div>
+        <a href="projects.html" class="link-all" data-vi>Xem tất cả →</a>
+        <a href="projects.html" class="link-all" data-en>View all →</a>
+      </div>
+
+      <div class="projects__grid">
+        <div class="project-card fade-up" style="--thumb-from:#eae6e1;--thumb-to:#ddd2c4">
+          <div class="project-card__thumb" aria-hidden="true">[Ảnh Dự án: Báo cáo tự động n8n]</div>
+          <div class="project-card__body">
+            <div class="project-card__tags">
+              <span class="tag tag--accent">Automation</span>
+              <span class="tag tag--blue">n8n</span>
+            </div>
+            <a href="#" class="project-card__title" data-vi>Hệ thống tạo báo cáo tự động 83K trang</a>
+            <a href="#" class="project-card__title" data-en>83K-page Automated Report Generator</a>
+            <p class="project-card__desc" data-vi>Thiết kế hệ thống n8n tự động hóa toàn bộ quy trình tạo báo cáo, từ thu thập dữ liệu đến xuất PDF — xử lý ~83.000 trang trong vòng 2 ngày.</p>
+            <p class="project-card__desc" data-en>Designed an n8n automation system covering the full report generation pipeline, from data collection to PDF export — processing ~83,000 pages in 2 days.</p>
+            <div class="project-card__meta">
+              <span class="project-card__result" data-vi>83.000 trang / 2 ngày</span>
+              <span class="project-card__result" data-en>83,000 pages in 2 days</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card fade-up" style="--thumb-from:#e2ede5;--thumb-to:#cbdcd0">
+          <div class="project-card__thumb" aria-hidden="true">[Ảnh Dự án: CRM & Marketing]</div>
+          <div class="project-card__body">
+            <div class="project-card__tags">
+              <span class="tag tag--accent">Marketing</span>
+              <span class="tag">CRM</span>
+            </div>
+            <a href="#" class="project-card__title" data-vi>Hệ thống Marketing Automation & CRM</a>
+            <a href="#" class="project-card__title" data-en>Marketing Automation & CRM System</a>
+            <p class="project-card__desc" data-vi>Xây dựng từ đầu nền tảng marketing automation tích hợp CRM, tự động hóa toàn bộ hành trình khách hàng và chăm sóc sau bán.</p>
+            <p class="project-card__desc" data-en>Built from scratch a marketing automation platform with integrated CRM, automating the full customer journey and post-sale nurturing.</p>
+            <div class="project-card__meta">
+              <span class="project-card__result" data-vi>Full-stack tự xây</span>
+              <span class="project-card__result" data-en>Built from scratch</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card fade-up" style="--thumb-from:#eae6e1;--thumb-to:#cbdcd0">
+          <div class="project-card__thumb" aria-hidden="true">[Ảnh Dự án: Website 3h với AI]</div>
+          <div class="project-card__body">
+            <div class="project-card__tags">
+              <span class="tag tag--blue">Web</span>
+              <span class="tag tag--accent">AI</span>
+            </div>
+            <a href="#" class="project-card__title" data-vi>Website hoàn chỉnh trong 3 giờ với AI</a>
+            <a href="#" class="project-card__title" data-en>Full Website Built in 3 Hours with AI</a>
+            <p class="project-card__desc" data-vi>Chứng minh khả năng AI-augmented development: từ ý tưởng đến website production-ready chỉ trong 3 tiếng, không cần team.</p>
+            <p class="project-card__desc" data-en>Demonstrating AI-augmented development: from concept to production-ready website in just 3 hours, solo.</p>
+            <div class="project-card__meta">
+              <span class="project-card__result" data-vi>3 giờ · Solo</span>
+              <span class="project-card__result" data-en>3 hours · Solo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- ========================
+       NEWSLETTER
+  ======================== -->
+  <section class="newsletter">
+    <div class="container">
+      <div class="newsletter__inner fade-up">
+        <h2 data-vi>Nhận góc nhìn mới mỗi tuần</h2>
+        <h2 data-en>Get fresh perspectives weekly</h2>
+        <p data-vi>Tài chính, AI, và những bài học sống — không spam, không quảng cáo. Chỉ những thứ đáng đọc.</p>
+        <p data-en>Finance, AI, and life lessons — no spam, no ads. Only things worth reading.</p>
+        <form class="newsletter__form" onsubmit="return false;">
+          <input class="newsletter__input" type="email" placeholder="Email của bạn" aria-label="Email" required />
+          <button type="submit" class="btn btn--accent" data-vi>Đăng ký</button>
+          <button type="submit" class="btn btn--accent" data-en>Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
+       FOOTER
+  ======================== -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand-name">Phan Quang Vinh</div>
+          <p class="footer__brand-desc" data-vi>Tài chính · AI · Cuộc sống. Viết để hiểu, chia sẻ để lan truyền giá trị.</p>
+          <p class="footer__brand-desc" data-en>Finance · AI · Life. Writing to understand, sharing to spread value.</p>
+          <div class="footer__socials-text">
+            <a href="#" class="footer-social-link">LinkedIn</a> — 
+            <a href="#" class="footer-social-link">GitHub</a> — 
+            <a href="mailto:pig4nckh@gmail.com" class="footer-social-link">Email</a>
+          </div>
+        </div>
+
+        <div>
+          <div class="footer__col-title" data-vi>Khám phá</div>
+          <div class="footer__col-title" data-en>Explore</div>
+          <ul class="footer__links" role="list">
+            <li><a href="about.html" data-vi>Về tôi</a><a href="about.html" data-en>About</a></li>
+            <li><a href="projects.html" data-vi>Dự án</a><a href="projects.html" data-en>Work</a></li>
+            <li><a href="blog.html" data-vi>Blog</a><a href="blog.html" data-en>Blog</a></li>
+            <li><a href="#" data-vi>Travel</a><a href="#" data-en>Travel</a></li>
+            <li><a href="#" data-vi>Hiện tại</a><a href="#" data-en>Now</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer__col-title" data-vi>Chủ đề</div>
+          <div class="footer__col-title" data-en>Topics</div>
+          <ul class="footer__links" role="list">
+            <li><a href="#" data-vi>Tài chính & Đầu tư</a><a href="#" data-en>Finance & Investing</a></li>
+            <li><a href="#" data-vi>AI & Automation</a><a href="#" data-en>AI & Automation</a></li>
+            <li><a href="#" data-vi>Năng suất</a><a href="#" data-en>Productivity</a></li>
+            <li><a href="#" data-vi>Cuộc sống</a><a href="#" data-en>Life & Thoughts</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer__col-title" data-vi>Liên hệ</div>
+          <div class="footer__col-title" data-en>Contact</div>
+          <ul class="footer__links" role="list">
+            <li><a href="mailto:pig4nckh@gmail.com">pig4nckh@gmail.com</a></li>
+            <li><a href="#" data-vi>LinkedIn</a><a href="#" data-en>LinkedIn</a></li>
+            <li><a href="#" data-vi>Hợp tác</a><a href="#" data-en>Collaborate</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <span data-vi>© 2026 Phan Quang Vinh. Tất cả quyền được bảo lưu.</span>
+        <span data-en>© 2026 Phan Quang Vinh. All rights reserved.</span>
+        <span data-vi>Được xây dựng với AI · Đà Nẵng, Việt Nam 🇻🇳</span>
+        <span data-en>Built with AI · Da Nang, Vietnam 🇻🇳</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // =====================
+    // LANGUAGE TOGGLE
+    // =====================
+    const html = document.documentElement;
+    const langBtns = document.querySelectorAll('[data-lang-btn]');
+
+    function setLang(lang) {
+      html.setAttribute('data-lang', lang);
+      html.setAttribute('lang', lang === 'vi' ? 'vi' : 'en');
+      langBtns.forEach(btn => {
+        const isActive = btn.dataset.langBtn === lang;
+        btn.classList.toggle('active', isActive);
+        btn.setAttribute('aria-pressed', isActive);
+      });
+      try { localStorage.setItem('pqv-lang', lang); } catch (e) {}
+    }
+
+    langBtns.forEach(btn => {
+      btn.addEventListener('click', () => setLang(btn.dataset.langBtn));
+    });
+
+    // restore saved lang
+    try {
+      const saved = localStorage.getItem('pqv-lang');
+      if (saved === 'en') setLang('en');
+    } catch (e) {}
+
+    // =====================
+    // MOBILE MENU
+    // =====================
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+
+    // close on link click
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('open');
+        hamburger.setAttribute('aria-expanded', false);
+      });
+    });
+
+    // =====================
+    // STICKY HEADER SHADOW
+    // =====================
+    const header = document.getElementById('site-header');
+    const onScroll = () => header.classList.toggle('scrolled', window.scrollY > 10);
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // =====================
+    // FADE-UP ANIMATIONS
+    // =====================
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // =====================
+    // SMOOTH ANCHOR SCROLL
+    // =====================
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (!target) return;
+        e.preventDefault();
+        const headerH = header.offsetHeight;
+        window.scrollTo({ top: target.offsetTop - headerH, behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>

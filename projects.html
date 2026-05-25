@@ -603,10 +603,24 @@
     }
 
     @media (max-width: 768px) {
-      .about__grid { grid-template-columns: 1fr; }
-      .about__avatar { aspect-ratio: 16/9; }
-      .about__avatar-badge { right: var(--sp-sm); }
-      .about__dna { grid-template-columns: 1fr 1fr; }
+      .about__grid {
+        grid-template-columns: 1fr;
+        gap: var(--sp-xl);
+      }
+      .about__avatar-wrap {
+        max-width: 320px;
+        margin-inline: auto;
+      }
+      .about__avatar {
+        aspect-ratio: 4/5;
+      }
+      .about__avatar-badge {
+        bottom: -0.75rem;
+        right: -0.75rem;
+      }
+      .about__dna {
+        grid-template-columns: 1fr 1fr;
+      }
     }
     @media (max-width: 480px) {
       .about__dna { grid-template-columns: 1fr; }

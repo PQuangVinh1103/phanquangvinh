@@ -1,0 +1,25 @@
+{
+  "name": "website-phanquangvinh.com",
+  "version": "1.0.0",
+  "description": "Personal website and blog for Phan Quang Vinh.",
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "keywords": [],
+  "author": "Phan Quang Vinh",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@astrojs/markdoc": "^0.15.11",
+    "@astrojs/react": "^4.4.2",
+    "@astrojs/vercel": "^8.2.11",
+    "@keystatic/astro": "^5.0.6",
+    "@keystatic/core": "^0.5.50",
+    "astro": "^5.18.1",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6"
+  }
+}

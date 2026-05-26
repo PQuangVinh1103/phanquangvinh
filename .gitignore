@@ -3,3 +3,6 @@
 .gemini/
 *.log
 node_modules/
+.astro/
+.vercel/
+dist/

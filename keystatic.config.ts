@@ -16,12 +16,9 @@ export default config({
         excerpt: fields.text({
           label: 'Excerpt',
           multiline: true,
-          validation: { length: { min: 20, max: 250 } },
+          validation: { length: { min: 20, max: 220 } },
         }),
-        publishedAt: fields.date({
-          label: 'Published date',
-          validation: { isRequired: true },
-        }),
+        publishedAt: fields.date({ label: 'Published date' }),
         status: fields.select({
           label: 'Status',
           options: [

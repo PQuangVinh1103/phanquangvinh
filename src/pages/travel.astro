@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Travel - Phan Quang Vinh" description="Hành trình và câu chuyện du lịch của Phan Quang Vinh.">
+  <style slot="head">
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 80px 24px 100px; text-align: center; }
+    h1 { font: 700 clamp(2rem, 5vw, 3.5rem)/1.1 var(--font-serif); color: var(--text); margin-bottom: 16px; }
+    .lead { color: var(--muted); font-size: 1.1rem; max-width: 520px; margin: 0 auto 36px; line-height: 1.6; }
+    .back { color: var(--primary); text-decoration: none; font-weight: 600; }
+    .back:hover { text-decoration: underline; }
+    .places { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 32px; }
+    .place { padding: 7px 16px; border: 1px solid var(--line); border-radius: 999px; font-size: 0.875rem; color: var(--muted); background: var(--surface); }
+  </style>
+
+  <main class="wrap">
+    <h1>Hành trình</h1>
+    <p class="lead">Sắp ra mắt — những câu chuyện, ảnh và góc nhìn cá nhân từ các chuyến đi.</p>
+    <div class="places">
+      <span class="place">Quảng Châu, Trung Quốc</span>
+      <span class="place">Đà Nẵng</span>
+      <span class="place">Hà Nội</span>
+    </div>
+    <br /><br />
+    <a class="back" href="/">← Về trang chủ</a>
+  </main>
+</BaseLayout>

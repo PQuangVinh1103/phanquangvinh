@@ -1,0 +1,132 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  activeNav?: 'about' | 'projects' | 'blog' | 'contact';
+}
+const { title, description = 'Blog và portfolio cá nhân của Phan Quang Vinh. Tài chính, đầu tư, AI automation và cuộc sống.', activeNav } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="icon" type="image/png" href="/pictures/logo.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --nav: #001c2f;
+      --primary: #002e4e;
+      --accent: #b38e50;
+      --bg: #f7f9fa;
+      --surface: #fff;
+      --text: #0a131a;
+      --muted: #485966;
+      --line: #d9e1e8;
+      --font-base: "DM Sans", sans-serif;
+      --font-serif: "Lora", Georgia, serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-base); color: var(--text); background: var(--bg); line-height: 1.65; }
+    img { display: block; max-width: 100%; }
+    a { color: var(--primary); text-underline-offset: 3px; }
+
+    /* Header */
+    .site-header { position: sticky; top: 0; z-index: 100; background: var(--nav); }
+    .site-header.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.3); }
+    .nav { max-width: 1120px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { text-decoration: none; font-weight: 700; color: #fff; font-size: 1.05rem; letter-spacing: -.01em; }
+    .nav-links { display: flex; gap: 4px; list-style: none; }
+    .nav-links a { color: rgba(255,255,255,.75); text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: color .15s, background-color .15s; }
+    .nav-links a:hover { color: #fff; background: rgba(255,255,255,.1); }
+    .nav-links a.active { color: #fff; background: rgba(255,255,255,.15); font-weight: 700; }
+
+    /* Mobile nav */
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: all .3s; }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .mobile-menu { display: none; background: var(--nav); padding: 12px 24px; border-top: 1px solid rgba(255,255,255,.1); }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a { display: block; color: rgba(255,255,255,.8); text-decoration: none; font-size: 1rem; font-weight: 500; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .mobile-menu a:last-child { border-bottom: none; }
+    .mobile-menu a:hover, .mobile-menu a.active { color: #fff; }
+
+    @media (max-width: 680px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+    }
+
+    /* Footer */
+    .site-footer { background: #0a131a; color: rgba(255,255,255,.45); padding: 40px 0 28px; }
+    .footer-inner { max-width: 1120px; margin: 0 auto; padding: 0 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; font-size: 0.875rem; }
+    .footer-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; }
+    .footer-links a { color: rgba(255,255,255,.5); text-decoration: none; transition: color .15s; }
+    .footer-links a:hover { color: #fff; }
+
+    @media (max-width: 580px) { .footer-inner { flex-direction: column; text-align: center; } }
+  </style>
+  <slot name="head" />
+</head>
+<body>
+  <header class="site-header" id="site-header">
+    <nav class="nav" aria-label="Main navigation">
+      <a class="brand" href="/">Phan Quang Vinh</a>
+      <ul class="nav-links">
+        <li><a href="/about" class={activeNav === 'about' ? 'active' : ''}>Về tôi</a></li>
+        <li><a href="/projects" class={activeNav === 'projects' ? 'active' : ''}>Dự án</a></li>
+        <li><a href="/blog" class={activeNav === 'blog' ? 'active' : ''}>Blog</a></li>
+        <li><a href="mailto:pig4nckh@gmail.com">Liên hệ</a></li>
+      </ul>
+      <button class="nav-hamburger" id="hamburger" aria-label="Mở menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+    <div class="mobile-menu" id="mobile-menu">
+      <a href="/about" class={activeNav === 'about' ? 'active' : ''}>Về tôi</a>
+      <a href="/projects" class={activeNav === 'projects' ? 'active' : ''}>Dự án</a>
+      <a href="/blog" class={activeNav === 'blog' ? 'active' : ''}>Blog</a>
+      <a href="mailto:pig4nckh@gmail.com">Liên hệ</a>
+    </div>
+  </header>
+
+  <slot />
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span>© 2026 Phan Quang Vinh. Tất cả quyền được bảo lưu.</span>
+      <ul class="footer-links">
+        <li><a href="https://www.linkedin.com/in/kelvinph11/" target="_blank" rel="noopener">LinkedIn</a></li>
+        <li><a href="https://gitlab.com/PQuangVinh1103" target="_blank" rel="noopener">GitLab</a></li>
+        <li><a href="mailto:pig4nckh@gmail.com">Email</a></li>
+        <li><a href="/blog">Blog</a></li>
+        <li><a href="/travel">Travel</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script>
+    const header = document.getElementById('site-header');
+    window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 10), { passive: true });
+
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    hamburger.addEventListener('click', () => {
+      const open = mobileMenu.classList.toggle('open');
+      hamburger.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', open);
+    });
+    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', false);
+    }));
+  </script>
+</body>
+</html>

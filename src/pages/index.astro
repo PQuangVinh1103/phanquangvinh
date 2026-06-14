@@ -1,3 +1,17 @@
+---
+import { getCollection } from 'astro:content';
+
+const getPostSlug = (id) => id.replace(/\.(md|mdoc)$/, '');
+const formatDate = (date) =>
+  new Intl.DateTimeFormat('vi-VN', { month: 'long', year: 'numeric' }).format(date);
+const categoryLabelsVi = { finance: 'Tài chính', ai: 'AI & Automation', productivity: 'Năng suất', life: 'Cuộc sống' };
+const categoryLabelsEn = { finance: 'Finance', ai: 'AI & Automation', productivity: 'Productivity', life: 'Life' };
+
+const posts = (await getCollection('posts'))
+  .filter((p) => p.data.status === 'published')
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf())
+  .slice(0, 3);
+---
 <!DOCTYPE html>
 <html lang="vi" data-lang="vi">
 
@@ -6,6 +20,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Phan Quang Vinh — Tài chính · AI · Cuộc sống</title>
   <meta name="description" content="Blog và portfolio cá nhân của Phan Quang Vinh. Tài chính, đầu tư, AI automation và cuộc sống." />
+  <link rel="icon" type="image/png" href="/pictures/logo.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&family=Lora:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet" />
@@ -1203,8 +1218,8 @@
               <span class="tag tag--accent">Automation</span>
               <span class="tag tag--blue">n8n</span>
             </div>
-            <a href="#" class="project-card__title" data-vi>Hệ thống tạo báo cáo tự động 83K trang</a>
-            <a href="#" class="project-card__title" data-en>83K-page Automated Report Generator</a>
+            <a href="/projects" class="project-card__title" data-vi>Hệ thống tạo báo cáo tự động 83K trang</a>
+            <a href="/projects" class="project-card__title" data-en>83K-page Automated Report Generator</a>
             <p class="project-card__desc" data-vi>Thiết kế hệ thống n8n tự động hóa toàn bộ quy trình tạo báo cáo, từ thu thập dữ liệu đến xuất PDF — xử lý ~83.000 trang trong vòng 2 ngày.</p>
             <p class="project-card__desc" data-en>Designed an n8n automation system covering the full report generation pipeline, from data collection to PDF export — processing ~83,000 pages in 2 days.</p>
             <div class="project-card__meta">
@@ -1221,8 +1236,8 @@
               <span class="tag tag--accent">Marketing</span>
               <span class="tag">CRM</span>
             </div>
-            <a href="#" class="project-card__title" data-vi>Hệ thống Marketing Automation & CRM</a>
-            <a href="#" class="project-card__title" data-en>Marketing Automation & CRM System</a>
+            <a href="/projects" class="project-card__title" data-vi>Hệ thống Marketing Automation & CRM</a>
+            <a href="/projects" class="project-card__title" data-en>Marketing Automation & CRM System</a>
             <p class="project-card__desc" data-vi>Xây dựng từ đầu nền tảng marketing automation tích hợp CRM, tự động hóa toàn bộ hành trình khách hàng và chăm sóc sau bán.</p>
             <p class="project-card__desc" data-en>Built from scratch a marketing automation platform with integrated CRM, automating the full customer journey and post-sale nurturing.</p>
             <div class="project-card__meta">
@@ -1239,8 +1254,8 @@
               <span class="tag tag--blue">Web</span>
               <span class="tag tag--accent">AI</span>
             </div>
-            <a href="#" class="project-card__title" data-vi>Website hoàn chỉnh trong 3 giờ với AI</a>
-            <a href="#" class="project-card__title" data-en>Full Website Built in 3 Hours with AI</a>
+            <a href="/projects" class="project-card__title" data-vi>Website hoàn chỉnh trong 3 giờ với AI</a>
+            <a href="/projects" class="project-card__title" data-en>Full Website Built in 3 Hours with AI</a>
             <p class="project-card__desc" data-vi>Chứng minh khả năng AI-augmented development: từ ý tưởng đến website production-ready chỉ trong 3 tiếng, không cần team.</p>
             <p class="project-card__desc" data-en>Demonstrating AI-augmented development: from concept to production-ready website in just 3 hours, solo.</p>
             <div class="project-card__meta">
@@ -1270,54 +1285,30 @@
       </div>
 
       <div class="blog__grid">
-        <div class="post-card post-card--featured fade-up" style="--thumb-from:#2a352e;--thumb-to:#1b241e">
-          <div class="post-card__thumb" aria-hidden="true"><img src="/pictures/blog_rwa-hoi-thao-vba-4-2026.jpeg" alt="RWA & Tokenization" style="width: 100%; height: 100%; object-fit: cover;"></div>
-          <div class="post-card__body">
-            <span class="post-card__cat" data-vi>Tài chính</span>
-            <span class="post-card__cat" data-en>Finance</span>
-            <a href="#" class="post-card__title" data-vi>RWA và tương lai của tài sản tokenized: Cơ hội và rủi ro cần biết</a>
-            <a href="#" class="post-card__title" data-en>RWA and the Future of Tokenized Assets: Opportunities and Risks</a>
-            <p class="post-card__excerpt" data-vi>Real World Assets đang thay đổi cách chúng ta nghĩ về đầu tư truyền thống. Đây là những gì bạn cần hiểu trước khi tham gia...</p>
-            <p class="post-card__excerpt" data-en>Real World Assets are changing how we think about traditional investing. Here's what you need to understand before diving in...</p>
-            <div class="post-card__meta">
-              <span data-vi>15 phút đọc</span>
-              <span data-en>15 min read</span>
-              <span class="post-card__meta-dot" aria-hidden="true"></span>
-              <span>Tháng 5, 2026</span>
+        {posts.length > 0 ? posts.map((post, i) => (
+          <div class={`post-card ${i === 0 ? 'post-card--featured' : 'post-card--sm'} fade-up`}>
+            <div class="post-card__thumb" aria-hidden="true">
+              {post.data.coverImage
+                ? <img src={post.data.coverImage} alt="" style="width:100%;height:100%;object-fit:cover;" />
+                : <span>{categoryLabelsVi[post.data.category]}</span>
+              }
+            </div>
+            <div class="post-card__body">
+              <span class="post-card__cat">{categoryLabelsVi[post.data.category]}</span>
+              <a href={`/blog/${getPostSlug(post.id)}`} class="post-card__title">{post.data.title}</a>
+              <p class="post-card__excerpt">{post.data.excerpt}</p>
+              <div class="post-card__meta">
+                <span>{post.data.readingTime || '5 phút đọc'}</span>
+                <span class="post-card__meta-dot" aria-hidden="true"></span>
+                <span>{formatDate(post.data.publishedAt)}</span>
+              </div>
             </div>
           </div>
-        </div>
-
-        <div class="post-card post-card--sm fade-up" style="--thumb-from:#3a3026;--thumb-to:#1b241e">
-          <div class="post-card__thumb" aria-hidden="true">[Ảnh Bài viết: Workflow n8n & AI]</div>
-          <div class="post-card__body">
-            <span class="post-card__cat">AI & Automation</span>
-            <a href="#" class="post-card__title" data-vi>n8n + AI: Workflow tôi dùng để làm việc gấp 5 lần</a>
-            <a href="#" class="post-card__title" data-en>n8n + AI: The workflow I use to work 5x faster</a>
-            <p class="post-card__excerpt" data-vi>Hệ thống automation thực tế, không lý thuyết suông...</p>
-            <p class="post-card__excerpt" data-en>Real automation systems, no empty theory...</p>
-            <div class="post-card__meta">
-              <span data-vi>8 phút đọc</span>
-              <span data-en>8 min read</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="post-card post-card--sm fade-up" style="--thumb-from:#2a352e;--thumb-to:#3a3026">
-          <div class="post-card__thumb" aria-hidden="true"><img src="/pictures/blog_mental_models.jpeg" alt="Mental Models in Action" style="width: 100%; height: 100%; object-fit: cover;"></div>
-          <div class="post-card__body">
-            <span class="post-card__cat" data-vi>Năng suất</span>
-            <span class="post-card__cat" data-en>Productivity</span>
-            <a href="#" class="post-card__title" data-vi>Mental model tôi dùng để học bất cứ thứ gì nhanh × 10</a>
-            <a href="#" class="post-card__title" data-en>The mental model I use to learn anything 10x faster</a>
-            <p class="post-card__excerpt" data-vi>Không phải mẹo vặt, đây là hệ thống tư duy thực sự hoạt động...</p>
-            <p class="post-card__excerpt" data-en>Not a hack — a real thinking system that actually works...</p>
-            <div class="post-card__meta">
-              <span data-vi>10 phút đọc</span>
-              <span data-en>10 min read</span>
-            </div>
-          </div>
-        </div>
+        )) : (
+          <p style="color:var(--color-fg-3);grid-column:1/-1;padding:2rem 0">
+            Chưa có bài viết. <a href="/keystatic">Tạo bài đầu tiên →</a>
+          </p>
+        )}
       </div>
     </div>
   </section>
@@ -1332,11 +1323,12 @@
         <h2 data-en>Get fresh perspectives weekly</h2>
         <p data-vi>Tài chính, AI, và những bài học sống — không spam, không quảng cáo. Chỉ những thứ đáng đọc.</p>
         <p data-en>Finance, AI, and life lessons — no spam, no ads. Only things worth reading.</p>
-        <form class="newsletter__form" onsubmit="return false;">
-          <input class="newsletter__input" type="email" placeholder="Email của bạn" aria-label="Email" required />
+        <form class="newsletter__form" id="newsletter-form" novalidate>
+          <input class="newsletter__input" type="email" id="newsletter-email" placeholder="Email của bạn" aria-label="Email" required />
           <button type="submit" class="btn btn--accent" data-vi>Đăng ký</button>
           <button type="submit" class="btn btn--accent" data-en>Subscribe</button>
         </form>
+        <p id="newsletter-msg" style="display:none;margin-top:1rem;color:rgba(255,255,255,.85);font-size:0.9rem"></p>
       </div>
     </div>
   </section>
@@ -1352,8 +1344,8 @@
           <p class="footer__brand-desc" data-vi>Tài chính · AI · Cuộc sống. Viết để hiểu, chia sẻ để lan truyền giá trị.</p>
           <p class="footer__brand-desc" data-en>Finance · AI · Life. Writing to understand, sharing to spread value.</p>
           <div class="footer__socials-text">
-            <a href="#" class="footer-social-link">LinkedIn</a> — 
-            <a href="#" class="footer-social-link">GitHub</a> — 
+            <a href="https://www.linkedin.com/in/kelvinph11/" class="footer-social-link" target="_blank" rel="noopener">LinkedIn</a> —
+            <a href="https://gitlab.com/PQuangVinh1103" class="footer-social-link" target="_blank" rel="noopener">GitLab</a> —
             <a href="mailto:pig4nckh@gmail.com" class="footer-social-link">Email</a>
           </div>
         </div>
@@ -1365,8 +1357,7 @@
             <li><a href="/about" data-vi>Về tôi</a><a href="/about" data-en>About</a></li>
             <li><a href="/projects" data-vi>Dự án</a><a href="/projects" data-en>Work</a></li>
             <li><a href="/blog" data-vi>Blog</a><a href="/blog" data-en>Blog</a></li>
-            <li><a href="#" data-vi>Travel</a><a href="#" data-en>Travel</a></li>
-            <li><a href="#" data-vi>Hiện tại</a><a href="#" data-en>Now</a></li>
+            <li><a href="/travel" data-vi>Travel</a><a href="/travel" data-en>Travel</a></li>
           </ul>
         </div>
 
@@ -1374,10 +1365,10 @@
           <div class="footer__col-title" data-vi>Chủ đề</div>
           <div class="footer__col-title" data-en>Topics</div>
           <ul class="footer__links" role="list">
-            <li><a href="#" data-vi>Tài chính & Đầu tư</a><a href="#" data-en>Finance & Investing</a></li>
-            <li><a href="#" data-vi>AI & Automation</a><a href="#" data-en>AI & Automation</a></li>
-            <li><a href="#" data-vi>Năng suất</a><a href="#" data-en>Productivity</a></li>
-            <li><a href="#" data-vi>Cuộc sống</a><a href="#" data-en>Life & Thoughts</a></li>
+            <li><a href="/blog" data-vi>Tài chính & Đầu tư</a><a href="/blog" data-en>Finance & Investing</a></li>
+            <li><a href="/blog" data-vi>AI & Automation</a><a href="/blog" data-en>AI & Automation</a></li>
+            <li><a href="/blog" data-vi>Năng suất</a><a href="/blog" data-en>Productivity</a></li>
+            <li><a href="/blog" data-vi>Cuộc sống</a><a href="/blog" data-en>Life & Thoughts</a></li>
           </ul>
         </div>
 
@@ -1386,8 +1377,8 @@
           <div class="footer__col-title" data-en>Contact</div>
           <ul class="footer__links" role="list">
             <li><a href="mailto:pig4nckh@gmail.com">pig4nckh@gmail.com</a></li>
-            <li><a href="#" data-vi>LinkedIn</a><a href="#" data-en>LinkedIn</a></li>
-            <li><a href="#" data-vi>Hợp tác</a><a href="#" data-en>Collaborate</a></li>
+            <li><a href="https://www.linkedin.com/in/kelvinph11/" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="mailto:pig4nckh@gmail.com" data-vi>Hợp tác</a><a href="mailto:pig4nckh@gmail.com" data-en>Collaborate</a></li>
           </ul>
         </div>
       </div>
@@ -1470,6 +1461,20 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // =====================
+    // NEWSLETTER FORM
+    // =====================
+    const newsletterForm = document.getElementById('newsletter-form');
+    const newsletterMsg = document.getElementById('newsletter-msg');
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        newsletterForm.style.display = 'none';
+        newsletterMsg.style.display = 'block';
+        newsletterMsg.textContent = 'Cảm ơn bạn! Tôi sẽ liên hệ khi newsletter chính thức ra mắt.';
+      });
+    }
 
     // =====================
     // SMOOTH ANCHOR SCROLL

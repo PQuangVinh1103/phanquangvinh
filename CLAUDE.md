@@ -5,7 +5,7 @@
 Website cá nhân của **Phan Quang Vinh** — một không gian lai giữa professional portfolio và lifestyle journal. Không chỉ là CV online, đây là nơi thể hiện toàn diện con người: tư duy, hành trình, góc nhìn và cuộc sống.
 
 **Domain:** phanquangvinh.com  
-**Tech Stack:** Next.js (App Router) + Tailwind CSS  
+**Tech Stack:** Astro 5 (SSR) + Keystatic + Markdoc — deploy Vercel  
 **Deploy:** Vercel  
 **Ngôn ngữ mặc định:** Tiếng Việt (có thể bổ sung EN sau)
 

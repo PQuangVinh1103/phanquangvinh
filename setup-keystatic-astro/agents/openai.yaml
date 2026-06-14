@@ -1,0 +1,7 @@
+interface:
+  display_name: "Setup Keystatic Astro"
+  short_description: "Astro blog CMS with Keystatic"
+  default_prompt: "Use $setup-keystatic-astro to set up or troubleshoot Keystatic with Astro for this website."
+
+policy:
+  allow_implicit_invocation: true

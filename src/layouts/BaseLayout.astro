@@ -7,7 +7,7 @@ interface Props {
 const { title, description = 'Blog và portfolio cá nhân của Phan Quang Vinh. Tài chính, đầu tư, AI automation và cuộc sống.', activeNav } = Astro.props;
 ---
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="vi" data-lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -37,15 +37,35 @@ const { title, description = 'Blog và portfolio cá nhân của Phan Quang Vinh
     img { display: block; max-width: 100%; }
     a { color: var(--primary); text-underline-offset: 3px; }
 
+    /* i18n */
+    html[data-lang="vi"] [data-en] { display: none !important; }
+    html[data-lang="en"] [data-vi] { display: none !important; }
+
     /* Header */
     .site-header { position: sticky; top: 0; z-index: 100; background: var(--nav); }
     .site-header.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.3); }
-    .nav { max-width: 1120px; margin: 0 auto; padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-    .brand { text-decoration: none; font-weight: 700; color: #fff; font-size: 1.05rem; letter-spacing: -.01em; }
+    .nav { max-width: 1120px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+
+    /* Logo */
+    .nav-logo { text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    .nav-logo__icon { height: 26px; width: auto; flex-shrink: 0; transition: transform .2s ease; }
+    .nav-logo:hover .nav-logo__icon { transform: scale(1.08); }
+    .nav-logo__text { display: flex; flex-direction: column; gap: 0; }
+    .nav-logo__name { font-size: 1.05rem; font-weight: 700; color: #fff; letter-spacing: -.02em; line-height: 1.1; }
+    .nav-logo__sub { font-size: 0.72rem; font-weight: 400; color: rgba(255,255,255,.5); letter-spacing: .01em; }
+
+    /* Nav links */
+    .nav-right { display: flex; align-items: center; gap: 12px; }
     .nav-links { display: flex; gap: 4px; list-style: none; }
     .nav-links a { color: rgba(255,255,255,.75); text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: color .15s, background-color .15s; }
     .nav-links a:hover { color: #fff; background: rgba(255,255,255,.1); }
     .nav-links a.active { color: #fff; background: rgba(255,255,255,.15); font-weight: 700; }
+
+    /* Lang toggle */
+    .lang-toggle { display: flex; align-items: center; background: rgba(255,255,255,.1); border-radius: 100px; padding: 2px; gap: 2px; }
+    .lang-btn { border: none; background: transparent; color: rgba(255,255,255,.6); font-family: var(--font-base); font-size: 0.72rem; font-weight: 600; padding: 4px 10px; border-radius: 100px; cursor: pointer; transition: all .2s; }
+    .lang-btn.active { background: #fff; color: var(--text); }
+    .lang-btn:hover:not(.active) { color: #fff; }
 
     /* Mobile nav */
     .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
@@ -78,22 +98,39 @@ const { title, description = 'Blog và portfolio cá nhân của Phan Quang Vinh
 <body>
   <header class="site-header" id="site-header">
     <nav class="nav" aria-label="Main navigation">
-      <a class="brand" href="/">Phan Quang Vinh</a>
-      <ul class="nav-links">
-        <li><a href="/about" class={activeNav === 'about' ? 'active' : ''}>Về tôi</a></li>
-        <li><a href="/projects" class={activeNav === 'projects' ? 'active' : ''}>Dự án</a></li>
-        <li><a href="/blog" class={activeNav === 'blog' ? 'active' : ''}>Blog</a></li>
-        <li><a href="mailto:pig4nckh@gmail.com">Liên hệ</a></li>
-      </ul>
-      <button class="nav-hamburger" id="hamburger" aria-label="Mở menu" aria-expanded="false">
-        <span></span><span></span><span></span>
-      </button>
+      <a class="nav-logo" href="/" aria-label="Trang chủ">
+        <img class="nav-logo__icon" src="/pictures/logo.png" alt="Logo pqv" />
+        <div class="nav-logo__text">
+          <span class="nav-logo__name">Phan Quang Vinh</span>
+          <span class="nav-logo__sub" data-vi>Tài chính · AI · Cuộc sống</span>
+          <span class="nav-logo__sub" data-en>Finance · AI · Life</span>
+        </div>
+      </a>
+
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li><a href="/about" class={activeNav === 'about' ? 'active' : ''}><span data-vi>Về tôi</span><span data-en>About</span></a></li>
+          <li><a href="/projects" class={activeNav === 'projects' ? 'active' : ''}><span data-vi>Dự án</span><span data-en>Work</span></a></li>
+          <li><a href="/blog" class={activeNav === 'blog' ? 'active' : ''}>Blog</a></li>
+          <li><a href="mailto:kelvinphan1mil@gmail.com"><span data-vi>Liên hệ</span><span data-en>Contact</span></a></li>
+        </ul>
+
+        <div class="lang-toggle" role="group" aria-label="Chọn ngôn ngữ">
+          <button class="lang-btn active" data-lang-btn="vi" aria-pressed="true">VI</button>
+          <button class="lang-btn" data-lang-btn="en" aria-pressed="false">EN</button>
+        </div>
+
+        <button class="nav-hamburger" id="hamburger" aria-label="Mở menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </nav>
+
     <div class="mobile-menu" id="mobile-menu">
-      <a href="/about" class={activeNav === 'about' ? 'active' : ''}>Về tôi</a>
-      <a href="/projects" class={activeNav === 'projects' ? 'active' : ''}>Dự án</a>
+      <a href="/about" class={activeNav === 'about' ? 'active' : ''}><span data-vi>Về tôi</span><span data-en>About</span></a>
+      <a href="/projects" class={activeNav === 'projects' ? 'active' : ''}><span data-vi>Dự án</span><span data-en>Work</span></a>
       <a href="/blog" class={activeNav === 'blog' ? 'active' : ''}>Blog</a>
-      <a href="mailto:pig4nckh@gmail.com">Liên hệ</a>
+      <a href="mailto:kelvinphan1mil@gmail.com"><span data-vi>Liên hệ</span><span data-en>Contact</span></a>
     </div>
   </header>
 
@@ -101,11 +138,11 @@ const { title, description = 'Blog và portfolio cá nhân của Phan Quang Vinh
 
   <footer class="site-footer">
     <div class="footer-inner">
-      <span>© 2026 Phan Quang Vinh. Tất cả quyền được bảo lưu.</span>
+      <span>© 2026 Phan Quang Vinh. <span data-vi>Tất cả quyền được bảo lưu.</span><span data-en>All rights reserved.</span></span>
       <ul class="footer-links">
         <li><a href="https://www.linkedin.com/in/kelvinph11/" target="_blank" rel="noopener">LinkedIn</a></li>
         <li><a href="https://gitlab.com/PQuangVinh1103" target="_blank" rel="noopener">GitLab</a></li>
-        <li><a href="mailto:pig4nckh@gmail.com">Email</a></li>
+        <li><a href="mailto:kelvinphan1mil@gmail.com">Email</a></li>
         <li><a href="/blog">Blog</a></li>
         <li><a href="/travel">Travel</a></li>
       </ul>
@@ -113,20 +150,47 @@ const { title, description = 'Blog và portfolio cá nhân của Phan Quang Vinh
   </footer>
 
   <script>
-    const header = document.getElementById('site-header');
+    // Lang toggle
+    const html = document.documentElement;
+    const langBtns = document.querySelectorAll('[data-lang-btn]');
+
+    function setLang(lang: string) {
+      html.setAttribute('data-lang', lang);
+      html.setAttribute('lang', lang === 'vi' ? 'vi' : 'en');
+      langBtns.forEach(btn => {
+        const b = btn as HTMLButtonElement;
+        const isActive = b.dataset.langBtn === lang;
+        b.classList.toggle('active', isActive);
+        b.setAttribute('aria-pressed', String(isActive));
+      });
+      try { localStorage.setItem('pqv-lang', lang); } catch (e) {}
+    }
+
+    langBtns.forEach(btn => {
+      btn.addEventListener('click', () => setLang((btn as HTMLButtonElement).dataset.langBtn!));
+    });
+
+    try {
+      const saved = localStorage.getItem('pqv-lang');
+      if (saved === 'en') setLang('en');
+    } catch (e) {}
+
+    // Mobile menu
+    const header = document.getElementById('site-header')!;
+    const hamburger = document.getElementById('hamburger')!;
+    const mobileMenu = document.getElementById('mobile-menu')!;
+
     window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 10), { passive: true });
 
-    const hamburger = document.getElementById('hamburger');
-    const mobileMenu = document.getElementById('mobile-menu');
     hamburger.addEventListener('click', () => {
       const open = mobileMenu.classList.toggle('open');
       hamburger.classList.toggle('open', open);
-      hamburger.setAttribute('aria-expanded', open);
+      hamburger.setAttribute('aria-expanded', String(open));
     });
     mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
       mobileMenu.classList.remove('open');
       hamburger.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', false);
+      hamburger.setAttribute('aria-expanded', 'false');
     }));
   </script>
 </body>

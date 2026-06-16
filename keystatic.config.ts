@@ -46,6 +46,15 @@ export default config({
           publicPath: '/images/blog/',
         }),
         readingTime: fields.text({ label: 'Reading time', defaultValue: '5 phút đọc' }),
+        textAlign: fields.select({
+          label: 'Căn lề văn bản',
+          description: 'Kiểu căn lề cho nội dung bài viết',
+          options: [
+            { label: 'Căn lề trái (Mặc định)', value: 'left' },
+            { label: 'Căn đều hai bên', value: 'justify' },
+          ],
+          defaultValue: 'left',
+        }),
         content: fields.markdoc({ label: 'Content', extension: 'mdoc' }),
       },
     }),

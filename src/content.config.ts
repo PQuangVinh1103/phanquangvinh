@@ -12,6 +12,7 @@ const posts = defineCollection({
     category: z.enum(['finance', 'ai', 'productivity', 'life']).default('life'),
     coverImage: z.string().optional(),
     readingTime: z.string().optional(),
+    textAlign: z.enum(['left', 'justify']).default('left'),
   }),
 });
 

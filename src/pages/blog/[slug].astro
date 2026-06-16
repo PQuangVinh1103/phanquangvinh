@@ -56,7 +56,7 @@ const formattedDate = new Intl.DateTimeFormat('vi-VN', {
         <img src={post.data.coverImage} alt="" />
       </figure>
     )}
-    <article class="content">
+    <article class="content" style={`text-align: ${post.data.textAlign || 'left'};`}>
       <Content />
     </article>
   </main>

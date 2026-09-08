@@ -9,8 +9,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PHAN QUANG VINH — Tư Duy Hệ Thống & Đòn Bẩy Tự Chủ</title>
   <meta name="description" content="Xây dựng tư duy hệ thống và ứng dụng công nghệ làm đòn bẩy tự chủ: bớt thao tác lặp lại, tối ưu quy trình và làm chủ thời gian của chính bạn." />
-  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="canonical" href="https://phanquangvinh.com" />
+
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
+
+  <!-- Open Graph / Facebook / Zalo Preview -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://phanquangvinh.com" />
+  <meta property="og:title" content="PHAN QUANG VINH — Tư Duy Hệ Thống & Đòn Bẩy Tự Chủ" />
+  <meta property="og:description" content="Xây dựng tư duy hệ thống và ứng dụng công nghệ làm đòn bẩy tự chủ: bớt thao tác lặp lại, tối ưu quy trình và làm chủ thời gian của chính bạn." />
+  <meta property="og:image" content="https://phanquangvinh.com/pictures/avatar_vinh.jpg" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:url" content="https://phanquangvinh.com" />
+  <meta name="twitter:title" content="PHAN QUANG VINH — Tư Duy Hệ Thống & Đòn Bẩy Tự Chủ" />
+  <meta name="twitter:description" content="Xây dựng tư duy hệ thống và ứng dụng công nghệ làm đòn bẩy tự chủ: bớt thao tác thủ công, giải phóng năng suất và làm chủ thời gian." />
+  <meta name="twitter:image" content="https://phanquangvinh.com/pictures/avatar_vinh.jpg" />
+
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
@@ -65,7 +84,7 @@
     }
 
     body {
-      background-color: var(--bg-main);
+      background: radial-gradient(circle at 50% -10%, rgba(0, 102, 255, 0.04) 0%, transparent 50%), var(--bg-main);
       color: var(--text-main);
       font-family: var(--font-sans);
       line-height: 1.6;
@@ -92,7 +111,7 @@
       position: sticky;
       top: 0;
       z-index: 100;
-      background: rgba(250, 250, 250, 0.88);
+      background: rgba(250, 250, 250, 0.90);
       backdrop-filter: blur(14px);
       -webkit-backdrop-filter: blur(14px);
       border-bottom: 1px solid var(--border-subtle);
@@ -301,7 +320,7 @@
       flex-shrink: 0;
     }
 
-    /* HERO VISUAL (PROPERLY CENTERED PORTRAIT WITH TECH GRID & AUTOMATION BADGE) */
+    /* HERO VISUAL (PROPERLY CENTERED PORTRAIT WITH TECH GRID & LEVERAGE BADGE) */
     .hero-visual {
       position: relative;
     }
@@ -413,7 +432,7 @@
     }
 
     /* =========================================
-       SECTION: CORE PRINCIPLES / FRAMEWORKS
+       SECTION: CORE PRINCIPLES & FRAMEWORKS
     ========================================= */
     .section {
       padding: 5rem 0;
@@ -491,13 +510,33 @@
       margin-bottom: 1.5rem;
     }
 
+    .resource-bottom {
+      border-top: 1px dashed var(--border-light);
+      padding-top: 1rem;
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
     .resource-takeaway {
       font-size: 0.84rem;
       color: var(--brand-blue);
       font-weight: 600;
-      border-top: 1px dashed var(--border-light);
-      padding-top: 0.85rem;
-      margin-top: auto;
+    }
+
+    .resource-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-main);
+      transition: color 0.15s ease;
+    }
+
+    .resource-card:hover .resource-action {
+      color: var(--brand-blue);
     }
 
     /* =========================================
@@ -524,6 +563,7 @@
       transition: all 0.2s ease;
       display: flex;
       flex-direction: column;
+      justify-content: space-between;
     }
 
     .help-card:hover {
@@ -553,6 +593,25 @@
       font-size: 0.92rem;
       color: var(--text-muted);
       line-height: 1.65;
+      margin-bottom: 1.5rem;
+    }
+
+    .help-card-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--brand-blue);
+      margin-top: auto;
+    }
+
+    .help-card-cta svg {
+      transition: transform 0.2s ease;
+    }
+
+    .help-card:hover .help-card-cta svg {
+      transform: translateX(4px);
     }
 
     /* =========================================
@@ -821,8 +880,12 @@
               <h3 class="resource-title">3 Bước Phân Rã & Loại Bỏ Thao Tác Thừa</h3>
               <p class="resource-desc">Cách nhìn nhận lại toàn bộ khối lượng công việc hàng ngày, định vị điểm nghẽn và đóng gói những việc lặp lại để chuyển giao cho hệ thống.</p>
             </div>
-            <div class="resource-takeaway">
-              💡 Nguyên lý: Chuẩn hóa trước — Tự động hóa sau
+            <div class="resource-bottom">
+              <span class="resource-takeaway">💡 Chuẩn hóa trước — Tự động hóa sau</span>
+              <a href="https://zalo.me/g/vjrvtu846" target="_blank" rel="noopener noreferrer" class="resource-action">
+                <span>Nhận sơ đồ quy trình</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
             </div>
           </article>
 
@@ -832,8 +895,12 @@
               <h3 class="resource-title">Bẫy Công Cụ: Vì Sao Học Thêm Tool Không Giúp Bạn Đột Phá?</h3>
               <p class="resource-desc">Nếu tư duy lộn xộn, công nghệ thông minh chỉ khiến bạn lộn xộn nhanh hơn. Đâu là gốc rễ để biến công nghệ thành đòn bẩy chứ không phải gánh nặng?</p>
             </div>
-            <div class="resource-takeaway">
-              💡 Nguyên lý: Tư duy là gốc — Công nghệ là đòn bẩy
+            <div class="resource-bottom">
+              <span class="resource-takeaway">💡 Tư duy là gốc — Công nghệ là đòn bẩy</span>
+              <a href="https://zalo.me/g/vjrvtu846" target="_blank" rel="noopener noreferrer" class="resource-action">
+                <span>Xem góc nhìn phân tích</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
             </div>
           </article>
 
@@ -843,8 +910,12 @@
               <h3 class="resource-title">Xây Dựng Hệ Thống Tự Vận Hành Cho Cá Nhân</h3>
               <p class="resource-desc">Quy trình từng bước giúp một người làm việc độc lập có thể vận hành với năng suất tương đương một đội ngũ nhỏ nhờ biết cách tổ chức và tự động hóa.</p>
             </div>
-            <div class="resource-takeaway">
-              💡 Nguyên lý: Tự chủ về năng suất = Tự do về thời gian
+            <div class="resource-bottom">
+              <span class="resource-takeaway">💡 Tự chủ năng suất = Tự do thời gian</span>
+              <a href="https://zalo.me/g/vjrvtu846" target="_blank" rel="noopener noreferrer" class="resource-action">
+                <span>Tải checklist tự vận hành</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
             </div>
           </article>
 
@@ -863,21 +934,39 @@
         <div class="help-grid">
           
           <div class="help-card">
-            <div class="help-number">01</div>
-            <h3 class="help-card-title">Kho Frameworks & Quy Trình Mở</h3>
-            <p class="help-card-desc">Tập hợp các cẩm nang tư duy, biểu mẫu phân rã công việc và các workflow tự động hóa thực chiến được đúc kết từ thực tế.</p>
+            <div>
+              <div class="help-number">01</div>
+              <h3 class="help-card-title">Kho Frameworks & Quy Trình Mở</h3>
+              <p class="help-card-desc">Tập hợp các cẩm nang tư duy, biểu mẫu phân rã công việc và các workflow tự động hóa thực chiến được đúc kết từ thực tế.</p>
+            </div>
+            <a href="#principles" class="help-card-cta">
+              <span>Khám phá các framework</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
           </div>
 
           <div class="help-card">
-            <div class="help-number">02</div>
-            <h3 class="help-card-title">Cộng Đồng Thảo Luận & Gỡ Rối</h3>
-            <p class="help-card-desc">Nhóm Zalo cùng trao đổi bài toán thực tế trong công việc hàng ngày — nơi Kelvin trực tiếp chia sẻ góc nhìn và giải đáp các nút thắt quy trình.</p>
+            <div>
+              <div class="help-number">02</div>
+              <h3 class="help-card-title">Cộng Đồng Thảo Luận & Gỡ Rối</h3>
+              <p class="help-card-desc">Nhóm Zalo cùng trao đổi bài toán thực tế trong công việc hàng ngày — nơi Kelvin trực tiếp chia sẻ góc nhìn và giải đáp các nút thắt quy trình.</p>
+            </div>
+            <a href="https://zalo.me/g/vjrvtu846" target="_blank" rel="noopener noreferrer" class="help-card-cta">
+              <span>Tham gia nhóm Zalo kết nối</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
           </div>
 
           <div class="help-card">
-            <div class="help-number">03</div>
-            <h3 class="help-card-title">Chương Trình Đồng Hành Nhóm Nhỏ</h3>
-            <p class="help-card-desc">Đồng hành sâu 3 tuần (giới hạn 10–12 người): Cùng ngồi lại phân tích điểm nghẽn, cấu trúc lại tư duy và đưa hệ thống tự động hóa vào công việc thật của bạn.</p>
+            <div>
+              <div class="help-number">03</div>
+              <h3 class="help-card-title">Chương Trình Đồng Hành Nhóm Nhỏ</h3>
+              <p class="help-card-desc">Đồng hành sâu 3 tuần (giới hạn 10–12 người): Cùng ngồi lại phân tích điểm nghẽn, cấu trúc lại tư duy và đưa hệ thống tự động hóa vào công việc thật của bạn.</p>
+            </div>
+            <a href="https://zalo.me/g/vjrvtu846" target="_blank" rel="noopener noreferrer" class="help-card-cta">
+              <span>Đăng ký nhận thông tin đợt 1</span>
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
           </div>
 
         </div>
@@ -919,9 +1008,9 @@
         </div>
 
         <div class="footer-links">
-          <a href="https://tiktok.com/@kelvin1mil" target="_blank" rel="noopener noreferrer" class="footer-link">TikTok</a>
-          <a href="https://threads.net" target="_blank" rel="noopener noreferrer" class="footer-link">Threads</a>
-          <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" class="footer-link">Facebook</a>
+          <a href="https://www.tiktok.com/@kelvin1mil" target="_blank" rel="noopener noreferrer" class="footer-link">TikTok</a>
+          <a href="https://www.threads.net" target="_blank" rel="noopener noreferrer" class="footer-link">Threads</a>
+          <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="footer-link">Facebook</a>
           <a href="https://zalo.me/g/vjrvtu846" target="_blank" rel="noopener noreferrer" class="footer-link">Zalo Hub</a>
         </div>
       </div>

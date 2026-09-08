@@ -1,3 +1,9 @@
+---
+import { getCollection } from 'astro:content';
+
+const projects = (await getCollection('projects'))
+  .sort((a, b) => b.data.order - a.data.order);
+---
 <!DOCTYPE html>
 <html lang="vi" data-lang="vi">
 
@@ -1086,59 +1092,40 @@
       </div>
 
       <div class="projects__grid">
-        <div class="project-card fade-up" style="--thumb-from:#eae6e1;--thumb-to:#ddd2c4">
-          <div class="project-card__thumb" aria-hidden="true">[Ảnh Dự án: Báo cáo tự động n8n]</div>
-          <div class="project-card__body">
-            <div class="project-card__tags">
-              <span class="tag tag--accent">Automation</span>
-              <span class="tag tag--blue">n8n</span>
+        {projects.map((project) => {
+          const { titleVi, titleEn, excerptVi, excerptEn, tags, resultVi, resultEn, link, thumbFrom, thumbTo, coverImage } = project.data;
+          return (
+            <div class="project-card fade-up" style={`--thumb-from:${thumbFrom || '#eae6e1'};--thumb-to:${thumbTo || '#cbdcd0'}`}>
+              <div class="project-card__thumb" aria-hidden="true">
+                {coverImage ? (
+                  <img src={coverImage} alt={titleVi} style="width:100%;height:100%;object-fit:cover;" />
+                ) : (
+                  `[Ảnh Dự án: ${titleVi}]`
+                )}
+              </div>
+              <div class="project-card__body">
+                {tags && tags.length > 0 && (
+                  <div class="project-card__tags">
+                    {tags.map((tag, index) => {
+                      let tagClass = '';
+                      if (index % 3 === 0) tagClass = 'tag--accent';
+                      else if (index % 3 === 1) tagClass = 'tag--blue';
+                      return <span class={`tag ${tagClass}`}>{tag}</span>;
+                    })}
+                  </div>
+                )}
+                <a href={link || '#'} class="project-card__title" data-vi>{titleVi}</a>
+                <a href={link || '#'} class="project-card__title" data-en>{titleEn}</a>
+                <p class="project-card__desc" data-vi>{excerptVi}</p>
+                <p class="project-card__desc" data-en>{excerptEn}</p>
+                <div class="project-card__meta">
+                  <span class="project-card__result" data-vi>{resultVi}</span>
+                  <span class="project-card__result" data-en>{resultEn}</span>
+                </div>
+              </div>
             </div>
-            <a href="#" class="project-card__title" data-vi>Hệ thống tạo báo cáo tự động 83K trang</a>
-            <a href="#" class="project-card__title" data-en>83K-page Automated Report Generator</a>
-            <p class="project-card__desc" data-vi>Thiết kế hệ thống n8n tự động hóa toàn bộ quy trình tạo báo cáo, từ thu thập dữ liệu đến xuất PDF — xử lý ~83.000 trang trong vòng 2 ngày.</p>
-            <p class="project-card__desc" data-en>Designed an n8n automation system covering the full report generation pipeline, from data collection to PDF export — processing ~83,000 pages in 2 days.</p>
-            <div class="project-card__meta">
-              <span class="project-card__result" data-vi>83.000 trang / 2 ngày</span>
-              <span class="project-card__result" data-en>83,000 pages in 2 days</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card fade-up" style="--thumb-from:#e2ede5;--thumb-to:#cbdcd0">
-          <div class="project-card__thumb" aria-hidden="true">[Ảnh Dự án: CRM & Marketing]</div>
-          <div class="project-card__body">
-            <div class="project-card__tags">
-              <span class="tag tag--accent">Marketing</span>
-              <span class="tag">CRM</span>
-            </div>
-            <a href="#" class="project-card__title" data-vi>Hệ thống Marketing Automation & CRM</a>
-            <a href="#" class="project-card__title" data-en>Marketing Automation & CRM System</a>
-            <p class="project-card__desc" data-vi>Xây dựng từ đầu nền tảng marketing automation tích hợp CRM, tự động hóa toàn bộ hành trình khách hàng và chăm sóc sau bán.</p>
-            <p class="project-card__desc" data-en>Built from scratch a marketing automation platform with integrated CRM, automating the full customer journey and post-sale nurturing.</p>
-            <div class="project-card__meta">
-              <span class="project-card__result" data-vi>Full-stack tự xây</span>
-              <span class="project-card__result" data-en>Built from scratch</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-card fade-up" style="--thumb-from:#eae6e1;--thumb-to:#cbdcd0">
-          <div class="project-card__thumb" aria-hidden="true">[Ảnh Dự án: Website 3h với AI]</div>
-          <div class="project-card__body">
-            <div class="project-card__tags">
-              <span class="tag tag--blue">Web</span>
-              <span class="tag tag--accent">AI</span>
-            </div>
-            <a href="#" class="project-card__title" data-vi>Website hoàn chỉnh trong 3 giờ với AI</a>
-            <a href="#" class="project-card__title" data-en>Full Website Built in 3 Hours with AI</a>
-            <p class="project-card__desc" data-vi>Chứng minh khả năng AI-augmented development: từ ý tưởng đến website production-ready chỉ trong 3 tiếng, không cần team.</p>
-            <p class="project-card__desc" data-en>Demonstrating AI-augmented development: from concept to production-ready website in just 3 hours, solo.</p>
-            <div class="project-card__meta">
-              <span class="project-card__result" data-vi>3 giờ · Solo</span>
-              <span class="project-card__result" data-en>3 hours · Solo</span>
-            </div>
-          </div>
-        </div>
+          );
+        })}
       </div>
     </div>
   </section>

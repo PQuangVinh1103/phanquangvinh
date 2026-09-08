@@ -58,5 +58,40 @@ export default config({
         content: fields.markdoc({ label: 'Content', extension: 'mdoc' }),
       },
     }),
+    projects: collection({
+      label: 'Projects',
+      slugField: 'titleVi',
+      path: 'src/content/projects/*',
+      format: { data: 'json' },
+      columns: ['titleVi', 'titleEn', 'order'],
+      schema: {
+        titleVi: fields.slug({ name: { label: 'Tiêu đề (VI)' } }),
+        titleEn: fields.text({ label: 'Tiêu đề (EN)' }),
+        excerptVi: fields.text({
+          label: 'Mô tả ngắn (VI)',
+          multiline: true,
+        }),
+        excerptEn: fields.text({
+          label: 'Mô tả ngắn (EN)',
+          multiline: true,
+        }),
+        tags: fields.array(fields.text({ label: 'Tag' }), {
+          label: 'Tags',
+          itemLabel: props => props.value || 'Tag',
+        }),
+        resultVi: fields.text({ label: 'Kết quả nổi bật (VI)' }),
+        resultEn: fields.text({ label: 'Kết quả nổi bật (EN)' }),
+        link: fields.text({ label: 'Link dự án (Ví dụ: /projects/slug hoặc #)', defaultValue: '#' }),
+        thumbFrom: fields.text({ label: 'Màu nền Gradient bắt đầu (Hex, ví dụ: #eae6e1)', defaultValue: '#eae6e1' }),
+        thumbTo: fields.text({ label: 'Màu nền Gradient kết thúc (Hex, ví dụ: #ddd2c4)', defaultValue: '#ddd2c4' }),
+        coverImage: fields.image({
+          label: 'Ảnh dự án (Nếu có - thay thế màu gradient)',
+          directory: 'public/images/projects',
+          publicPath: '/images/projects/',
+        }),
+        order: fields.integer({ label: 'Thứ tự hiển thị (Số lớn xếp trước)', defaultValue: 0 }),
+      },
+    }),
   },
 });
+

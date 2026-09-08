@@ -16,4 +16,22 @@ const posts = defineCollection({
   }),
 });
 
-export const collections = { posts };
+const projects = defineCollection({
+  loader: glob({ base: './src/content/projects', pattern: '**/*.json' }),
+  schema: z.object({
+    titleVi: z.string(),
+    titleEn: z.string(),
+    excerptVi: z.string(),
+    excerptEn: z.string(),
+    tags: z.array(z.string()).default([]),
+    resultVi: z.string(),
+    resultEn: z.string(),
+    link: z.string().default('#'),
+    thumbFrom: z.string().default('#eae6e1'),
+    thumbTo: z.string().default('#cbdcd0'),
+    coverImage: z.string().optional(),
+    order: z.number().default(0),
+  }),
+});
+
+export const collections = { posts, projects };

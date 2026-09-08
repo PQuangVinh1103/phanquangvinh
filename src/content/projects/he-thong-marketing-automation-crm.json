@@ -1,0 +1,16 @@
+{
+  "titleVi": "Hệ thống Marketing Automation & CRM",
+  "titleEn": "Marketing Automation & CRM System",
+  "excerptVi": "Xây dựng từ đầu nền tảng marketing automation tích hợp CRM, tự động hóa toàn bộ hành trình khách hàng và chăm sóc sau bán.",
+  "excerptEn": "Built from scratch a marketing automation platform with integrated CRM, automating the full customer journey and post-sale nurturing.",
+  "tags": [
+    "Marketing",
+    "CRM"
+  ],
+  "resultVi": "Full-stack tự xây",
+  "resultEn": "Built from scratch",
+  "link": "#",
+  "thumbFrom": "#e2ede5",
+  "thumbTo": "#cbdcd0",
+  "order": 2
+}

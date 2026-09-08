@@ -1,0 +1,16 @@
+{
+  "titleVi": "Hệ thống tạo báo cáo tự động 83K trang",
+  "titleEn": "83K-page Automated Report Generator",
+  "excerptVi": "Thiết kế hệ thống n8n tự động hóa toàn bộ quy trình tạo báo cáo, từ thu thập dữ liệu đến xuất PDF — xử lý ~83.000 trang trong vòng 2 ngày.",
+  "excerptEn": "Designed an n8n automation system covering the full report generation pipeline, from data collection to PDF export — processing ~83,000 pages in 2 days.",
+  "tags": [
+    "Automation",
+    "n8n"
+  ],
+  "resultVi": "83.000 trang / 2 ngày",
+  "resultEn": "83,000 pages in 2 days",
+  "link": "#",
+  "thumbFrom": "#eae6e1",
+  "thumbTo": "#ddd2c4",
+  "order": 3
+}

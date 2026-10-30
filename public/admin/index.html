@@ -8,6 +8,15 @@
   <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
 </head>
 <body>
+  <script>
+    // Decap gửi cho GitLab địa chỉ trang hiện tại làm redirect_uri. GitLab đã đăng ký đúng
+    // https://www.phanquangvinh.com/admin/ (có dấu / cuối), nên luôn đưa trang về địa chỉ đó.
+    (function () {
+      var h = location.hostname;
+      if (h === 'localhost' || h === '127.0.0.1') return;
+      if (location.pathname !== '/admin/') location.replace('/admin/' + location.search + location.hash);
+    })();
+  </script>
   <script src="https://unpkg.com/decap-cms@3.17.3/dist/decap-cms.js"></script>
 </body>
 </html>

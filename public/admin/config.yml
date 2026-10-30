@@ -6,7 +6,7 @@ backend:
   repo: PQuangVinh1103/phanquangvinh.com
   branch: main
   auth_type: pkce
-  app_id: DAN_APPLICATION_ID_CUA_GITLAB_VAO_DAY
+  app_id: 7fce7aaa9b3510833754ba6ea20fd7e780eeab518b82a8ee7ac3dc4b81b2ae7e
 
 # Khi chạy ở máy (npm run cms + npm run dev) tự bỏ qua đăng nhập, sửa thẳng file trong thư mục.
 local_backend: true

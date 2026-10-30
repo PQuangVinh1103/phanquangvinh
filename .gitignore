@@ -6,3 +6,8 @@ node_modules/
 .astro/
 .vercel/
 dist/
+
+# Khóa bí mật: KHÔNG bao giờ commit
+.env
+.env.*
+!.env.example

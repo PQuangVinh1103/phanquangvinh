@@ -1,6 +1,6 @@
 User-agent: *
 Allow: /
-Disallow: /keystatic
+Disallow: /admin
 Disallow: /api/
 
 Sitemap: https://phanquangvinh.com/sitemap.xml

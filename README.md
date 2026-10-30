@@ -1,54 +1,47 @@
 # phanquangvinh.com
 
-Personal website and blog for Phan Quang Vinh, built with Astro and Keystatic.
+Website cá nhân và blog của Phan Quang Vinh (Vinh Nghiền Ngẫm ☕). Astro 5 (SSR) + Decap CMS + Markdoc, deploy Vercel, mã nguồn GitLab.
 
-## Local development
-
-Install dependencies:
+## Chạy ở máy
 
 ```bash
 npm install
+npm run dev        # web: http://localhost:4321/
+npm run cms        # (terminal khác) máy chủ cho trang quản trị chạy local
 ```
 
-Run the Astro dev server:
-
-```bash
-npm run dev
-```
-
-Open the website:
-
-```text
-http://127.0.0.1:4321/
-```
-
-Open Keystatic:
-
-```text
-http://127.0.0.1:4321/keystatic
-```
+Mở http://localhost:4321/admin/index.html để viết hoặc sửa bài ở máy, không cần đăng nhập. Lưu là ghi thẳng vào file trong `src/content/`.
 
 ## Cấu trúc site
 
 - `/` trang chủ, `/ca-phe`, `/dbl-code`, `/tai-san-so` (3 module), `/bai-viet` (blog), `/chuyen-muc/[cat]`, `/ve-vinh`.
-- Cấu hình chung (menu, webinar, khóa, mạng xã hội): `src/config/site.ts`.
-- Bản tin email: form gọi `/api/subscribe`, chuyển tiếp tới webhook n8n. Đặt biến môi trường `NEWSLETTER_WEBHOOK_URL` trong Vercel (Settings → Environment Variables). Chưa đặt thì form báo "chưa mở", không mất email im lặng.
+- Cấu hình chung (menu, webinar, khóa, mạng xã hội, tên thương hiệu): `src/config/site.ts`.
+- Logo và favicon: `public/brand/` và `public/` (bộ gốc ở `Personal Branding/Kênh Cà Phê/assets/brand/vinh-nghien-ngam/`).
 
-## Blog workflow
+## Viết bài trên web thật (tự động đăng)
 
-Blog posts live in:
+1. Mở `https://phanquangvinh.com/admin`, bấm "Đăng nhập" bằng tài khoản GitLab.
+2. Chọn "Bài viết", viết nội dung, đặt Trạng thái là "Đăng công khai", bấm **Publish**.
+3. Decap tự commit vào nhánh `main` trên GitLab, Vercel tự đăng sau khoảng 1 phút.
 
-```text
-src/content/posts
-```
+Quy tắc: bài mục **Cà phê** chỉ hiện công khai khi tick "Đã kiểm nguồn". Số tự đặt thì tick "Có số liệu giả định".
 
-Keystatic is configured in local mode, so saving a post in the admin UI writes a `.mdoc` file into the repo. New uploaded cover images are stored in:
+### Cài đặt đăng nhập GitLab (làm một lần)
 
-```text
-public/images/blog
-```
+Trong GitLab: User Settings → Applications → Add new application.
+- Name: `phanquangvinh CMS`
+- Redirect URI (mỗi dòng một địa chỉ):
+  `https://www.phanquangvinh.com/admin/`
+  `https://phanquangvinh.com/admin/`
+  `http://localhost:4321/admin/`
+- **Bỏ tick Confidential**, tick scope **api**.
+- Lưu, copy **Application ID**, dán vào `app_id` trong `public/admin/config.yml`, rồi push.
 
-Only posts with `status: published` are shown publicly. Posts in the `ca-phe` category also need `verified: true` (tick "Đã kiểm nguồn" in Keystatic) before they appear.
+Đăng nhập kiểu PKCE nên không có mật khẩu hay token nào nằm trong mã. Chỉ người có quyền ghi vào dự án GitLab mới sửa được.
+
+## Bản tin email
+
+Form gọi `/api/subscribe`, chuyển tiếp tới webhook n8n. Đặt biến môi trường `NEWSLETTER_WEBHOOK_URL` trong Vercel (Settings → Environment Variables) rồi deploy lại. Chưa đặt thì form tự ẩn.
 
 ## Build
 
@@ -56,29 +49,11 @@ Only posts with `status: published` are shown publicly. Posts in the `ca-phe` ca
 npm run build
 ```
 
-The project uses the Vercel adapter because Keystatic needs server-side routes.
+Dự án dùng adapter Vercel vì có trang động (bài viết, API, đếm ngược webinar).
 
-## Mirror to GitHub
-
-Create an empty GitHub repo first, then add it as a second remote:
+## Mirror GitHub (tùy chọn)
 
 ```bash
-git remote add github https://github.com/YOUR_USERNAME/phanquangvinh.com.git
-git push github main
+git push origin main     # GitLab, nơi Vercel deploy
+git push github main     # bản sao
 ```
-
-After that, push to both GitLab and GitHub when needed:
-
-```bash
-git push origin main
-git push github main
-```
-
-Or make GitHub the primary remote:
-
-```bash
-git remote set-url origin https://github.com/YOUR_USERNAME/phanquangvinh.com.git
-git push -u origin main
-```
-
-If you want Keystatic editing on the deployed website, move or mirror the repo to GitHub and switch `keystatic.config.ts` from local storage to GitHub storage.

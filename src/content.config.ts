@@ -25,7 +25,11 @@ const posts = defineCollection({
         z.object({
           title: z.string(),
           url: z.string().optional(),
-          date: z.string().optional(),
+          // YAML tự đọc 2026-10-01 thành kiểu ngày nên nhận cả hai, đổi về chữ YYYY-MM-DD.
+          date: z
+            .union([z.string(), z.date()])
+            .transform((v) => (v instanceof Date ? v.toISOString().slice(0, 10) : v))
+            .optional(),
         }),
       )
       .default([]),

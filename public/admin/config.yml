@@ -1,0 +1,121 @@
+# Trang quản trị bài viết (Decap CMS). Mở /admin, đăng nhập bằng tài khoản GitLab.
+# Bấm "Publish" là commit thẳng vào nhánh main trên GitLab, Vercel tự đăng sau khoảng 1 phút.
+# Đăng nhập kiểu PKCE: KHÔNG có mật khẩu hay token trong mã. Chỉ người có quyền ghi vào dự án GitLab mới sửa được.
+backend:
+  name: gitlab
+  repo: PQuangVinh1103/phanquangvinh.com
+  branch: main
+  auth_type: pkce
+  app_id: DAN_APPLICATION_ID_CUA_GITLAB_VAO_DAY
+
+# Khi chạy ở máy (npm run cms + npm run dev) tự bỏ qua đăng nhập, sửa thẳng file trong thư mục.
+local_backend: true
+
+locale: vi
+site_url: https://phanquangvinh.com
+display_url: https://phanquangvinh.com
+publish_mode: simple
+
+# Tên file không dấu, dễ chia sẻ.
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: "-"
+
+media_folder: public/images/blog
+public_folder: /images/blog
+
+collections:
+  - name: posts
+    label: "📝 Bài viết"
+    label_singular: "Bài viết"
+    folder: src/content/posts
+    extension: mdoc
+    format: frontmatter
+    create: true
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}} · {{category}} · {{status}}"
+    sortable_fields: ["publishedAt", "title", "status", "category"]
+    view_groups:
+      - { label: "Chuyên mục", field: category }
+      - { label: "Trạng thái", field: status }
+    editor:
+      preview: false
+    fields:
+      - { label: "Tiêu đề", name: title, widget: string }
+      - { label: "Mô tả ngắn (hiện ở thẻ bài và Google)", name: excerpt, widget: text, hint: "Từ 20 đến 250 ký tự.", pattern: ['^[\s\S]{20,250}$', "Từ 20 đến 250 ký tự"] }
+      - label: "Chuyên mục"
+        name: category
+        widget: select
+        default: goc-vinh
+        options:
+          - { label: "Cà phê", value: ca-phe }
+          - { label: "DBL Code", value: dbl-code }
+          - { label: "Tài sản số", value: tai-san-so }
+          - { label: "Góc Vinh (AI, năng suất, suy nghĩ)", value: goc-vinh }
+      - label: "Trạng thái"
+        name: status
+        widget: select
+        default: draft
+        hint: "Nháp = chưa hiện trên web. Đăng công khai = hiện ngay sau khi lưu."
+        options:
+          - { label: "Nháp (chưa hiện)", value: draft }
+          - { label: "Đăng công khai", value: published }
+      - { label: "Ngày đăng", name: publishedAt, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Ngày cập nhật (nếu có)", name: updatedAt, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false }
+      - { label: "Tags", name: tags, widget: list, required: false, default: [] }
+      - { label: "Bài nổi bật (hiện đầu trang Bài viết)", name: featured, widget: boolean, default: false, required: false }
+      - { label: "Ảnh bìa", name: coverImage, widget: image, required: false }
+      - { label: "Link video TikTok/YouTube liên quan", name: videoUrl, widget: string, required: false }
+      - { label: "Thời gian đọc (để trống = tự tính)", name: readingTime, widget: string, required: false }
+      - label: "Căn lề văn bản"
+        name: textAlign
+        widget: select
+        default: left
+        options:
+          - { label: "Căn lề trái (mặc định)", value: left }
+          - { label: "Căn đều hai bên", value: justify }
+      - { label: "Đã kiểm nguồn", name: verified, widget: boolean, default: false, required: false, hint: "BẮT BUỘC với mục Cà phê: chưa tick thì bài không hiện công khai. Chỉ tick khi mọi số liệu đều có nguồn kiểm được." }
+      - { label: "Có số liệu giả định (hiện ghi chú 'giả định' cuối bài)", name: hasAssumption, widget: boolean, default: false, required: false }
+      - label: "Nguồn tham khảo"
+        name: sources
+        widget: list
+        required: false
+        summary: "{{fields.title}}"
+        fields:
+          - { label: "Tên nguồn (báo, báo cáo, văn bản)", name: title, widget: string }
+          - { label: "Link", name: url, widget: string, required: false }
+          - { label: "Ngày đăng nguồn (vd 2026-10-01)", name: date, widget: string, required: false }
+      - { label: "SEO title (để trống = dùng tiêu đề)", name: seoTitle, widget: string, required: false }
+      - { label: "SEO description (để trống = dùng mô tả ngắn)", name: seoDescription, widget: text, required: false }
+      - label: "Nội dung"
+        name: body
+        widget: markdown
+        buttons: ["bold", "italic", "link", "heading-two", "heading-three", "quote", "bulleted-list", "numbered-list"]
+        editor_components: ["image"]
+
+  - name: projects
+    label: "🧩 Dự án"
+    label_singular: "Dự án"
+    folder: src/content/projects
+    extension: json
+    format: json
+    create: true
+    slug: "{{slug}}"
+    identifier_field: titleVi
+    media_folder: public/images/projects
+    public_folder: /images/projects
+    fields:
+      - { label: "Tiêu đề (VI)", name: titleVi, widget: string }
+      - { label: "Tiêu đề (EN)", name: titleEn, widget: string }
+      - { label: "Mô tả ngắn (VI)", name: excerptVi, widget: text }
+      - { label: "Mô tả ngắn (EN)", name: excerptEn, widget: text }
+      - { label: "Tags", name: tags, widget: list, required: false, default: [] }
+      - { label: "Kết quả nổi bật (VI)", name: resultVi, widget: string }
+      - { label: "Kết quả nổi bật (EN)", name: resultEn, widget: string }
+      - { label: "Link dự án (hoặc # nếu chưa có)", name: link, widget: string, default: "#" }
+      - { label: "Màu nền gradient bắt đầu (Hex)", name: thumbFrom, widget: string, default: "#eae6e1" }
+      - { label: "Màu nền gradient kết thúc (Hex)", name: thumbTo, widget: string, default: "#ddd2c4" }
+      - { label: "Ảnh dự án (nếu có, thay màu gradient)", name: coverImage, widget: image, required: false }
+      - { label: "Thứ tự hiển thị (số lớn xếp trước)", name: order, widget: number, value_type: int, default: 0 }

@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostListing from '../../components/PostListing.astro';
+import NewsletterForm from '../../components/NewsletterForm.astro';
+import { CATEGORIES } from '../../config/site';
+
+const { cat } = Astro.params;
+const info = CATEGORIES.find((c) => c.slug === cat);
+if (!info) return Astro.redirect('/bai-viet');
+---
+<BaseLayout title={`${info.name} — Bài viết`} description={info.blurb}>
+  <section class="section-tight">
+    <div class="container">
+      <header class="section-head" style="margin-top:24px">
+        <span class="eyebrow">Chuyên mục</span>
+        <h1 class="section-title" style="font-size:clamp(2rem,4.5vw,3rem)">{info.name}</h1>
+        <p class="section-sub">{info.blurb}</p>
+        {info.slug !== 'goc-vinh' && <p style="margin-top:10px"><a href={info.path}>Xem trang giới thiệu mảng {info.name} →</a></p>}
+      </header>
+      <PostListing category={info.slug} />
+      {info.disclaimer && <div class="notice" style="margin-top:28px">{info.disclaimer}</div>}
+    </div>
+  </section>
+  <section class="section-tight">
+    <div class="container"><NewsletterForm source={`chuyen-muc-${info.slug}`} /></div>
+  </section>
+</BaseLayout>

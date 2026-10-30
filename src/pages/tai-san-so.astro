@@ -1,0 +1,115 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+import { MODULES } from '../config/site';
+import { getPublishedPosts } from '../lib/posts';
+
+const mod = MODULES.find((m) => m.slug === 'tai-san-so')!;
+const posts = (await getPublishedPosts('tai-san-so')).slice(0, 3);
+
+const concepts = [
+  {
+    t: 'Tài sản mã hóa (TSMH)',
+    d: 'Tài sản số được tạo, lưu trữ và chuyển giao bằng công nghệ sổ cái phân tán như blockchain.',
+  },
+  {
+    t: 'RWA và token hóa',
+    d: 'RWA (Real World Assets) là tài sản thật như kim loại quý, nông sản, bất động sản. Token hóa là biểu diễn quyền lợi trên tài sản đó bằng token trên blockchain.',
+  },
+  {
+    t: 'Khung pháp lý',
+    d: 'Nghị quyết 05/NQ-CP (9/9/2025) là khung thí điểm thị trường tài sản mã hóa tại Việt Nam. Luôn đối chiếu văn bản gốc trước khi kết luận.',
+  },
+];
+
+const watching = [
+  'Văn bản pháp lý và hướng dẫn thi hành mới.',
+  'Vai trò từng bên: tổ chức phát hành, tổ chức cung cấp dịch vụ, sàn giao dịch.',
+  'Cách một tài sản thật được đưa lên dạng token: điều kiện, quy trình, rủi ro.',
+  'Cách đọc rủi ro trước khi tham gia, với tư cách nhà đầu tư.',
+];
+
+const glossary = [
+  ['TSMH', 'Tài sản mã hóa. Cách gọi trong khung pháp lý Việt Nam cho tài sản số dùng công nghệ mã hóa.'],
+  ['RWA', 'Real World Assets. Tài sản thật được số hóa lên blockchain.'],
+  ['Token hóa', 'Tokenization. Biểu diễn quyền lợi trên một tài sản bằng token.'],
+  ['Issuer', 'Tổ chức phát hành tài sản mã hóa.'],
+  ['NĐT', 'Nhà đầu tư.'],
+  ['Mint / Burn', 'Mint là tạo token mới. Burn là hủy token, thường khi rút tài sản hoặc thu hồi.'],
+  ['NQ 05', 'Nghị quyết 05/NQ-CP ngày 9/9/2025 về thí điểm thị trường tài sản mã hóa.'],
+];
+
+const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Tài sản số — Phan Quang Vinh', url: 'https://phanquangvinh.com/tai-san-so', description: mod.blurb };
+---
+<BaseLayout title="Tài sản số: TSMH, RWA và khung pháp lý tại Việt Nam" description="Tài sản mã hóa (TSMH), RWA và Nghị quyết 05/NQ-CP tại Việt Nam, giải thích bằng ngôn ngữ thường và dẫn về văn bản gốc." jsonLd={jsonLd}>
+  <section class="mod-hero" data-mod="tai-san-so">
+    <div class="container">
+      <span class="eyebrow on-dark">Mảng 03 · Tài sản số</span>
+      <h1>TSMH và RWA tại Việt Nam: <span class="accent">đọc cho đúng.</span></h1>
+      <p class="lead">
+        Khung thí điểm đã mở, thuật ngữ thì lẫn lộn. Ở đây mình giải thích từng khái niệm bằng ngôn ngữ thường và dẫn về văn bản gốc.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="/chuyen-muc/tai-san-so">Đọc bài viết</a>
+        <a class="btn btn-outline on-dark" href="#thuat-ngu">Thuật ngữ nhanh</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Ba khái niệm nền</span>
+        <h2 class="section-title">Bắt đầu từ đây</h2>
+      </div>
+      <div class="grid grid-3">
+        {concepts.map((c) => (
+          <article class="card pillar" data-mod="tai-san-so">
+            <h3>{c.t}</h3>
+            <p>{c.d}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container grid grid-2">
+      <div>
+        <span class="eyebrow">Mình theo dõi gì</span>
+        <h2 class="section-title">Bốn việc mình đọc kỹ</h2>
+        <ul class="card" style="margin-top:20px;padding:26px 26px 26px 44px;list-style:disc">
+          {watching.map((w) => <li>{w}</li>)}
+        </ul>
+      </div>
+      <div id="thuat-ngu">
+        <span class="eyebrow">Thuật ngữ nhanh</span>
+        <h2 class="section-title">Từ điển bỏ túi</h2>
+        <dl class="glossary">
+          {glossary.map(([k, v]) => (<><dt>{k}</dt><dd>{v}</dd></>))}
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Bài viết</span>
+        <h2 class="section-title">Mới nhất về tài sản số</h2>
+      </div>
+      {posts.length > 0
+        ? <div class="grid grid-3">{posts.map((p) => <PostCard post={p} />)}</div>
+        : <div class="empty"><strong>Chưa có bài nào ở mục này.</strong>Bài đầu tiên sẽ sớm lên.</div>}
+      <div class="btn-row" style="margin-top:28px"><a class="btn btn-outline" href="/chuyen-muc/tai-san-so">Xem tất cả</a></div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <NewsletterForm source="tai-san-so" heading="Nhận bài về tài sản số qua email" />
+      <div class="notice" style="margin-top:16px">{mod.disclaimer}</div>
+    </div>
+  </section>
+</BaseLayout>

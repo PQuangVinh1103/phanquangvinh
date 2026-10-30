@@ -8,11 +8,29 @@ const posts = defineCollection({
     title: z.string(),
     excerpt: z.string(),
     publishedAt: z.coerce.date(),
+    updatedAt: z.coerce.date().optional(),
     status: z.enum(['draft', 'published']).default('draft'),
-    category: z.enum(['finance', 'ai', 'productivity', 'life']).default('life'),
+    category: z.enum(['ca-phe', 'dbl-code', 'tai-san-so', 'goc-vinh']).default('goc-vinh'),
+    tags: z.array(z.string()).default([]),
+    featured: z.boolean().default(false),
     coverImage: z.string().optional(),
+    videoUrl: z.string().optional(),
     readingTime: z.string().optional(),
     textAlign: z.enum(['left', 'justify']).default('left'),
+    // Kiểm nguồn: bài mục Cà phê chỉ hiện công khai khi verified = true (xem src/lib/posts.ts).
+    verified: z.boolean().default(false),
+    hasAssumption: z.boolean().default(false),
+    sources: z
+      .array(
+        z.object({
+          title: z.string(),
+          url: z.string().optional(),
+          date: z.string().optional(),
+        }),
+      )
+      .default([]),
+    seoTitle: z.string().optional(),
+    seoDescription: z.string().optional(),
   }),
 });
 

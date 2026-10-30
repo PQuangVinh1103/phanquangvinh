@@ -1,0 +1,30 @@
+---
+import { categoryOf } from '../config/site';
+import { formatDate, readingTime, type Post } from '../lib/posts';
+
+interface Props {
+  post: Post;
+  featured?: boolean;
+}
+
+const { post, featured = false } = Astro.props;
+const cat = categoryOf(post.data.category);
+const href = `/bai-viet/${post.id}`;
+---
+<article class:list={['post-card', { 'post-featured': featured }]}>
+  <div class="post-cover" data-cat={cat.slug}>
+    {post.data.coverImage
+      ? <img src={post.data.coverImage} alt="" loading="lazy" decoding="async" />
+      : <span class="ph">{cat.name}</span>}
+  </div>
+  <div class="post-body">
+    <span class="pill" data-cat={cat.slug}>{cat.name}</span>
+    <h3><a href={href}>{post.data.title}</a></h3>
+    <p>{post.data.excerpt}</p>
+    <div class="post-meta">
+      <time datetime={post.data.publishedAt.toISOString()}>{formatDate(post.data.publishedAt)}</time>
+      <span>{readingTime(post)}</span>
+      <span aria-hidden="true">Đọc tiếp →</span>
+    </div>
+  </div>
+</article>

@@ -1,197 +1,160 @@
 ---
+import '../styles/global.css';
+import { SITE, SOCIAL, NAV, MODULES, WEBINAR, isWebinarOpen, tracked } from '../config/site';
+
 interface Props {
   title: string;
   description?: string;
-  activeNav?: 'about' | 'projects' | 'blog' | 'contact';
+  image?: string;
+  type?: 'website' | 'article';
+  noindex?: boolean;
+  publishedAt?: Date;
+  jsonLd?: object | object[];
 }
-const { title, description = 'Blog và portfolio cá nhân của Phan Quang Vinh. Tài chính, đầu tư, AI automation và cuộc sống.', activeNav } = Astro.props;
+
+const { title, description = SITE.description, image = SITE.defaultOg, type = 'website', noindex = false, publishedAt, jsonLd } = Astro.props;
+
+const path = Astro.url.pathname;
+const canonical = new URL(path === '/' ? '/' : path.replace(/\/$/, ''), SITE.url).toString();
+const fullTitle = title.includes(SITE.name) ? title : `${title} | ${SITE.name}`;
+const ogImage = image.startsWith('http') ? image : new URL(image, SITE.url).toString();
+
+const isActive = (href: string) => path === href || path.startsWith(`${href}/`) || (href === '/bai-viet' && path.startsWith('/chuyen-muc'));
+const schemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+const webinarOpen = isWebinarOpen();
+const year = new Date().getFullYear();
 ---
 <!DOCTYPE html>
-<html lang="vi" data-lang="vi">
+<html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>{title}</title>
+  <title>{fullTitle}</title>
   <meta name="description" content={description} />
-  <link rel="icon" href="/favicon.ico" sizes="any" />
-  <link rel="icon" type="image/png" href="/favicon.png" />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex, nofollow" />}
+  <meta name="theme-color" content="#15381c" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png" />
+  <link rel="shortcut icon" href="/favicon.ico" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="alternate" type="application/rss+xml" title={`${SITE.name} — Bài viết`} href="/rss.xml" />
+
+  <meta property="og:site_name" content={`${SITE.brand} · ${SITE.name}`} />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:type" content={type} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={ogImage} />
+  {publishedAt && <meta property="article:published_time" content={publishedAt.toISOString()} />}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={fullTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Lora:wght@500;600;700&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --nav: #001c2f;
-      --primary: #002e4e;
-      --accent: #b38e50;
-      --bg: #f7f9fa;
-      --surface: #fff;
-      --text: #0a131a;
-      --muted: #485966;
-      --line: #d9e1e8;
-      --font-base: "DM Sans", sans-serif;
-      --font-serif: "Lora", Georgia, serif;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--font-base); color: var(--text); background: var(--bg); line-height: 1.65; }
-    img { display: block; max-width: 100%; }
-    a { color: var(--primary); text-underline-offset: 3px; }
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Oswald:wght@500;600&display=swap" rel="stylesheet" />
 
-    /* i18n */
-    html[data-lang="vi"] [data-en] { display: none !important; }
-    html[data-lang="en"] [data-vi] { display: none !important; }
-
-    /* Header */
-    .site-header { position: sticky; top: 0; z-index: 100; background: var(--nav); }
-    .site-header.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,.3); }
-    .nav { max-width: 1120px; margin: 0 auto; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-
-    /* Logo */
-    .nav-logo { text-decoration: none; display: flex; align-items: center; gap: 10px; }
-    .nav-logo__icon { height: 26px; width: auto; flex-shrink: 0; transition: transform .2s ease; }
-    .nav-logo:hover .nav-logo__icon { transform: scale(1.08); }
-    .nav-logo__text { display: flex; flex-direction: column; gap: 0; }
-    .nav-logo__name { font-size: 1.05rem; font-weight: 700; color: #fff; letter-spacing: -.02em; line-height: 1.1; }
-    .nav-logo__sub { font-size: 0.72rem; font-weight: 400; color: rgba(255,255,255,.5); letter-spacing: .01em; }
-
-    /* Nav links */
-    .nav-right { display: flex; align-items: center; gap: 12px; }
-    .nav-links { display: flex; gap: 4px; list-style: none; }
-    .nav-links a { color: rgba(255,255,255,.75); text-decoration: none; font-size: 0.875rem; font-weight: 500; padding: 6px 12px; border-radius: 6px; transition: color .15s, background-color .15s; }
-    .nav-links a:hover { color: #fff; background: rgba(255,255,255,.1); }
-    .nav-links a.active { color: #fff; background: rgba(255,255,255,.15); font-weight: 700; }
-
-    /* Lang toggle */
-    .lang-toggle { display: flex; align-items: center; background: rgba(255,255,255,.1); border-radius: 100px; padding: 2px; gap: 2px; }
-    .lang-btn { border: none; background: transparent; color: rgba(255,255,255,.6); font-family: var(--font-base); font-size: 0.72rem; font-weight: 600; padding: 4px 10px; border-radius: 100px; cursor: pointer; transition: all .2s; }
-    .lang-btn.active { background: #fff; color: var(--text); }
-    .lang-btn:hover:not(.active) { color: #fff; }
-
-    /* Mobile nav */
-    .nav-hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; cursor: pointer; padding: 4px; }
-    .nav-hamburger span { display: block; width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: all .3s; }
-    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .nav-hamburger.open span:nth-child(2) { opacity: 0; }
-    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-    .mobile-menu { display: none; background: var(--nav); padding: 12px 24px; border-top: 1px solid rgba(255,255,255,.1); }
-    .mobile-menu.open { display: block; }
-    .mobile-menu a { display: block; color: rgba(255,255,255,.8); text-decoration: none; font-size: 1rem; font-weight: 500; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,.08); }
-    .mobile-menu a:last-child { border-bottom: none; }
-    .mobile-menu a:hover, .mobile-menu a.active { color: #fff; }
-
-    @media (max-width: 680px) {
-      .nav-links { display: none; }
-      .nav-hamburger { display: flex; }
-    }
-
-    /* Footer */
-    .site-footer { background: #0a131a; color: rgba(255,255,255,.45); padding: 40px 0 28px; }
-    .footer-inner { max-width: 1120px; margin: 0 auto; padding: 0 24px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; font-size: 0.875rem; }
-    .footer-links { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; }
-    .footer-links a { color: rgba(255,255,255,.5); text-decoration: none; transition: color .15s; }
-    .footer-links a:hover { color: #fff; }
-
-    @media (max-width: 580px) { .footer-inner { flex-direction: column; text-align: center; } }
-  </style>
-  <slot name="head" />
+  {schemas.map((s) => <script type="application/ld+json" set:html={JSON.stringify(s)} />)}
 </head>
 <body>
-  <header class="site-header" id="site-header">
-    <nav class="nav" aria-label="Main navigation">
-      <a class="nav-logo" href="/" aria-label="Trang chủ">
-        <img class="nav-logo__icon" src="/pictures/logo.png" alt="Logo pqv" />
-        <div class="nav-logo__text">
-          <span class="nav-logo__name">Phan Quang Vinh</span>
-          <span class="nav-logo__sub" data-vi>Tài chính · AI · Cuộc sống</span>
-          <span class="nav-logo__sub" data-en>Finance · AI · Life</span>
-        </div>
-      </a>
+  <a class="skip-link" href="#main">Bỏ qua, tới nội dung</a>
 
-      <div class="nav-right">
-        <ul class="nav-links">
-          <li><a href="/about" class={activeNav === 'about' ? 'active' : ''}><span data-vi>Về tôi</span><span data-en>About</span></a></li>
-          <li><a href="/projects" class={activeNav === 'projects' ? 'active' : ''}><span data-vi>Dự án</span><span data-en>Work</span></a></li>
-          <li><a href="/blog" class={activeNav === 'blog' ? 'active' : ''}>Blog</a></li>
-          <li><a href="mailto:kelvinphan1mil@gmail.com"><span data-vi>Liên hệ</span><span data-en>Contact</span></a></li>
-        </ul>
-
-        <div class="lang-toggle" role="group" aria-label="Chọn ngôn ngữ">
-          <button class="lang-btn active" data-lang-btn="vi" aria-pressed="true">VI</button>
-          <button class="lang-btn" data-lang-btn="en" aria-pressed="false">EN</button>
-        </div>
-
-        <button class="nav-hamburger" id="hamburger" aria-label="Mở menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
+  {webinarOpen && (
+    <div class="slim-banner">
+      <div class="container">
+        <span>☕ {WEBINAR.title} · {WEBINAR.dateLabel}</span>
+        <a href={tracked(WEBINAR.url, 'banner-site')} target="_blank" rel="noopener">Giữ chỗ miễn phí →</a>
       </div>
-    </nav>
+    </div>
+  )}
 
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="/" aria-label={`${SITE.brand} — ${SITE.name}, trang chủ`}>
+        <img class="brand-mark" src="/brand/vinh-nghien-ngam-bieu-tuong-mau.svg" alt="" width="30" height="52" />
+        <span class="brand-text">
+          <span class="brand-name">{SITE.brand}</span>
+          <span class="brand-sub">{SITE.name}</span>
+        </span>
+      </a>
+      <ul class="nav-links">
+        {NAV.map((n) => (
+          <li><a href={n.href} aria-current={isActive(n.href) ? 'page' : undefined}>{n.label}</a></li>
+        ))}
+      </ul>
+      <div class="nav-cta-wrap">
+        <a class="btn btn-dark btn-sm nav-cta" href="/ve-vinh#lien-he">Liên hệ</a>
+      </div>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Mở menu" aria-expanded="false" aria-controls="mobile-menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
     <div class="mobile-menu" id="mobile-menu">
-      <a href="/about" class={activeNav === 'about' ? 'active' : ''}><span data-vi>Về tôi</span><span data-en>About</span></a>
-      <a href="/projects" class={activeNav === 'projects' ? 'active' : ''}><span data-vi>Dự án</span><span data-en>Work</span></a>
-      <a href="/blog" class={activeNav === 'blog' ? 'active' : ''}>Blog</a>
-      <a href="mailto:kelvinphan1mil@gmail.com"><span data-vi>Liên hệ</span><span data-en>Contact</span></a>
+      {NAV.map((n) => (
+        <a href={n.href} aria-current={isActive(n.href) ? 'page' : undefined}>{n.label}</a>
+      ))}
+      <a href="/ve-vinh#lien-he">Liên hệ</a>
     </div>
   </header>
 
-  <slot />
+  <main id="main">
+    <slot />
+  </main>
 
   <footer class="site-footer">
-    <div class="footer-inner">
-      <span>© 2026 Phan Quang Vinh. <span data-vi>Tất cả quyền được bảo lưu.</span><span data-en>All rights reserved.</span></span>
-      <ul class="footer-links">
-        <li><a href="https://www.linkedin.com/in/kelvinph11/" target="_blank" rel="noopener">LinkedIn</a></li>
-        <li><a href="https://gitlab.com/PQuangVinh1103" target="_blank" rel="noopener">GitLab</a></li>
-        <li><a href="mailto:kelvinphan1mil@gmail.com">Email</a></li>
-        <li><a href="/blog">Blog</a></li>
-        <li><a href="/travel">Travel</a></li>
-      </ul>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-brand">
+            <img src="/brand/vinh-nghien-ngam-bieu-tuong-dao-mau.svg" alt="" width="30" height="52" />
+            <span>{SITE.brand}<small>{SITE.name}</small></span>
+          </div>
+          <p>Ghi lại những gì mình đang làm ở ba mảng: cà phê, DBL Code và tài sản số. Có nguồn, có số, có tình huống thật.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Lĩnh vực</h4>
+          <ul>
+            {MODULES.map((m) => <li><a href={m.path}>{m.name}</a></li>)}
+            <li><a href="/bai-viet">Tất cả bài viết</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Kết nối</h4>
+          <ul>
+            {SOCIAL.map((s) => <li><a href={s.url} target="_blank" rel="noopener noreferrer">{s.label}</a></li>)}
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Liên hệ</h4>
+          <ul>
+            <li><a href={`mailto:${SITE.email}`}>{SITE.email}</a></li>
+            <li><a href={SITE.zalo} target="_blank" rel="noopener noreferrer">Zalo {SITE.zaloPhone}</a></li>
+            <li><a href="/rss.xml">RSS bài viết</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© {year} Phan Quang Vinh · phanquangvinh.com</span>
+        <span>Nội dung chia sẻ kiến thức, không phải khuyến nghị đầu tư hay tư vấn pháp lý.</span>
+      </div>
     </div>
   </footer>
 
-  <script>
-    // Lang toggle
-    const html = document.documentElement;
-    const langBtns = document.querySelectorAll('[data-lang-btn]');
-
-    function setLang(lang: string) {
-      html.setAttribute('data-lang', lang);
-      html.setAttribute('lang', lang === 'vi' ? 'vi' : 'en');
-      langBtns.forEach(btn => {
-        const b = btn as HTMLButtonElement;
-        const isActive = b.dataset.langBtn === lang;
-        b.classList.toggle('active', isActive);
-        b.setAttribute('aria-pressed', String(isActive));
+  <script is:inline>
+    (function () {
+      var btn = document.getElementById('nav-toggle');
+      var menu = document.getElementById('mobile-menu');
+      if (!btn || !menu) return;
+      btn.addEventListener('click', function () {
+        var open = menu.classList.toggle('open');
+        btn.setAttribute('aria-expanded', String(open));
       });
-      try { localStorage.setItem('pqv-lang', lang); } catch (e) {}
-    }
-
-    langBtns.forEach(btn => {
-      btn.addEventListener('click', () => setLang((btn as HTMLButtonElement).dataset.langBtn!));
-    });
-
-    try {
-      const saved = localStorage.getItem('pqv-lang');
-      if (saved === 'en') setLang('en');
-    } catch (e) {}
-
-    // Mobile menu
-    const header = document.getElementById('site-header')!;
-    const hamburger = document.getElementById('hamburger')!;
-    const mobileMenu = document.getElementById('mobile-menu')!;
-
-    window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 10), { passive: true });
-
-    hamburger.addEventListener('click', () => {
-      const open = mobileMenu.classList.toggle('open');
-      hamburger.classList.toggle('open', open);
-      hamburger.setAttribute('aria-expanded', String(open));
-    });
-    mobileMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
-      mobileMenu.classList.remove('open');
-      hamburger.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-    }));
+    })();
   </script>
 </body>
 </html>

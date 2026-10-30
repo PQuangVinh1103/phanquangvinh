@@ -1,0 +1,32 @@
+---
+// Khối webinar miễn phí. Tự biến mất sau giờ kết thúc (WEBINAR.endsAt trong src/config/site.ts).
+import { WEBINAR, COURSE, isWebinarOpen, tracked } from '../config/site';
+
+interface Props {
+  campaign: string;
+  showCourse?: boolean;
+}
+
+const { campaign, showCourse = true } = Astro.props;
+const open = isWebinarOpen();
+---
+{open && (
+  <div class="promo">
+    <div>
+      <span class="eyebrow on-dark">Miễn phí · Zoom</span>
+      <h2>{WEBINAR.title}</h2>
+      <p>Mình giới thiệu buổi chia sẻ của David Dũng về thị trường hàng hóa, nông sản và cà phê. Học để hiểu thị trường. Quản trị rủi ro trước lợi nhuận.</p>
+      <div class="promo-meta">
+        <span>🗓 {WEBINAR.dateLabel}</span>
+        <span>🎙 Diễn giả: David Dũng (HAP Commodities Consulting)</span>
+      </div>
+    </div>
+    <div class="promo-side">
+      <a class="btn btn-primary" href={tracked(WEBINAR.url, campaign)} target="_blank" rel="noopener">Giữ chỗ miễn phí</a>
+      {showCourse && COURSE.enabled && (
+        <a class="btn btn-outline on-dark" href={tracked(COURSE.url, campaign)} target="_blank" rel="noopener">Xem khóa {COURSE.name}</a>
+      )}
+      <p class="promo-note">Nội dung chia sẻ kiến thức, không phải khuyến nghị đầu tư và không cam kết lợi nhuận.</p>
+    </div>
+  </div>
+)}

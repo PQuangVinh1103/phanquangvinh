@@ -1,0 +1,51 @@
+---
+// Khung danh sách bài viết kiểu dungnongsan.com: thanh lọc chuyên mục + lưới thẻ.
+// Lọc bằng link (có URL riêng cho từng chuyên mục → tốt cho SEO), có phân trang ?trang=N.
+import PostCard from './PostCard.astro';
+import { CATEGORIES } from '../config/site';
+import { getPublishedPosts, PAGE_SIZE } from '../lib/posts';
+
+interface Props {
+  category?: string;
+}
+
+const { category } = Astro.props;
+const requested = parseInt(Astro.url.searchParams.get('trang') ?? '1', 10);
+const all = await getPublishedPosts(category);
+const totalPages = Math.max(1, Math.ceil(all.length / PAGE_SIZE));
+const current = Math.min(Math.max(1, Number.isNaN(requested) ? 1 : requested), totalPages);
+
+const featured = !category && current === 1 ? (all.find((p) => p.data.featured) ?? null) : null;
+let items = all.slice((current - 1) * PAGE_SIZE, current * PAGE_SIZE);
+if (featured) items = items.filter((p) => p.id !== featured.id);
+
+const basePath = category ? `/chuyen-muc/${category}` : '/bai-viet';
+const pageHref = (n: number) => (n === 1 ? basePath : `${basePath}?trang=${n}`);
+const tabs = [{ slug: undefined as string | undefined, name: 'Tất cả', href: '/bai-viet' }, ...CATEGORIES.map((c) => ({ slug: c.slug as string | undefined, name: c.name, href: `/chuyen-muc/${c.slug}` }))];
+---
+<nav class="tabs" aria-label="Lọc theo chuyên mục">
+  {tabs.map((t) => <a class="tab" href={t.href} aria-current={t.slug === category ? 'page' : undefined}>{t.name}</a>)}
+</nav>
+
+{all.length === 0 && (
+  <div class="empty">
+    <strong>Chưa có bài nào ở mục này.</strong>
+    Bài đầu tiên đang được kiểm nguồn. Mình chỉ đăng khi mọi số liệu đều kiểm được.
+  </div>
+)}
+
+{featured && <PostCard post={featured} featured />}
+
+{items.length > 0 && (
+  <div class="grid grid-3">
+    {items.map((p) => <PostCard post={p} />)}
+  </div>
+)}
+
+{totalPages > 1 && (
+  <nav class="pager" aria-label="Phân trang">
+    {Array.from({ length: totalPages }, (_, i) => i + 1).map((n) =>
+      n === current ? <span aria-current="page">{n}</span> : <a href={pageHref(n)}>{n}</a>,
+    )}
+  </nav>
+)}

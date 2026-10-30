@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400"><style>@media (prefers-color-scheme: dark){.i{fill:#F6F0E1;stroke:#F6F0E1}}</style><g transform="translate(0 24)">
+<circle cx="200" cy="24" r="9" fill="#15381C" class="i"/>
+<path d="M140 84 Q200 28 260 84Z" fill="#15381C" class="i"/>
+<path d="M152 92 H248 L264 206 H136Z M174.74 192.00V101.28H205.21Q213.38 101.28 218.65 104.36Q223.91 107.44 226.49 113.32Q229.06 119.20 229.06 127.60Q229.06 138.13 225.59 143.67Q222.12 149.22 216.18 151.34Q210.25 153.47 202.86 153.47H194.79V192.00ZM194.79 139.47H201.51Q205.21 139.47 207.11 138.13Q209.02 136.78 209.63 134.10Q210.25 131.41 210.25 127.26Q210.25 123.79 209.74 121.16Q209.24 118.53 207.34 116.96Q205.43 115.39 201.40 115.39H194.79Z" fill="#15381C" fill-rule="evenodd" class="i"/>
+<path d="M100 208 H300 L314 232 H86Z" fill="#15381C" class="i"/>
+<path d="M130 236 H270 L252 336 H148Z" fill="#15381C" stroke="#15381C" stroke-width="12" stroke-linejoin="round" class="i"/>
+<path d="M200 262 C186 284 186 300 200 304 C214 300 214 284 200 262Z" fill="#BF8B2E"/>
+</g></svg>

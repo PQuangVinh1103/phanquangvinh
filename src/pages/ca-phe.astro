@@ -1,0 +1,143 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+import WebinarPromo from '../components/WebinarPromo.astro';
+import { COFFEE_CHANNEL, COURSE, WEBINAR, MODULES, isWebinarOpen, tracked } from '../config/site';
+import { getPublishedPosts } from '../lib/posts';
+
+const mod = MODULES.find((m) => m.slug === 'ca-phe')!;
+const posts = (await getPublishedPosts('ca-phe')).slice(0, 3);
+const webinarOpen = isWebinarOpen();
+
+const topics = [
+  { t: 'Quán cà phê và kinh doanh đời thường', d: 'Vì sao nhiều quán đóng cửa, ly cà phê gồm những khoản chi nào, điểm hòa vốn nằm ở đâu.' },
+  { t: 'Công nghệ và AI trong nông nghiệp', d: 'Một người làm AI nhìn vào rẫy cà phê thấy gì. Không hứa công nghệ giải quyết hết.' },
+  { t: 'Vùng trồng và chuyện nông dân', d: 'Đặc sản, vùng miền, chuỗi giá trị. Người nông dân thật sự nhận được bao nhiêu.' },
+  { t: 'Thị trường và hàng hóa', d: 'Giá được hình thành thế nào, vì sao tin thời tiết ở Brazil làm giá nhảy, phòng ngừa rủi ro giá là gì.' },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Cà phê — Phan Quang Vinh',
+  url: 'https://phanquangvinh.com/ca-phe',
+  description: mod.blurb,
+};
+---
+<BaseLayout title="Cà phê: chuyện thị trường, kể có nguồn" description="Vinh Nghiền Ngẫm: chuyện thị trường cà phê và kinh doanh quanh ly cà phê, kể có nguồn. Webinar miễn phí và khóa Bí Mật Giao Dịch Cà Phê Robusta." jsonLd={jsonLd}>
+  <section class="mod-hero" data-mod="ca-phe">
+    <div class="container">
+      <span class="eyebrow on-dark">Mảng 01 · Cà phê</span>
+      <h1>{COFFEE_CHANNEL.name}: chuyện thị trường cà phê, <span class="accent">kể có nguồn.</span></h1>
+      <p class="lead">
+        Mình tìm hiểu một hiện tượng có thật (bài báo, bài sang nhượng quán, giá nông sản), rồi kể lại bản chất của nó cho bạn nghe. Không phán xét. Không hứa làm giàu.
+      </p>
+      <div class="btn-row">
+        {webinarOpen
+          ? <a class="btn btn-primary" href="#hoc">Webinar miễn phí 04/11</a>
+          : <a class="btn btn-primary" href="#hoc">Học thêm về thị trường</a>}
+        <a class="btn btn-outline on-dark" href="/chuyen-muc/ca-phe">Đọc bài về cà phê</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Mình viết về gì</span>
+        <h2 class="section-title">Bốn nhóm chủ đề</h2>
+        <p class="section-sub">Mỗi bài bắt đầu từ một hiện tượng có thật, rồi mới đi vào bản chất.</p>
+      </div>
+      <div class="grid grid-2">
+        {topics.map((x, i) => (
+          <article class="card num-card">
+            <span class="num">0{i + 1}</span>
+            <h3>{x.t}</h3>
+            <p>{x.d}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="hoc">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Học thêm, nếu bạn muốn</span>
+        <h2 class="section-title">Lối vào đã có sẵn</h2>
+        <p class="section-sub">Học để hiểu thị trường. Giao dịch có phương pháp. Quản trị rủi ro trước lợi nhuận.</p>
+      </div>
+
+      <WebinarPromo campaign="ca-phe" showCourse={false} />
+
+      <div class="grid grid-3" style="margin-top:24px">
+        {webinarOpen && (
+          <article class="card">
+            <span class="pill" data-cat="ca-phe">Miễn phí</span>
+            <h3>{WEBINAR.title}</h3>
+            <p>{WEBINAR.dateLabel}. Link Zoom gửi trong nhóm Zalo sau khi đăng ký.</p>
+            <a class="card-link" href={tracked(WEBINAR.url, 'ca-phe-card')} target="_blank" rel="noopener">Giữ chỗ miễn phí →</a>
+          </article>
+        )}
+        {COURSE.enabled && (
+          <article class="card">
+            <span class="pill" data-cat="ca-phe">Khóa học</span>
+            <h3>{COURSE.name}</h3>
+            <p>{COURSE.host}. {COURSE.schedule}. Mức dạy là hiểu thị trường và quản trị rủi ro, không phải hứa kiếm lời.</p>
+            <a class="card-link" href={tracked(COURSE.url, 'ca-phe-card')} target="_blank" rel="noopener">Xem trang khóa →</a>
+          </article>
+        )}
+        {COFFEE_CHANNEL.enabled && (
+          <article class="card">
+            <span class="pill" data-cat="ca-phe">Kênh nội dung</span>
+            <h3>{COFFEE_CHANNEL.name}</h3>
+            <p>Video ngắn: một hiện tượng, một bản chất, kèm nguồn. Handle {COFFEE_CHANNEL.handle}.</p>
+            <div class="links-row">
+              {COFFEE_CHANNEL.links.map((l) => <a class="chip" href={l.url} target="_blank" rel="noopener noreferrer">{l.label}</a>)}
+            </div>
+          </article>
+        )}
+      </div>
+
+      <div class="fit" style="margin-top:32px">
+        <div class="card yes">
+          <h3>Phù hợp nếu bạn…</h3>
+          <ul>
+            <li>Muốn hiểu thị trường cà phê vận hành ra sao.</li>
+            <li>Làm F&amp;B hoặc nông sản và muốn hiểu rủi ro giá.</li>
+            <li>Thích học có phương pháp, chấp nhận học trước rồi tính sau.</li>
+          </ul>
+        </div>
+        <div class="card no">
+          <h3>Chưa phù hợp nếu bạn…</h3>
+          <ul>
+            <li>Tìm cách làm giàu nhanh hoặc cam kết lợi nhuận.</li>
+            <li>Muốn “học xong là làm được ngay”.</li>
+            <li>Không thể dành thời gian học trực tuyến theo lịch.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Bài viết</span>
+        <h2 class="section-title">Mới nhất về cà phê</h2>
+      </div>
+      {posts.length > 0
+        ? <div class="grid grid-3">{posts.map((p) => <PostCard post={p} />)}</div>
+        : <div class="empty"><strong>Bài đầu tiên đang được kiểm nguồn.</strong>Mình chỉ đăng khi mọi số liệu đều kiểm được.</div>}
+      <div class="btn-row" style="margin-top:28px"><a class="btn btn-outline" href="/chuyen-muc/ca-phe">Xem tất cả bài về cà phê</a></div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <NewsletterForm source="ca-phe" heading="Nhận bài cà phê mới qua email" />
+      <div class="notice" style="margin-top:16px">{mod.disclaimer}</div>
+    </div>
+  </section>
+</BaseLayout>

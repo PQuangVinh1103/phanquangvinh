@@ -1,1022 +1,160 @@
 ---
-// Clean, single-hub personal brand site for Phan Quang Vinh (Kelvin)
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+import WebinarPromo from '../components/WebinarPromo.astro';
+import { SITE, SOCIAL, MODULES } from '../config/site';
+import { getPublishedPosts } from '../lib/posts';
+
+const latest = (await getPublishedPosts()).slice(0, 3);
+
+const pillars = [
+  {
+    mod: 'ca-phe',
+    no: 'Mảng 01',
+    title: 'Cà phê',
+    text: 'Chuyện thị trường cà phê và kinh doanh quanh ly cà phê. Mình tìm hiểu, kể lại có nguồn. Từ đó mở ra webinar và khóa học về thị trường hàng hóa.',
+    points: ['Kênh Vinh Nghiền Ngẫm ☕', 'Webinar miễn phí', 'Khóa Bí Mật Giao Dịch Cà Phê Robusta'],
+    cta: 'Vào mảng Cà phê',
+  },
+  {
+    mod: 'dbl-code',
+    no: 'Mảng 02',
+    title: 'DBL Code',
+    text: 'Hệ thống giải mã năng lực con người. Mình là Manager: bao quát vận hành, lên kế hoạch, giao việc cho đội content, marketing, HR và kinh doanh.',
+    points: ['DISC + thần số học + tâm lý hành vi', 'DBL Strategy Report', 'Hệ sinh thái kênh nội dung'],
+    cta: 'Vào mảng DBL Code',
+  },
+  {
+    mod: 'tai-san-so',
+    no: 'Mảng 03',
+    title: 'Tài sản số',
+    text: 'Tài sản mã hóa (TSMH), RWA và khung pháp lý tại Việt Nam. Giải thích bằng ngôn ngữ thường, dẫn về văn bản gốc.',
+    points: ['TSMH và RWA là gì', 'Nghị quyết 05/NQ-CP', 'Thuật ngữ và vai trò các bên'],
+    cta: 'Vào mảng Tài sản số',
+  },
+];
+
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: SITE.name,
+  alternateName: SITE.nickname,
+  url: SITE.url,
+  image: new URL(SITE.portrait, SITE.url).toString(),
+  brand: SITE.brand,
+  sameAs: SOCIAL.map((s) => s.url),
+};
+const website = { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE.name, url: SITE.url, inLanguage: 'vi' };
 ---
-<!DOCTYPE html>
-<html lang="vi">
-
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PHAN QUANG VINH — Tư Duy Hệ Thống & Đòn Bẩy Tự Chủ</title>
-  <meta name="description" content="Xây dựng tư duy hệ thống và ứng dụng công nghệ làm đòn bẩy tự chủ: bớt thao tác lặp lại, tối ưu quy trình và làm chủ thời gian của chính bạn." />
-  <link rel="canonical" href="https://phanquangvinh.com" />
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="/favicon.png" />
-  <link rel="apple-touch-icon" href="/favicon.png" />
-
-  <!-- Open Graph / Facebook / Zalo Preview -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://phanquangvinh.com" />
-  <meta property="og:title" content="PHAN QUANG VINH — Tư Duy Hệ Thống & Đòn Bẩy Tự Chủ" />
-  <meta property="og:description" content="Xây dựng tư duy hệ thống và ứng dụng công nghệ làm đòn bẩy tự chủ: bớt thao tác lặp lại, tối ưu quy trình và làm chủ thời gian của chính bạn." />
-  <meta property="og:image" content="https://phanquangvinh.com/pictures/avatar_vinh.jpg" />
-
-  <!-- Twitter Card -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:url" content="https://phanquangvinh.com" />
-  <meta name="twitter:title" content="PHAN QUANG VINH — Tư Duy Hệ Thống & Đòn Bẩy Tự Chủ" />
-  <meta name="twitter:description" content="Xây dựng tư duy hệ thống và ứng dụng công nghệ làm đòn bẩy tự chủ: bớt thao tác thủ công, giải phóng năng suất và làm chủ thời gian." />
-  <meta name="twitter:image" content="https://phanquangvinh.com/pictures/avatar_vinh.jpg" />
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
-
-  <style>
-    /* =========================================
-       DESIGN TOKENS — ELECTRIC COBALT SYSTEM
-    ========================================= */
-    :root {
-      --brand-blue: #0066FF;
-      --brand-blue-glow: rgba(0, 102, 255, 0.22);
-      --brand-blue-soft: #EEF4FF;
-      --brand-blue-dark: #004ecc;
-      
-      --bg-main: #FAFAFA;
-      --bg-card: #FFFFFF;
-      --bg-card-hover: #F8FAFC;
-      --bg-dark: #090D16;
-      
-      --text-main: #0B132B;
-      --text-muted: #5A6A85;
-      --text-subtle: #8E9CAE;
-      --text-inverted: #FFFFFF;
-      
-      --border-light: #E2E8F0;
-      --border-subtle: #F1F5F9;
-      
-      --font-display: 'Bricolage Grotesque', -apple-system, sans-serif;
-      --font-sans: 'Plus Jakarta Sans', -apple-system, sans-serif;
-      
-      --radius-sm: 8px;
-      --radius-md: 14px;
-      --radius-lg: 24px;
-      --radius-full: 9999px;
-      
-      --shadow-soft: 0 4px 20px -2px rgba(0, 0, 0, 0.04);
-      --shadow-hover: 0 14px 32px -4px rgba(0, 102, 255, 0.12);
-      --shadow-float: 0 20px 45px -10px rgba(11, 19, 43, 0.14);
-      
-      --max-width: 1160px;
-    }
-
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      scroll-behavior: smooth;
-      font-size: 16px;
-    }
-
-    body {
-      background: radial-gradient(circle at 50% -10%, rgba(0, 102, 255, 0.04) 0%, transparent 50%), var(--bg-main);
-      color: var(--text-main);
-      font-family: var(--font-sans);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    .container {
-      width: 100%;
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 0 1.5rem;
-    }
-
-    /* =========================================
-       HEADER NAVIGATION & MODERN WORDMARK LOGO
-    ========================================= */
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(250, 250, 250, 0.90);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border-subtle);
-      transition: all 0.2s ease;
-    }
-
-    .header-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 76px;
-    }
-
-    /* MODERN WORDMARK LOGO */
-    .brand-logo {
-      display: flex;
-      align-items: center;
-      gap: 0.65rem;
-    }
-
-    .logo-text-wrap {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .logo-name {
-      font-family: var(--font-display);
-      font-weight: 800;
-      font-size: 1.15rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text-main);
-      line-height: 1.1;
-    }
-
-    .logo-tag {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--brand-blue);
-      margin-top: 2px;
-    }
-
-    .brand-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--brand-blue);
-      display: inline-block;
-      box-shadow: 0 0 10px var(--brand-blue);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 2.2rem;
-      list-style: none;
-    }
-
-    .nav-link {
-      font-size: 0.92rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      transition: color 0.15s ease;
-    }
-
-    .nav-link:hover {
-      color: var(--brand-blue);
-    }
-
-    .nav-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.45rem;
-      padding: 0.6rem 1.25rem;
-      background: var(--text-main);
-      color: var(--text-inverted);
-      font-size: 0.88rem;
-      font-weight: 700;
-      border-radius: var(--radius-full);
-      transition: all 0.2s ease;
-    }
-
-    .nav-cta:hover {
-      background: var(--brand-blue);
-      transform: translateY(-1px);
-      box-shadow: 0 6px 16px var(--brand-blue-glow);
-    }
-
-    /* =========================================
-       HERO SECTION
-    ========================================= */
-    .hero-section {
-      padding: 4.5rem 0 3.5rem;
-      position: relative;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 3.5rem;
-      align-items: center;
-    }
-
-    .hero-copy {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-    }
-
-    .hero-headline {
-      font-family: var(--font-display);
-      font-size: clamp(2.35rem, 4.4vw, 3.65rem);
-      font-weight: 800;
-      line-height: 1.14;
-      letter-spacing: -0.03em;
-      color: var(--text-main);
-    }
-
-    .hero-headline .highlight-blue {
-      color: var(--brand-blue);
-      position: relative;
-      display: inline-block;
-    }
-
-    .hero-description {
-      font-size: clamp(1.05rem, 1.25vw, 1.18rem);
-      color: var(--text-muted);
-      line-height: 1.68;
-      max-width: 530px;
-    }
-
-    .hero-actions {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-      margin-top: 0.4rem;
-    }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.9rem 1.8rem;
-      background: var(--brand-blue);
-      color: var(--text-inverted);
-      font-weight: 700;
-      font-size: 0.98rem;
-      border-radius: var(--radius-full);
-      box-shadow: 0 8px 24px var(--brand-blue-glow);
-      transition: all 0.2s ease;
-    }
-
-    .btn-primary:hover {
-      background: var(--brand-blue-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 12px 28px rgba(0, 102, 255, 0.35);
-    }
-
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.9rem 1.6rem;
-      background: var(--bg-card);
-      color: var(--text-main);
-      font-weight: 600;
-      font-size: 0.95rem;
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-full);
-      transition: all 0.2s ease;
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--brand-blue);
-      color: var(--brand-blue);
-      background: var(--brand-blue-soft);
-      transform: translateY(-1px);
-    }
-
-    .hero-badges {
-      display: flex;
-      align-items: center;
-      gap: 1.25rem;
-      padding-top: 1.25rem;
-      border-top: 1px solid var(--border-light);
-      margin-top: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .hero-badge-item {
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: var(--text-muted);
-    }
-
-    .hero-badge-item svg {
-      color: var(--brand-blue);
-      flex-shrink: 0;
-    }
-
-    /* HERO VISUAL (PROPERLY CENTERED PORTRAIT WITH TECH GRID & LEVERAGE BADGE) */
-    .hero-visual {
-      position: relative;
-    }
-
-    .portrait-card {
-      position: relative;
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      background: #0B132B;
-      box-shadow: var(--shadow-float);
-      aspect-ratio: 4/5;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-    }
-
-    .portrait-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 15%;
-      display: block;
-      filter: contrast(1.04) brightness(1.02);
-    }
-
-    /* Tech Grid Overlay */
-    .tech-grid-overlay {
-      position: absolute;
-      inset: 0;
-      background-image: 
-        linear-gradient(to right, rgba(0, 102, 255, 0.08) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(0, 102, 255, 0.08) 1px, transparent 1px);
-      background-size: 24px 24px;
-      pointer-events: none;
-    }
-
-    .tech-glow-overlay {
-      position: absolute;
-      inset: 0;
-      background: radial-gradient(circle at 85% 90%, rgba(0, 102, 255, 0.35) 0%, transparent 65%),
-                  linear-gradient(to top, rgba(11, 19, 43, 0.75) 0%, transparent 45%);
-      pointer-events: none;
-    }
-
-    /* Floating Automation Badge */
-    .automation-float-card {
-      position: absolute;
-      bottom: -18px;
-      left: -18px;
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid rgba(255, 255, 255, 0.85);
-      border-radius: var(--radius-md);
-      padding: 1.05rem 1.3rem;
-      box-shadow: 0 18px 38px rgba(11, 19, 43, 0.12);
-      max-width: 290px;
-      animation: floatSlow 5s ease-in-out infinite alternate;
-    }
-
-    @keyframes floatSlow {
-      0% { transform: translateY(0px); }
-      100% { transform: translateY(-6px); }
-    }
-
-    .float-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 0.45rem;
-    }
-
-    .pulse-status {
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      font-size: 0.74rem;
-      font-weight: 700;
-      color: var(--brand-blue);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-
-    .pulse-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--brand-blue);
-      box-shadow: 0 0 8px var(--brand-blue);
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(0.85); }
-    }
-
-    .float-body {
-      font-size: 0.88rem;
-      font-weight: 600;
-      color: var(--text-main);
-      line-height: 1.4;
-    }
-
-    .float-metric {
-      display: inline-block;
-      margin-top: 0.35rem;
-      font-size: 0.78rem;
-      color: var(--text-muted);
-      font-weight: 500;
-    }
-
-    /* =========================================
-       SECTION: CORE PRINCIPLES & FRAMEWORKS
-    ========================================= */
-    .section {
-      padding: 5rem 0;
-    }
-
-    .section-header {
-      margin-bottom: 2.75rem;
-    }
-
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(1.8rem, 3vw, 2.35rem);
-      font-weight: 800;
-      letter-spacing: -0.02em;
-      color: var(--text-main);
-      margin-bottom: 0.5rem;
-    }
-
-    .section-subtitle {
-      font-size: 1.05rem;
-      color: var(--text-muted);
-      max-width: 620px;
-      line-height: 1.6;
-    }
-
-    .resources-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.75rem;
-    }
-
-    .resource-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-md);
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: all 0.25s ease;
-      box-shadow: var(--shadow-soft);
-    }
-
-    .resource-card:hover {
-      border-color: var(--brand-blue);
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-hover);
-    }
-
-    .resource-tag {
-      display: inline-block;
-      padding: 0.3rem 0.8rem;
-      background: var(--brand-blue-soft);
-      color: var(--brand-blue);
-      font-size: 0.78rem;
-      font-weight: 700;
-      border-radius: var(--radius-full);
-      margin-bottom: 1.1rem;
-      align-self: flex-start;
-    }
-
-    .resource-title {
-      font-family: var(--font-display);
-      font-size: 1.32rem;
-      font-weight: 700;
-      line-height: 1.35;
-      color: var(--text-main);
-      margin-bottom: 0.85rem;
-    }
-
-    .resource-desc {
-      font-size: 0.93rem;
-      color: var(--text-muted);
-      line-height: 1.65;
-      margin-bottom: 1.5rem;
-    }
-
-    .resource-bottom {
-      border-top: 1px dashed var(--border-light);
-      padding-top: 1rem;
-      margin-top: auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .resource-takeaway {
-      font-size: 0.84rem;
-      color: var(--brand-blue);
-      font-weight: 600;
-    }
-
-    .resource-action {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.82rem;
-      font-weight: 700;
-      color: var(--text-main);
-      transition: color 0.15s ease;
-    }
-
-    .resource-card:hover .resource-action {
-      color: var(--brand-blue);
-    }
-
-    /* =========================================
-       SECTION: THREE WAYS I CAN HELP
-    ========================================= */
-    .help-section {
-      background: #F1F5F9;
-      border-top: 1px solid var(--border-light);
-      border-bottom: 1px solid var(--border-light);
-      padding: 5rem 0;
-    }
-
-    .help-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .help-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-md);
-      padding: 2.25rem 2rem;
-      transition: all 0.2s ease;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .help-card:hover {
-      border-color: var(--brand-blue);
-      box-shadow: var(--shadow-hover);
-    }
-
-    .help-number {
-      font-family: var(--font-display);
-      font-size: 2.2rem;
-      font-weight: 800;
-      color: var(--brand-blue);
-      line-height: 1;
-      margin-bottom: 1.1rem;
-      opacity: 0.95;
-    }
-
-    .help-card-title {
-      font-family: var(--font-display);
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: var(--text-main);
-      margin-bottom: 0.65rem;
-    }
-
-    .help-card-desc {
-      font-size: 0.92rem;
-      color: var(--text-muted);
-      line-height: 1.65;
-      margin-bottom: 1.5rem;
-    }
-
-    .help-card-cta {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--brand-blue);
-      margin-top: auto;
-    }
-
-    .help-card-cta svg {
-      transition: transform 0.2s ease;
-    }
-
-    .help-card:hover .help-card-cta svg {
-      transform: translateX(4px);
-    }
-
-    /* =========================================
-       SECTION: ABOUT PHAN QUANG VINH (KELVIN)
-    ========================================= */
-    .about-section {
-      padding: 5rem 0;
-    }
-
-    .about-box {
-      background: var(--bg-card);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius-lg);
-      padding: 3.5rem;
-      box-shadow: var(--shadow-soft);
-      display: grid;
-      grid-template-columns: 1fr 1.6fr;
-      gap: 3.5rem;
-      align-items: center;
-    }
-
-    .about-visual-small {
-      border-radius: var(--radius-md);
-      overflow: hidden;
-      aspect-ratio: 1/1;
-      background: #0B132B;
-      position: relative;
-    }
-
-    .about-visual-small img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 20%;
-    }
-
-    .about-content h2 {
-      font-family: var(--font-display);
-      font-size: 2.1rem;
-      font-weight: 800;
-      color: var(--text-main);
-      margin-bottom: 1.1rem;
-      letter-spacing: -0.02em;
-    }
-
-    .about-content p {
-      font-size: 1.02rem;
-      color: var(--text-muted);
-      line-height: 1.75;
-      margin-bottom: 1.2rem;
-    }
-
-    .about-content .about-quote {
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: var(--brand-blue);
-      border-left: 3px solid var(--brand-blue);
-      padding-left: 1.1rem;
-      margin-top: 1.75rem;
-      line-height: 1.6;
-    }
-
-    /* =========================================
-       FOOTER
-    ========================================= */
-    .site-footer {
-      background: var(--bg-card);
-      border-top: 1px solid var(--border-light);
-      padding: 3.25rem 0;
-      font-size: 0.9rem;
-      color: var(--text-muted);
-    }
-
-    .footer-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-    }
-
-    .footer-links {
-      display: flex;
-      align-items: center;
-      gap: 1.75rem;
-    }
-
-    .footer-link {
-      font-weight: 600;
-      transition: color 0.15s ease;
-    }
-
-    .footer-link:hover {
-      color: var(--brand-blue);
-    }
-
-    /* =========================================
-       RESPONSIVE BREAKPOINTS
-    ========================================= */
-    @media (max-width: 900px) {
-      .hero-grid {
-        grid-template-columns: 1fr;
-        gap: 2.75rem;
-      }
-
-      .hero-visual {
-        max-width: 420px;
-        margin: 0 auto;
-      }
-
-      .automation-float-card {
-        bottom: -15px;
-        left: 10px;
-        right: 10px;
-        max-width: none;
-      }
-
-      .about-box {
-        grid-template-columns: 1fr;
-        padding: 2.25rem;
-        gap: 2rem;
-      }
-
-      .about-visual-small {
-        max-width: 260px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      .nav-links {
-        display: none;
-      }
-
-      .hero-section {
-        padding: 3rem 0 2.5rem;
-      }
-
-      .hero-actions {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .btn-primary, .btn-secondary {
-        width: 100%;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <!-- HEADER NAVIGATION & MODERN LOGO -->
-  <header class="site-header">
-    <div class="container">
-      <div class="header-inner">
-        <a href="/" class="brand-logo">
-          <span class="brand-dot"></span>
-          <div class="logo-text-wrap">
-            <span class="logo-name">PHAN QUANG VINH</span>
-            <span class="logo-tag">Tư Duy & Tự Động Hóa</span>
-          </div>
-        </a>
-        
-        <nav>
-          <ul class="nav-links">
-            <li><a href="#principles" class="nav-link">Tư duy cốt lõi</a></li>
-            <li><a href="#how-i-help" class="nav-link">Cách tôi giúp bạn</a></li>
-            <li><a href="#about" class="nav-link">Về Kelvin</a></li>
-          </ul>
-        </nav>
-
-        <a href="https://zalo.me/0978155397" target="_blank" rel="noopener noreferrer" class="nav-cta">
-          <span>Nhắn Zalo</span>
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>
-        </a>
+<BaseLayout title="Phan Quang Vinh — Cà phê, DBL Code, Tài sản số" description={SITE.description} jsonLd={[person, website]}>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Phan Quang Vinh · Kelvin</span>
+        <h1>Ba mảng mình đang làm thật: <span class="accent">cà phê, DBL Code, tài sản số.</span></h1>
+        <p class="hero-lead">
+          Mình là Phan Quang Vinh, ở Hà Nội. Ở đây mình ghi lại những gì mình làm, học và rút ra. Có nguồn. Có số. Có tình huống thật.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn-dark" href="#ba-mang">Xem ba mảng</a>
+          <a class="btn btn-outline" href="/bai-viet">Đọc bài viết</a>
+        </div>
+      </div>
+      <div class="portrait">
+        <img src="/pictures/opt/vinh-portrait.jpg" alt="Phan Quang Vinh (Kelvin)" width="800" height="1000" fetchpriority="high" />
+        <span class="portrait-tag">Hà Nội · Tài chính Quốc tế FTU</span>
       </div>
     </div>
-  </header>
+  </section>
 
-  <main>
-    <!-- HERO SECTION -->
-    <section class="hero-section">
-      <div class="container">
-        <div class="hero-grid">
-          
-          <!-- LEFT: COPYWRITING -->
-          <div class="hero-copy">
-            <h1 class="hero-headline">
-              Thời gian của bạn không sinh ra để <span class="highlight-blue">làm việc lặp lại.</span>
-            </h1>
+  <div class="container"><WebinarPromo campaign="trang-chu" /></div>
 
-            <p class="hero-description">
-              Học cách xây dựng tư duy hệ thống và biến công nghệ thành đòn bẩy tự chủ: bớt thao tác thủ công, giải phóng năng suất và làm chủ thời gian của chính bạn.
-            </p>
-
-            <div class="hero-actions">
-              <a href="#principles" class="btn-primary">
-                <span>Khám phá tư duy & quy trình</span>
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-              </a>
-              <a href="https://zalo.me/0978155397" target="_blank" rel="noopener noreferrer" class="btn-secondary">
-                <span>Kết nối Zalo cá nhân</span>
-              </a>
-            </div>
-
-            <div class="hero-badges">
-              <div class="hero-badge-item">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-                <span>Tư duy cấu trúc hóa bài toán</span>
-              </div>
-              <div class="hero-badge-item">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-                <span>Tối ưu quy trình thực chiến</span>
-              </div>
-              <div class="hero-badge-item">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
-                <span>Công cụ là đòn bẩy — Cốt lõi là con người</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- RIGHT: KELVIN STUDIO PORTRAIT PROPERLY CENTERED -->
-          <div class="hero-visual">
-            <div class="portrait-card">
-              <img 
-                src="/pictures/avatar_vinh.jpg" 
-                alt="Phan Quang Vinh (Kelvin)" 
-                class="portrait-img"
-              />
-              <div class="tech-grid-overlay"></div>
-              <div class="tech-glow-overlay"></div>
-            </div>
-
-            <!-- FLOATING LEVERAGE BADGE -->
-            <div class="automation-float-card">
-              <div class="float-header">
-                <div class="pulse-status">
-                  <span class="pulse-dot"></span>
-                  <span>Hệ Thống Tự Vận Hành</span>
-                </div>
-              </div>
-              <div class="float-body">
-                Tự động hóa tác vụ & tối ưu quy trình
-              </div>
-              <span class="float-metric">⚡ Trả lại 70% thời gian cho tư duy chiến lược</span>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION: CORE PRINCIPLES & FRAMEWORKS -->
-    <section class="section" id="principles">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Bắt đầu từ tư duy gốc</h2>
-          <p class="section-subtitle">Công nghệ chỉ là đòn bẩy khuếch đại. Khi bạn có tư duy phân tích đúng và quy trình rõ ràng, công nghệ mới thật sự phát huy sức mạnh.</p>
-        </div>
-
-        <div class="resources-grid">
-          
-          <article class="resource-card">
-            <div>
-              <span class="resource-tag">Phương pháp</span>
-              <h3 class="resource-title">3 Bước Phân Rã & Loại Bỏ Thao Tác Thừa</h3>
-              <p class="resource-desc">Cách nhìn nhận lại toàn bộ khối lượng công việc hàng ngày, định vị điểm nghẽn và đóng gói những việc lặp lại để chuyển giao cho hệ thống.</p>
-            </div>
-            <div class="resource-bottom">
-              <span class="resource-takeaway">💡 Chuẩn hóa trước — Tự động hóa sau</span>
-              <a href="https://zalo.me/0978155397" target="_blank" rel="noopener noreferrer" class="resource-action">
-                <span>Nhận sơ đồ qua Zalo</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-              </a>
-            </div>
-          </article>
-
-          <article class="resource-card">
-            <div>
-              <span class="resource-tag">Tư duy đòn bẩy</span>
-              <h3 class="resource-title">Bẫy Công Cụ: Vì Sao Học Thêm Tool Không Giúp Bạn Đột Phá?</h3>
-              <p class="resource-desc">Nếu tư duy lộn xộn, công nghệ thông minh chỉ khiến bạn lộn xộn nhanh hơn. Đâu là gốc rễ để biến công nghệ thành đòn bẩy chứ không phải gánh nặng?</p>
-            </div>
-            <div class="resource-bottom">
-              <span class="resource-takeaway">💡 Tư duy là gốc — Công nghệ là đòn bẩy</span>
-              <a href="https://zalo.me/0978155397" target="_blank" rel="noopener noreferrer" class="resource-action">
-                <span>Trao đổi qua Zalo</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-              </a>
-            </div>
-          </article>
-
-          <article class="resource-card">
-            <div>
-              <span class="resource-tag">Hệ thống</span>
-              <h3 class="resource-title">Xây Dựng Hệ Thống Tự Vận Hành Cho Cá Nhân</h3>
-              <p class="resource-desc">Quy trình từng bước giúp một người làm việc độc lập có thể vận hành với năng suất tương đương một đội ngũ nhỏ nhờ biết cách tổ chức và tự động hóa.</p>
-            </div>
-            <div class="resource-bottom">
-              <span class="resource-takeaway">💡 Tự chủ năng suất = Tự do thời gian</span>
-              <a href="https://zalo.me/0978155397" target="_blank" rel="noopener noreferrer" class="resource-action">
-                <span>Nhận checklist qua Zalo</span>
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-              </a>
-            </div>
-          </article>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION: THREE WAYS I CAN HELP -->
-    <section class="help-section" id="how-i-help">
-      <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Tôi có thể giúp gì cho bạn?</h2>
-          <p class="section-subtitle">Dù bạn đang muốn sắp xếp lại quy trình làm việc hay muốn xây dựng hệ thống tự động hóa sâu, đây là các hình thức đồng hành thực tế:</p>
-        </div>
-
-        <div class="help-grid">
-          
-          <div class="help-card">
-            <div>
-              <div class="help-number">01</div>
-              <h3 class="help-card-title">Kho Frameworks & Quy Trình Mở</h3>
-              <p class="help-card-desc">Tập hợp các cẩm nang tư duy, biểu mẫu phân rã công việc và các workflow tự động hóa thực chiến được đúc kết từ thực tế.</p>
-            </div>
-            <a href="#principles" class="help-card-cta">
-              <span>Khám phá các framework</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </a>
-          </div>
-
-          <div class="help-card">
-            <div>
-              <div class="help-number">02</div>
-              <h3 class="help-card-title">Trao Đổi Trực Tiếp & Gỡ Rối</h3>
-              <p class="help-card-desc">Kết nối Zalo cá nhân cùng Kelvin để trao đổi bài toán thực tế trong công việc hàng ngày — cùng phân tích điểm nghẽn và gỡ rối quy trình.</p>
-            </div>
-            <a href="https://zalo.me/0978155397" target="_blank" rel="noopener noreferrer" class="help-card-cta">
-              <span>Nhắn tin Zalo cùng Kelvin</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </a>
-          </div>
-
-          <div class="help-card">
-            <div>
-              <div class="help-number">03</div>
-              <h3 class="help-card-title">Chương Trình Đồng Hành Nhóm Nhỏ</h3>
-              <p class="help-card-desc">Đồng hành sâu 3 tuần (giới hạn 10–12 người): Cùng ngồi lại phân tích điểm nghẽn, cấu trúc lại tư duy và đưa hệ thống tự động hóa vào công việc thật của bạn.</p>
-            </div>
-            <a href="https://zalo.me/0978155397" target="_blank" rel="noopener noreferrer" class="help-card-cta">
-              <span>Liên hệ nhận thông tin đợt 1</span>
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-            </a>
-          </div>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION: ABOUT PHAN QUANG VINH (KELVIN) -->
-    <section class="about-section" id="about">
-      <div class="container">
-        <div class="about-box">
-          <div class="about-visual-small">
-            <img src="/pictures/avatar_vinh_1.jpg" alt="Phan Quang Vinh (Kelvin)" />
-            <div class="tech-grid-overlay"></div>
-          </div>
-          
-          <div class="about-content">
-            <h2>Về Phan Quang Vinh (Kelvin)</h2>
-            <p>
-              Chào bạn, mình là Kelvin (Phan Quang Vinh), một người đam mê tư duy hệ thống và xây dựng quy trình tự động hóa tại Hà Nội.
-            </p>
-            <p>
-              Mình không bán những công thức làm giàu hay những lý thuyết công nghệ hào nhoáng. Mọi chia sẻ của mình đều xuất phát từ những bài toán thật: làm sao để giảm thiểu thao tác thừa, tối ưu hóa quy trình và giải phóng năng suất lao động.
-            </p>
-            <div class="about-quote">
-              "Công nghệ không sinh ra để bạn cắm đầu làm nhiều việc hơn, mà là đòn bẩy để trả lại sự tự do và thời gian cho những điều thật sự quan trọng."
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- FOOTER -->
-  <footer class="site-footer">
+  <section class="section" id="ba-mang">
     <div class="container">
-      <div class="footer-inner">
-        <div>
-          © {new Date().getFullYear()} PHAN QUANG VINH (Kelvin) · phanquangvinh.com
-        </div>
-
-        <div class="footer-links">
-          <a href="https://www.tiktok.com/@vinhunique" target="_blank" rel="noopener noreferrer" class="footer-link">TikTok</a>
-          <a href="https://www.threads.com/@kelvin1mil" target="_blank" rel="noopener noreferrer" class="footer-link">Threads</a>
-          <a href="https://www.facebook.com/kelvinphan1mil" target="_blank" rel="noopener noreferrer" class="footer-link">Facebook</a>
-          <a href="https://www.instagram.com/kelvin1mil/" target="_blank" rel="noopener noreferrer" class="footer-link">Instagram</a>
-          <a href="https://zalo.me/0978155397" target="_blank" rel="noopener noreferrer" class="footer-link">Zalo (0978.155.397)</a>
-        </div>
+      <div class="section-head">
+        <span class="eyebrow">Mình làm gì</span>
+        <h2 class="section-title">Ba mảng, mỗi mảng một trang riêng</h2>
+        <p class="section-sub">Mỗi mảng có bài viết, tài nguyên và lối vào riêng. Chọn mảng bạn quan tâm.</p>
+      </div>
+      <div class="grid grid-3">
+        {pillars.map((p) => (
+          <article class="card pillar" data-mod={p.mod}>
+            <span class="pillar-no">{p.no}</span>
+            <h3>{p.title}</h3>
+            <p>{p.text}</p>
+            <ul>{p.points.map((pt) => <li>{pt}</li>)}</ul>
+            <a class="card-link" href={MODULES.find((m) => m.slug === p.mod)!.path}>{p.cta} →</a>
+          </article>
+        ))}
       </div>
     </div>
-  </footer>
+  </section>
 
-</body>
-</html>
+  <section class="section section-alt">
+    <div class="container quote">
+      <blockquote>“Công nghệ không sinh ra để bạn cắm đầu làm nhiều việc hơn, mà là đòn bẩy để trả lại sự tự do và thời gian cho những điều thật sự quan trọng.”</blockquote>
+      <cite>Phan Quang Vinh</cite>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Làm việc cùng mình</span>
+        <h2 class="section-title">Ba cách để bắt đầu</h2>
+      </div>
+      <div class="grid grid-3">
+        <article class="card num-card">
+          <span class="num">01</span>
+          <h3>Tự động hóa &amp; AI</h3>
+          <p>Dựng quy trình bằng n8n và AI: báo cáo tự động, CRM, marketing automation, website. Nhận làm theo dự án.</p>
+          <a class="card-link" href={SITE.zalo} target="_blank" rel="noopener noreferrer">Nhắn mình qua Zalo →</a>
+        </article>
+        <article class="card num-card">
+          <span class="num">02</span>
+          <h3>Học về thị trường cà phê</h3>
+          <p>Webinar miễn phí và khóa học do HAP Academy tổ chức, giảng viên David Dũng. Mình là người giới thiệu.</p>
+          <a class="card-link" href="/ca-phe#hoc">Xem lối vào →</a>
+        </article>
+        <article class="card num-card">
+          <span class="num">03</span>
+          <h3>Hiểu mình, dùng người đúng</h3>
+          <p>DBL Strategy Report giúp bạn đọc năng lực và tiềm năng của bản thân, hoặc của đội ngũ bạn đang quản lý.</p>
+          <a class="card-link" href="/dbl-code">Xem DBL Code →</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Bài viết</span>
+        <h2 class="section-title">Mới nhất</h2>
+      </div>
+      {latest.length > 0
+        ? <div class="grid grid-3">{latest.map((p) => <PostCard post={p} />)}</div>
+        : <div class="empty"><strong>Bài đầu tiên sắp lên.</strong>Mình chỉ đăng khi mọi số liệu đều kiểm được nguồn.</div>}
+      <div class="btn-row" style="margin-top:28px"><a class="btn btn-outline" href="/bai-viet">Xem tất cả bài viết</a></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container"><NewsletterForm source="trang-chu" /></div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Kết nối</span>
+        <h2 class="section-title">Mình có mặt ở đây</h2>
+      </div>
+      <div class="links-row">
+        {SOCIAL.map((s) => <a class="chip" href={s.url} target="_blank" rel="noopener noreferrer">{s.label} · {s.handle}</a>)}
+        <a class="chip" href={SITE.zalo} target="_blank" rel="noopener noreferrer">Zalo · {SITE.zaloPhone}</a>
+        <a class="chip" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

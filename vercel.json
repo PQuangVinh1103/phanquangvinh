@@ -1,3 +1,10 @@
 {
-  "cleanUrls": true
+  "cleanUrls": true,
+  "redirects": [
+    { "source": "/blog", "destination": "/bai-viet", "permanent": true },
+    { "source": "/blog/:slug", "destination": "/bai-viet/:slug", "permanent": true },
+    { "source": "/about", "destination": "/ve-vinh", "permanent": true },
+    { "source": "/projects", "destination": "/ve-vinh#du-an", "permanent": true },
+    { "source": "/travel", "destination": "/ve-vinh", "permanent": false }
+  ]
 }

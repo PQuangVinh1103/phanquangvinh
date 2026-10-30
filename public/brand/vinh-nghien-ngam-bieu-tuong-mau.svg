@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="96 12 216 370" width="216" height="370"><g transform="translate(12 22) scale(.92)">
+<circle cx="200" cy="34" r="10" fill="#15381C"/>
+<path d="M154 98 Q200 40 246 98Z" fill="#15381C"/>
+<rect x="148" y="99" width="104" height="12" rx="5" fill="#BF8B2E"/>
+<path d="M156 112 H244 L257 222 H143Z M177.45 205.00V124.00H204.65Q211.95 124.00 216.65 126.75Q221.35 129.50 223.65 134.75Q225.95 140.00 225.95 147.50Q225.95 156.90 222.85 161.85Q219.75 166.80 214.45 168.70Q209.15 170.60 202.55 170.60H195.35V205.00ZM195.35 158.10H201.35Q204.65 158.10 206.35 156.90Q208.05 155.70 208.60 153.30Q209.15 150.90 209.15 147.20Q209.15 144.10 208.70 141.75Q208.25 139.40 206.55 138.00Q204.85 136.60 201.25 136.60H195.35Z" fill="#15381C" fill-rule="evenodd"/>
+<path d="M112 224 H288 L302 244 H98Z" fill="#15381C"/>
+<path d="M200 262 C189 280 189 294 200 297 C211 294 211 280 200 262Z" fill="#BF8B2E"/>
+<path d="M0 0 C34 -38 34 -96 0 -150 C-34 -96 -34 -38 0 0Z" transform="translate(200 26) rotate(-36) scale(.24)" fill="#2F6A33"/>
+<path d="M0 0 C34 -38 34 -96 0 -150 C-34 -96 -34 -38 0 0Z" transform="translate(200 26) rotate(36) scale(.24)" fill="#BF8B2E"/>
+<path d="M272 330 C312 326 312 366 266 366" fill="none" stroke="#15381C" stroke-width="13" stroke-linecap="round"/>
+<path d="M128 316 H272 L256 378 H144Z" fill="#15381C" stroke="#15381C" stroke-width="14" stroke-linejoin="round"/>
+<rect x="118" y="308" width="164" height="11" rx="5.5" fill="#BF8B2E"/>
+</g></svg>

@@ -1,0 +1,66 @@
+---
+interface Props {
+  source: string;
+  heading?: string;
+  text?: string;
+}
+
+const {
+  source,
+  heading = 'Nhận bài mới qua email',
+  text = 'Mình gửi bài mới và những nguồn đáng đọc. Không spam. Hủy lúc nào cũng được.',
+} = Astro.props;
+// Chưa đặt NEWSLETTER_WEBHOOK_URL (Vercel) thì ẩn form, tránh hiện một form chưa hoạt động.
+const enabled = Boolean(import.meta.env.NEWSLETTER_WEBHOOK_URL);
+---
+{enabled && (
+<section class="newsletter" aria-labelledby={`nl-${source}`}>
+  <div>
+    <h2 id={`nl-${source}`}>{heading}</h2>
+    <p>{text}</p>
+  </div>
+  <form class="nl-form" data-source={source} novalidate>
+    <div class="nl-row">
+      <input type="email" name="email" placeholder="Email của bạn" autocomplete="email" required aria-label="Email" />
+      <button type="submit" class="btn btn-dark">Đăng ký</button>
+    </div>
+    <input class="nl-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+    <div class="nl-msg" role="status" aria-live="polite"></div>
+  </form>
+</section>
+)}
+
+<script>
+  document.querySelectorAll<HTMLFormElement>('.nl-form').forEach((form) => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const msg = form.querySelector<HTMLElement>('.nl-msg')!;
+      const btn = form.querySelector<HTMLButtonElement>('button')!;
+      const email = (form.elements.namedItem('email') as HTMLInputElement).value.trim();
+      const honeypot = (form.elements.namedItem('website') as HTMLInputElement).value;
+      msg.className = 'nl-msg';
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+        msg.textContent = 'Email chưa đúng, bạn kiểm tra lại nhé.';
+        msg.classList.add('err');
+        return;
+      }
+      btn.disabled = true;
+      try {
+        const res = await fetch('/api/subscribe', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, website: honeypot, source: form.dataset.source, page: location.pathname }),
+        });
+        const data = await res.json().catch(() => ({}));
+        msg.textContent = data.message ?? (res.ok ? 'Đã nhận. Cảm ơn bạn!' : 'Có lỗi, bạn thử lại sau nhé.');
+        msg.classList.add(res.ok ? 'ok' : 'err');
+        if (res.ok) form.reset();
+      } catch {
+        msg.textContent = 'Không gửi được, bạn thử lại sau nhé.';
+        msg.classList.add('err');
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  });
+</script>

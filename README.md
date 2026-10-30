@@ -28,6 +28,12 @@ Open Keystatic:
 http://127.0.0.1:4321/keystatic
 ```
 
+## Cấu trúc site
+
+- `/` trang chủ, `/ca-phe`, `/dbl-code`, `/tai-san-so` (3 module), `/bai-viet` (blog), `/chuyen-muc/[cat]`, `/ve-vinh`.
+- Cấu hình chung (menu, webinar, khóa, mạng xã hội): `src/config/site.ts`.
+- Bản tin email: form gọi `/api/subscribe`, chuyển tiếp tới webhook n8n. Đặt biến môi trường `NEWSLETTER_WEBHOOK_URL` trong Vercel (Settings → Environment Variables). Chưa đặt thì form báo "chưa mở", không mất email im lặng.
+
 ## Blog workflow
 
 Blog posts live in:
@@ -42,11 +48,7 @@ Keystatic is configured in local mode, so saving a post in the admin UI writes a
 public/images/blog
 ```
 
-Only posts with this frontmatter are shown publicly:
-
-```yaml
-status: published
-```
+Only posts with `status: published` are shown publicly. Posts in the `ca-phe` category also need `verified: true` (tick "Đã kiểm nguồn" in Keystatic) before they appear.
 
 ## Build
 

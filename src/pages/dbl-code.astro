@@ -1,0 +1,131 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostCard from '../components/PostCard.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+import { DBL, MODULES } from '../config/site';
+import { getPublishedPosts } from '../lib/posts';
+
+const mod = MODULES.find((m) => m.slug === 'dbl-code')!;
+const posts = (await getPublishedPosts('dbl-code')).slice(0, 3);
+
+const doing = [
+  'Bao quát tiến độ vận hành toàn bộ hệ sinh thái DBL Code.',
+  'Lên phương án và kế hoạch triển khai.',
+  'Giao việc cho nhân sự: content, marketing, HR, kinh doanh.',
+  'Không làm thực thi trực tiếp. Vai trò là manager.',
+];
+
+const channels = [
+  { t: 'YouTube DBL Code', d: 'Kênh trung tâm. Video dài trên 10 phút, phân tích sâu.' },
+  { t: 'DBL Career · Sói Học Việc', d: 'TikTok cho Gen Z và nhân viên văn phòng: chuyện công sở, chọn hướng đi.' },
+  { t: 'DBL Invest', d: 'TikTok về tâm lý tài chính của nhà đầu tư cá nhân.' },
+  { t: 'DBL Code · Giải mã chiến lược', d: 'TikTok case study cho tệp khách hàng cao cấp.' },
+  { t: 'Facebook Fanpage + Group', d: 'Nuôi dưỡng cộng đồng, đăng chéo video ngắn.' },
+];
+
+const funnel = [
+  { n: '01', t: 'Nội dung miễn phí', d: 'Video, podcast, bài viết. Cho bạn thấy cách DBL Code nhìn con người.' },
+  { n: '02', t: 'DBL Strategy Report', d: 'Báo cáo cá nhân hóa về năng lực và tiềm năng của bạn.' },
+  { n: '03', t: 'Tư vấn 1-1 / Coaching', d: 'Đi sâu vào hướng đi cụ thể cùng chuyên gia.' },
+];
+
+const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'DBL Code — Phan Quang Vinh', url: 'https://phanquangvinh.com/dbl-code', description: mod.blurb };
+---
+<BaseLayout title="DBL Code: giải mã năng lực, dùng người đúng" description="DBL Code là hệ thống giải mã năng lực và khai phá tiềm năng con người, kết hợp DISC, thần số học, nhóm máu và tâm lý học hành vi. Phan Quang Vinh là Manager." jsonLd={jsonLd}>
+  <section class="mod-hero" data-mod="dbl-code">
+    <div class="container">
+      <span class="eyebrow on-dark">Mảng 02 · DBL Code™</span>
+      <h1>Hiểu người đúng để <span class="accent">dùng người đúng.</span></h1>
+      <p class="lead">
+        DBL Code là hệ thống giải mã năng lực và khai phá tiềm năng con người, kết hợp DISC, thần số học, nhóm máu và tâm lý học hành vi. Mình là Manager, phụ trách bao quát vận hành.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href={DBL.url} target="_blank" rel="noopener">Tới dblcode.com</a>
+        <a class="btn btn-outline on-dark" href="/chuyen-muc/dbl-code">Đọc bài về DBL Code</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid grid-2">
+        <div>
+          <span class="eyebrow">Vai trò của mình</span>
+          <h2 class="section-title">Mình làm gì ở DBL Code</h2>
+          <ul class="card" style="margin-top:20px;padding:26px 26px 26px 44px;list-style:disc">
+            {doing.map((d) => <li>{d}</li>)}
+          </ul>
+        </div>
+        <div>
+          <span class="eyebrow">Phương pháp</span>
+          <h2 class="section-title">Bốn lớp nhìn con người</h2>
+          <div class="grid grid-2" style="margin-top:20px">
+            <div class="stat"><b>DISC</b><span>Phong cách hành vi</span></div>
+            <div class="stat"><b>Thần số học</b><span>Xu hướng và năng lượng cá nhân</span></div>
+            <div class="stat"><b>Nhóm máu</b><span>Một lớp tham chiếu bổ sung</span></div>
+            <div class="stat"><b>Tâm lý hành vi</b><span>Cách phản ứng trong tình huống thật</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Phễu sản phẩm</span>
+        <h2 class="section-title">Ba bước, từ miễn phí đến chuyên sâu</h2>
+      </div>
+      <div class="grid grid-3">
+        {funnel.map((f) => (
+          <article class="card num-card">
+            <span class="num">{f.n}</span>
+            <h3>{f.t}</h3>
+            <p>{f.d}</p>
+          </article>
+        ))}
+      </div>
+      <div class="btn-row" style="margin-top:28px">
+        <a class="btn btn-dark" href={DBL.url} target="_blank" rel="noopener">Nhận DBL Strategy Report</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Hệ sinh thái nội dung</span>
+        <h2 class="section-title">Hub và các kênh vệ tinh</h2>
+      </div>
+      <div class="grid grid-3">
+        {channels.map((c) => (
+          <article class="card pillar" data-mod="dbl-code">
+            <h3>{c.t}</h3>
+            <p>{c.d}</p>
+          </article>
+        ))}
+        <article class="card pillar" data-mod="dbl-code">
+          <h3>DBL Career Ambassador</h3>
+          <p>Kênh tiếp cận sinh viên FTU năm 3–4 và fresher 0–2 năm: hiểu bản thân, chọn hướng đi.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Bài viết</span>
+        <h2 class="section-title">Mới nhất về DBL Code</h2>
+      </div>
+      {posts.length > 0
+        ? <div class="grid grid-3">{posts.map((p) => <PostCard post={p} />)}</div>
+        : <div class="empty"><strong>Chưa có bài nào ở mục này.</strong>Bài đầu tiên sẽ sớm lên.</div>}
+      <div class="btn-row" style="margin-top:28px"><a class="btn btn-outline" href="/chuyen-muc/dbl-code">Xem tất cả</a></div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container"><NewsletterForm source="dbl-code" heading="Nhận bài về DBL Code qua email" /></div>
+  </section>
+</BaseLayout>

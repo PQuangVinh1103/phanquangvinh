@@ -1,0 +1,134 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { SITE, SOCIAL } from '../config/site';
+
+const projects = (await getCollection('projects')).sort((a, b) => b.data.order - a.data.order);
+
+const pillars = [
+  ['Tài chính &amp; đầu tư', 'Tài chính quốc tế, phái sinh, tokenization (RWA), thị trường tài sản mã hóa.'],
+  ['Quy trình &amp; tư duy hệ thống', 'Phân tích điểm nghẽn, tối ưu vận hành, biến việc lặp lại thành quy trình.'],
+  ['AI &amp; tự động hóa', 'Python, n8n, prompt engineering, no-code/low-code.'],
+  ['Học nhanh &amp; triển khai', 'Dùng AI để rút ngắn thời gian học và đưa ý tưởng thành sản phẩm chạy thật.'],
+];
+
+const roles = [
+  { tag: 'Mảng 01', t: 'Cà phê', d: 'Làm kênh Vinh Nghiền Ngẫm và giới thiệu webinar, khóa học về thị trường cà phê.', href: '/ca-phe' },
+  { tag: 'Mảng 02', t: 'Manager tại DBL Code', d: 'Bao quát vận hành, lên kế hoạch, giao việc cho đội content, marketing, HR, kinh doanh.', href: '/dbl-code' },
+  { tag: 'Mảng 03', t: 'Tài sản số', d: 'Trợ lý Tổng giám đốc tại một công ty tài sản số: nhận chỉ thị, triển khai, đảm bảo tiến độ.', href: '/tai-san-so' },
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  mainEntity: { '@type': 'Person', name: SITE.name, url: SITE.url, sameAs: SOCIAL.map((s) => s.url), alumniOf: 'Đại học Ngoại thương' },
+};
+---
+<BaseLayout title="Về Vinh — Phan Quang Vinh (Kelvin)" description="Phan Quang Vinh (Kelvin), Hà Nội. Cử nhân Tài chính Quốc tế FTU. Làm ba mảng: cà phê, DBL Code, tài sản số. Nhận dự án tự động hóa và AI." jsonLd={jsonLd}>
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Về Vinh</span>
+        <h1>Mình là Vinh. Mình dựng <span class="accent">hệ thống</span> để việc tự chạy.</h1>
+        <p class="hero-lead">
+          Mình là Phan Quang Vinh (Kelvin), ở Hà Nội. Học Tài chính Quốc tế ở Ngoại thương. Giờ mình làm ba mảng song song và dùng AI để giữ chúng chạy được.
+        </p>
+        <div class="btn-row">
+          <a class="btn btn-dark" href="#lien-he">Liên hệ</a>
+          <a class="btn btn-outline" href="#du-an">Xem dự án</a>
+        </div>
+      </div>
+      <div class="portrait">
+        <img src="/pictures/opt/vinh-portrait-2.jpg" alt="Phan Quang Vinh (Kelvin)" width="800" height="1000" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section-tight">
+    <div class="container">
+      <div class="stat-row">
+        <div class="stat"><b>3,61 / 4,0</b><span>GPA ngành Tài chính Quốc tế, Đại học Ngoại thương</span></div>
+        <div class="stat"><b>~83.000 trang</b><span>báo cáo do hệ thống n8n tự tạo trong 2 ngày</span></div>
+        <div class="stat"><b>3 giờ</b><span>dựng một website hoàn chỉnh bằng AI, làm một mình</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Đang làm</span>
+        <h2 class="section-title">Ba mảng song song</h2>
+      </div>
+      <div class="grid grid-3">
+        {roles.map((r) => (
+          <article class="card pillar" data-mod={r.href.slice(1)}>
+            <span class="pillar-no">{r.tag}</span>
+            <h3>{r.t}</h3>
+            <p>{r.d}</p>
+            <a class="card-link" href={r.href}>Xem chi tiết →</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Năng lực</span>
+        <h2 class="section-title">Bốn trụ cột</h2>
+      </div>
+      <div class="grid grid-4">
+        {pillars.map(([t, d]) => (
+          <article class="card">
+            <h3 set:html={t}></h3>
+            <p set:html={d}></p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="du-an">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Dự án</span>
+        <h2 class="section-title">Những thứ mình đã dựng</h2>
+        <p class="section-sub">Nhận làm theo dự án: tự động hóa quy trình, báo cáo, CRM, website.</p>
+      </div>
+      <div class="grid grid-3">
+        {projects.map((p) => {
+          const hasLink = p.data.link && p.data.link !== '#';
+          return (
+            <article class="card">
+              <div class="project-thumb" style={`background:linear-gradient(135deg,${p.data.thumbFrom},${p.data.thumbTo})`}></div>
+              <div class="tags">{p.data.tags.map((t) => <span class="tag">{t}</span>)}</div>
+              <h3>{p.data.titleVi}</h3>
+              <p>{p.data.excerptVi}</p>
+              <strong style="color:var(--forest);font-size:.9rem">{p.data.resultVi}</strong>
+              {hasLink && <a class="card-link" href={p.data.link}>Xem dự án →</a>}
+            </article>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-alt" id="lien-he">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">Liên hệ</span>
+        <h2 class="section-title">Nhắn mình</h2>
+        <p class="section-sub">Zalo là nhanh nhất. Email cho việc cần gửi tài liệu.</p>
+      </div>
+      <div class="btn-row">
+        <a class="btn btn-primary" href={SITE.zalo} target="_blank" rel="noopener noreferrer">Zalo {SITE.zaloPhone}</a>
+        <a class="btn btn-outline" href={`mailto:${SITE.email}`}>{SITE.email}</a>
+      </div>
+      <div class="links-row" style="margin-top:22px">
+        {SOCIAL.map((s) => <a class="chip" href={s.url} target="_blank" rel="noopener noreferrer">{s.label}</a>)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>

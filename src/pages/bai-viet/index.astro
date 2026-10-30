@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PostListing from '../../components/PostListing.astro';
+import NewsletterForm from '../../components/NewsletterForm.astro';
+---
+<BaseLayout title="Bài viết" description="Bài viết về cà phê, DBL Code, tài sản số (TSMH, RWA) và AI, tự động hóa của Phan Quang Vinh. Có nguồn, có số, có tình huống thật.">
+  <section class="section-tight">
+    <div class="container">
+      <header class="section-head" style="margin-top:24px">
+        <span class="eyebrow">Góc nhìn</span>
+        <h1 class="section-title" style="font-size:clamp(2rem,4.5vw,3rem)">Bài viết</h1>
+        <p class="section-sub">Cà phê, DBL Code, tài sản số và những gì mình rút ra khi làm thật. Mỗi bài đều ghi nguồn.</p>
+      </header>
+      <PostListing />
+    </div>
+  </section>
+  <section class="section-tight">
+    <div class="container"><NewsletterForm source="bai-viet" /></div>
+  </section>
+</BaseLayout>

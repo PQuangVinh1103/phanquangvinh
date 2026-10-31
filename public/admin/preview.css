@@ -1,0 +1,24 @@
+/* Giao diện xem trước trong trang soạn bài: cùng màu và chữ với web thật. */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Oswald:wght@500;600&display=swap");
+.pv { background:#f6f0e1; color:#1c1b17; font-family:Inter,system-ui,sans-serif; line-height:1.65; min-height:100vh; padding:24px 16px; }
+.pv-wrap { max-width:780px; margin:0 auto; }
+.pv-note { border:1px solid #bf8b2e; background:#fbf3dd; border-radius:8px; padding:12px 16px; font-size:.88rem; color:#4a2815; margin-bottom:14px; }
+.pv-note.ok { border-color:#cfe3cf; background:#eef6ee; color:#15381c; }
+.pv-crumb { font-size:.82rem; color:#5f5c50; margin-bottom:14px; }
+.pv-pill { display:inline-block; padding:4px 12px; border-radius:999px; font-size:.72rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; background:#5f5c50; color:#fff; }
+.pv-pill[data-cat="ca-phe"] { background:#7a4a22; } .pv-pill[data-cat="dbl-code"] { background:#1f4a6b; } .pv-pill[data-cat="tai-san-so"] { background:#2d5f5a; }
+.pv h1 { font-family:Lora,Georgia,serif; color:#15381c; font-size:2.1rem; line-height:1.22; margin:14px 0; font-weight:700; }
+.pv-excerpt { font-size:1.1rem; color:#5f5c50; }
+.pv-meta { margin-top:14px; font-size:.84rem; color:#5f5c50; display:flex; gap:16px; flex-wrap:wrap; }
+.pv-cover img { width:100%; border-radius:16px; margin-top:20px; }
+.pv-body { font-size:1.05rem; line-height:1.8; padding:24px 0; color:#26241f; }
+.pv-body h1,.pv-body h2,.pv-body h3 { font-family:Lora,Georgia,serif; color:#15381c; margin:1.6em 0 .5em; line-height:1.25; }
+.pv-body h2 { font-size:1.55rem; } .pv-body h3 { font-size:1.25rem; }
+.pv-body p, .pv-body ul, .pv-body ol, .pv-body blockquote { margin:1em 0; }
+.pv-body ul, .pv-body ol { padding-left:1.4rem; }
+.pv-body a { color:#2f6a33; font-weight:600; }
+.pv-body blockquote { border-left:4px solid #bf8b2e; padding:2px 0 2px 18px; font-family:Lora,serif; font-style:italic; color:#15381c; }
+.pv-body img { max-width:100%; border-radius:12px; }
+.pv-box { border:1px solid #e2d9c4; background:#fffdf8; border-radius:8px; padding:14px 18px; font-size:.88rem; color:#5f5c50; margin-top:10px; }
+.pv-box h4 { font-family:Oswald,sans-serif; font-size:.76rem; letter-spacing:.14em; text-transform:uppercase; color:#15381c; margin:0 0 6px; font-weight:500; }
+.pv-box ul { margin:0; padding-left:1.1rem; }

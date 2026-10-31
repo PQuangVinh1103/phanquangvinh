@@ -41,10 +41,9 @@ collections:
       - { label: "Chuyên mục", field: category }
       - { label: "Trạng thái", field: status }
     editor:
-      preview: false
+      preview: true
     fields:
       - { label: "Tiêu đề", name: title, widget: string }
-      - { label: "Mô tả ngắn (hiện ở thẻ bài và Google)", name: excerpt, widget: text, hint: "Từ 20 đến 250 ký tự.", pattern: ['^[\s\S]{20,250}$', "Từ 20 đến 250 ký tự"] }
       - label: "Chuyên mục"
         name: category
         widget: select
@@ -58,26 +57,20 @@ collections:
         name: status
         widget: select
         default: draft
-        hint: "Nháp = chưa hiện trên web. Đăng công khai = hiện ngay sau khi lưu."
+        hint: "Nháp = chưa hiện trên web. Đăng công khai = hiện sau khi bấm Publish."
         options:
           - { label: "Nháp (chưa hiện)", value: draft }
           - { label: "Đăng công khai", value: published }
-      - { label: "Ngày đăng", name: publishedAt, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
-      - { label: "Ngày cập nhật (nếu có)", name: updatedAt, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, required: false }
-      - { label: "Tags", name: tags, widget: list, required: false, default: [] }
-      - { label: "Bài nổi bật (hiện đầu trang Bài viết)", name: featured, widget: boolean, default: false, required: false }
+      - { label: "Mô tả ngắn (hiện ở thẻ bài và Google)", name: excerpt, widget: text, hint: "Từ 20 đến 250 ký tự.", pattern: ['^[\s\S]{20,250}$', "Từ 20 đến 250 ký tự"] }
       - { label: "Ảnh bìa", name: coverImage, widget: image, required: false }
-      - { label: "Link video TikTok/YouTube liên quan", name: videoUrl, widget: string, required: false }
-      - { label: "Thời gian đọc (để trống = tự tính)", name: readingTime, widget: string, required: false }
-      - label: "Căn lề văn bản"
-        name: textAlign
-        widget: select
-        default: left
-        options:
-          - { label: "Căn lề trái (mặc định)", value: left }
-          - { label: "Căn đều hai bên", value: justify }
-      - { label: "Đã kiểm nguồn", name: verified, widget: boolean, default: false, required: false, hint: "BẮT BUỘC với mục Cà phê: chưa tick thì bài không hiện công khai. Chỉ tick khi mọi số liệu đều có nguồn kiểm được." }
-      - { label: "Có số liệu giả định (hiện ghi chú 'giả định' cuối bài)", name: hasAssumption, widget: boolean, default: false, required: false }
+      - label: "Nội dung"
+        name: body
+        widget: markdown
+        modes: [raw, rich_text]
+        hint: "Mặc định soạn dạng chữ thô (Markdown) để dán nội dung không bị hỏng định dạng. Bấm nút chuyển chế độ phía trên nếu muốn soạn có thanh công cụ."
+        buttons: ["bold", "italic", "link", "heading-two", "heading-three", "quote", "bulleted-list", "numbered-list"]
+        editor_components: ["image"]
+      - { label: "Đã kiểm nguồn", name: verified, widget: boolean, default: false, required: false, hint: "BẮT BUỘC với mục Cà phê: chưa tick thì bài KHÔNG hiện công khai. Chỉ tick khi mọi số liệu đều có nguồn kiểm được." }
       - label: "Nguồn tham khảo"
         name: sources
         widget: list
@@ -87,13 +80,10 @@ collections:
           - { label: "Tên nguồn (báo, báo cáo, văn bản)", name: title, widget: string }
           - { label: "Link", name: url, widget: string, required: false }
           - { label: "Ngày đăng nguồn (vd 2026-10-01)", name: date, widget: string, required: false }
-      - { label: "SEO title (để trống = dùng tiêu đề)", name: seoTitle, widget: string, required: false }
-      - { label: "SEO description (để trống = dùng mô tả ngắn)", name: seoDescription, widget: text, required: false }
-      - label: "Nội dung"
-        name: body
-        widget: markdown
-        buttons: ["bold", "italic", "link", "heading-two", "heading-three", "quote", "bulleted-list", "numbered-list"]
-        editor_components: ["image"]
+      - { label: "Có số liệu giả định (hiện ghi chú 'giả định' cuối bài)", name: hasAssumption, widget: boolean, default: false, required: false }
+      - { label: "Ngày đăng", name: publishedAt, widget: datetime, format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false, default: "{{now}}" }
+      - { label: "Tags", name: tags, widget: list, required: false, default: [] }
+      - { label: "Bài nổi bật (hiện đầu trang Bài viết)", name: featured, widget: boolean, default: false, required: false }
 
   - name: projects
     label: "🧩 Dự án"

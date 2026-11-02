@@ -23,7 +23,7 @@
   /* màu nhận diện từng module (cùng tông ấm, đủ phân biệt) */
   --m-ca-phe: #7a4a22;
   --m-dbl-code: #1f4a6b;
-  --m-tai-san-so: #2d5f5a;
+  --m-tai-san-so: #5b3fc4; /* tím chàm, cùng họ màu vindas.io */
   --m-goc-vinh: #5f5c50;
 
   --font-head: 'Lora', Georgia, serif;
@@ -139,7 +139,12 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.22; color: var(--
 .mod-hero p.lead { margin-top: 16px; max-width: 680px; color: rgba(255,255,255,.82); font-size: 1.1rem; }
 .mod-hero .btn-row { margin-top: 28px; }
 .mod-hero[data-mod='dbl-code'] { background: #12324a; }
-.mod-hero[data-mod='tai-san-so'] { background: #1c3f3b; }
+.mod-hero[data-mod='tai-san-so'] { background: linear-gradient(135deg, #070d2b 0%, #1a1458 48%, #5130b5 100%); }
+.mod-hero[data-mod='tai-san-so']::after { background: radial-gradient(circle, rgba(125,212,255,.30), transparent 68%); }
+.mod-hero[data-mod='tai-san-so'] .eyebrow.on-dark { color: #7dd4ff; }
+.mod-hero[data-mod='tai-san-so'] .accent { color: #7dd4ff; }
+.mod-hero[data-mod='tai-san-so'] .btn-primary { background: linear-gradient(90deg, #7dd4ff, #9a6ae3); color: #0b0a2a; }
+.mod-hero[data-mod='tai-san-so'] .btn-primary:hover { filter: brightness(1.08); }
 .mod-hero[data-mod='ca-phe'] { background: var(--forest); }
 
 /* ---------- Cards ---------- */

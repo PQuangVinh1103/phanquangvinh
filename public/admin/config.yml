@@ -12,8 +12,8 @@ backend:
 local_backend: true
 
 locale: vi
-site_url: https://phanquangvinh.com
-display_url: https://phanquangvinh.com
+site_url: https://www.phanquangvinh.com
+display_url: https://www.phanquangvinh.com
 publish_mode: simple
 
 # Tên file không dấu, dễ chia sẻ.

@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PostCard from '../components/PostCard.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
-import { DBL, MODULES } from '../config/site';
+import { DBL, MODULES, SITE } from '../config/site';
 import { getPublishedPosts } from '../lib/posts';
 
 const mod = MODULES.find((m) => m.slug === 'dbl-code')!;
@@ -29,7 +29,7 @@ const funnel = [
   { n: '03', t: 'Tư vấn 1-1 / Coaching', d: 'Đi sâu vào hướng đi cụ thể cùng chuyên gia.' },
 ];
 
-const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'DBL Code — Phan Quang Vinh', url: 'https://phanquangvinh.com/dbl-code', description: mod.blurb };
+const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'DBL Code — Phan Quang Vinh', url: `${SITE.url}/dbl-code`, description: mod.blurb };
 ---
 <BaseLayout title="DBL Code: giải mã năng lực, dùng người đúng" description="DBL Code là hệ thống giải mã năng lực và khai phá tiềm năng con người, kết hợp DISC, thần số học, nhóm máu và tâm lý học hành vi. Phan Quang Vinh là Manager." jsonLd={jsonLd}>
   <section class="mod-hero" data-mod="dbl-code">

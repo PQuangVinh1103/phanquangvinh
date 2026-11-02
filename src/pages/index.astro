@@ -43,16 +43,18 @@ const person = {
   url: SITE.url,
   image: new URL(SITE.portrait, SITE.url).toString(),
   brand: SITE.brand,
+  jobTitle: SITE.jobTitle,
+  knowsAbout: ['Thị trường cà phê', 'Phát triển con người', 'Phát triển sự nghiệp', 'Tài sản mã hóa', 'RWA'],
   sameAs: SOCIAL.map((s) => s.url),
 };
-const website = { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE.name, url: SITE.url, inLanguage: 'vi' };
+const website = { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE.name, alternateName: [SITE.alternateName, SITE.nickname], url: `${SITE.url}/`, inLanguage: 'vi' };
 ---
-<BaseLayout title="Phan Quang Vinh — Cà phê, DBL Code, Tài sản số" description={SITE.description} jsonLd={[person, website]}>
+<BaseLayout title="Phan Quang Vinh | Cà phê, Phát triển Con người & Sự nghiệp, Tài sản số" description={SITE.description} jsonLd={[person, website]}>
   <section class="hero">
     <div class="container hero-grid">
       <div>
         <span class="eyebrow">Phan Quang Vinh · Kelvin</span>
-        <h1>Ba mảng mình đang làm thật: <span class="accent">cà phê, DBL Code, tài sản số.</span></h1>
+        <h1>Ba mảng mình đang làm thật: <span class="accent">cà phê, phát triển con người &amp; sự nghiệp, tài sản số.</span></h1>
         <p class="hero-lead">
           Mình là Phan Quang Vinh, ở Hà Nội. Ở đây mình ghi lại những gì mình làm, học và rút ra. Có nguồn. Có số. Có tình huống thật.
         </p>

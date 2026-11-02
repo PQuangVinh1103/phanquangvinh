@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PostCard from '../components/PostCard.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
 import WebinarPromo from '../components/WebinarPromo.astro';
-import { COFFEE_CHANNEL, COURSE, WEBINAR, MODULES, isWebinarOpen, tracked } from '../config/site';
+import { COFFEE_CHANNEL, COURSE, WEBINAR, MODULES, SITE, isWebinarOpen, tracked } from '../config/site';
 import { getPublishedPosts } from '../lib/posts';
 
 const mod = MODULES.find((m) => m.slug === 'ca-phe')!;
@@ -21,7 +21,7 @@ const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
   name: 'Cà phê — Phan Quang Vinh',
-  url: 'https://phanquangvinh.com/ca-phe',
+  url: `${SITE.url}/ca-phe`,
   description: mod.blurb,
 };
 ---

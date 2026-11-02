@@ -3,4 +3,4 @@ Allow: /
 Disallow: /admin
 Disallow: /api/
 
-Sitemap: https://phanquangvinh.com/sitemap.xml
+Sitemap: https://www.phanquangvinh.com/sitemap.xml

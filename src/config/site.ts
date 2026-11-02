@@ -5,10 +5,12 @@ export const SITE = {
   name: 'Phan Quang Vinh',
   brand: 'Vinh Nghiền Ngẫm',
   nickname: 'Kelvin',
-  url: 'https://phanquangvinh.com',
-  tagline: 'Cà phê · DBL Code · Tài sản số',
+  url: 'https://www.phanquangvinh.com', // đúng bản Vercel đang phục vụ (apex chuyển hướng sang www)
+  tagline: 'Cà phê · Phát triển Con người & Sự nghiệp · Tài sản số',
+  alternateName: 'Vinh Nghiền Ngẫm',
+  jobTitle: 'Phát triển Con người & Sự nghiệp',
   description:
-    'Phan Quang Vinh (Kelvin): ghi lại những gì mình đang làm ở ba mảng cà phê, DBL Code và tài sản mã hóa (RWA) tại Việt Nam. Có nguồn, có số, có tình huống thật.',
+    'Phan Quang Vinh (Kelvin), Hà Nội: ghi lại những gì mình làm ở ba mảng cà phê, phát triển con người và sự nghiệp, tài sản mã hóa (RWA) tại Việt Nam. Có nguồn, có số, có tình huống thật.',
   email: 'kelvinphan1mil@gmail.com',
   zalo: 'https://zalo.me/0978155397',
   zaloPhone: '0978.155.397',

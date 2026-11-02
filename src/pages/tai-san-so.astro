@@ -2,7 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PostCard from '../components/PostCard.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
-import { MODULES } from '../config/site';
+import { MODULES, SITE } from '../config/site';
 import { getPublishedPosts } from '../lib/posts';
 
 const mod = MODULES.find((m) => m.slug === 'tai-san-so')!;
@@ -40,7 +40,7 @@ const glossary = [
   ['NQ 05', 'Nghị quyết 05/NQ-CP ngày 9/9/2025 về thí điểm thị trường tài sản mã hóa.'],
 ];
 
-const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Tài sản số — Phan Quang Vinh', url: 'https://phanquangvinh.com/tai-san-so', description: mod.blurb };
+const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'Tài sản số — Phan Quang Vinh', url: `${SITE.url}/tai-san-so`, description: mod.blurb };
 ---
 <BaseLayout title="Tài sản số: TSMH, RWA và khung pháp lý tại Việt Nam" description="Tài sản mã hóa (TSMH), RWA và Nghị quyết 05/NQ-CP tại Việt Nam, giải thích bằng ngôn ngữ thường và dẫn về văn bản gốc." jsonLd={jsonLd}>
   <section class="mod-hero" data-mod="tai-san-so">

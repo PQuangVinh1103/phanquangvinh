@@ -24,6 +24,7 @@
   --m-ca-phe: #7a4a22;
   --m-dbl-code: #1f4a6b;
   --m-tai-san-so: #5b3fc4; /* tím chàm, cùng họ màu vindas.io */
+  --m-nong-san: #3f6b2a; /* xanh lá cây, màu nông sản */
   --m-goc-vinh: #5f5c50;
 
   --font-head: 'Lora', Georgia, serif;
@@ -196,6 +197,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.22; color: var(--
 .pill[data-cat='ca-phe'] { --cat: var(--m-ca-phe); }
 .pill[data-cat='dbl-code'] { --cat: var(--m-dbl-code); }
 .pill[data-cat='tai-san-so'] { --cat: var(--m-tai-san-so); }
+.pill[data-cat='nong-san'] { --cat: var(--m-nong-san); }
 .pill[data-cat='goc-vinh'] { --cat: var(--m-goc-vinh); }
 .badge-ok { display: inline-flex; gap: 6px; align-items: center; font-size: .8rem; font-weight: 600; color: var(--leaf); }
 .badge-warn { font-size: .8rem; font-weight: 600; color: var(--bark); }
@@ -214,6 +216,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.22; color: var(--
 .post-cover[data-cat='ca-phe'] { --cat: var(--m-ca-phe); }
 .post-cover[data-cat='dbl-code'] { --cat: var(--m-dbl-code); }
 .post-cover[data-cat='tai-san-so'] { --cat: var(--m-tai-san-so); }
+.post-cover[data-cat='nong-san'] { --cat: var(--m-nong-san); }
 .post-cover .ph { position: absolute; inset: 0; display: grid; place-items: center; font-family: var(--font-label); letter-spacing: .2em; text-transform: uppercase; color: rgba(255,255,255,.55); font-size: .85rem; }
 .post-body { padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
 .post-body h3 { font-size: 1.12rem; line-height: 1.32; }

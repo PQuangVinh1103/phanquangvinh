@@ -52,6 +52,7 @@ collections:
           - { label: "Cà phê", value: ca-phe }
           - { label: "DBL Code", value: dbl-code }
           - { label: "Tài sản số", value: tai-san-so }
+          - { label: "Nông sản", value: nong-san }
           - { label: "Góc Vinh (AI, năng suất, suy nghĩ)", value: goc-vinh }
       - label: "Trạng thái"
         name: status

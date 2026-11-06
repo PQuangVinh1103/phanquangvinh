@@ -77,7 +77,7 @@ export const DBL = {
 };
 
 export type ModuleSlug = 'ca-phe' | 'dbl-code' | 'tai-san-so';
-export type CategorySlug = ModuleSlug | 'goc-vinh';
+export type CategorySlug = ModuleSlug | 'nong-san' | 'goc-vinh';
 
 export interface CategoryInfo {
   slug: CategorySlug;
@@ -125,7 +125,15 @@ export const GOC_VINH: CategoryInfo = {
   blurb: 'AI, tự động hóa, năng suất và những suy nghĩ cá nhân.',
 };
 
-export const CATEGORIES: CategoryInfo[] = [...MODULES, GOC_VINH];
+export const NONG_SAN: CategoryInfo = {
+  slug: 'nong-san',
+  name: 'Nông sản',
+  short: 'Nông sản',
+  path: '/chuyen-muc/nong-san',
+  blurb: 'Sầu riêng, xuất khẩu nông sản và những bài toán phía sau mã vùng trồng, kể có nguồn.',
+};
+
+export const CATEGORIES: CategoryInfo[] = [...MODULES, NONG_SAN, GOC_VINH];
 
 export function categoryOf(slug: string): CategoryInfo {
   return CATEGORIES.find((c) => c.slug === slug) ?? GOC_VINH;

@@ -10,7 +10,7 @@ const posts = defineCollection({
     publishedAt: z.coerce.date(),
     updatedAt: z.coerce.date().optional(),
     status: z.enum(['draft', 'published']).default('draft'),
-    category: z.enum(['ca-phe', 'dbl-code', 'tai-san-so', 'goc-vinh']).default('goc-vinh'),
+    category: z.enum(['ca-phe', 'dbl-code', 'tai-san-so', 'nong-san', 'goc-vinh']).default('goc-vinh'),
     tags: z.array(z.string()).default([]),
     featured: z.boolean().default(false),
     coverImage: z.string().optional(),

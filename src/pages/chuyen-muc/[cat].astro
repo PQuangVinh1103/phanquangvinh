@@ -15,7 +15,7 @@ if (!info) return Astro.redirect('/bai-viet');
         <span class="eyebrow">Chuyên mục</span>
         <h1 class="section-title" style="font-size:clamp(2rem,4.5vw,3rem)">{info.name}</h1>
         <p class="section-sub">{info.blurb}</p>
-        {info.slug !== 'goc-vinh' && <p style="margin-top:10px"><a href={info.path}>Xem trang giới thiệu mảng {info.name} →</a></p>}
+        {info.slug !== 'goc-vinh' && info.slug !== 'nong-san' && <p style="margin-top:10px"><a href={info.path}>Xem trang giới thiệu mảng {info.name} →</a></p>}
       </header>
       <PostListing category={info.slug} />
       {info.disclaimer && <div class="notice" style="margin-top:28px">{info.disclaimer}</div>}

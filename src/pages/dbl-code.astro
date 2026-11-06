@@ -9,17 +9,17 @@ const mod = MODULES.find((m) => m.slug === 'dbl-code')!;
 const posts = (await getPublishedPosts('dbl-code')).slice(0, 3);
 
 const channels = [
-  { t: 'YouTube DBL Code', d: 'Kênh trung tâm. Video dài trên 10 phút, phân tích sâu.' },
-  { t: 'DBL Career · Sói Học Việc', d: 'TikTok cho Gen Z và nhân viên văn phòng: chuyện công sở, chọn hướng đi.' },
-  { t: 'DBL Invest', d: 'TikTok về tâm lý tài chính của nhà đầu tư cá nhân.' },
-  { t: 'DBL Code · Giải mã chiến lược', d: 'TikTok case study cho tệp khách hàng cao cấp.' },
-  { t: 'Facebook Fanpage + Group', d: 'Nuôi dưỡng cộng đồng, đăng chéo video ngắn.' },
+  { t: 'YouTube DBL Code', d: 'Những video dài, đi kỹ vào một vấn đề về con người và công việc, để bạn hiểu sâu thay vì lướt qua.' },
+  { t: 'DBL Career · Sói Học Việc', d: 'Chuyện công sở và chọn hướng đi, dành cho người trẻ đang tìm đường trong những năm đầu đi làm.' },
+  { t: 'DBL Invest', d: 'Góc nhìn tâm lý trong tài chính cá nhân: vì sao ta quyết định chuyện tiền bạc như vậy, và làm sao để tỉnh táo hơn.' },
+  { t: 'DBL Code · Giải mã chiến lược', d: 'Những case study được mổ xẻ kỹ, để rút ra bài học về chiến lược và con người đứng phía sau.' },
+  { t: 'Cộng đồng Facebook', d: 'Nơi bạn đặt câu hỏi và trao đổi cùng những người cũng đang muốn hiểu mình hơn.' },
 ];
 
 const funnel = [
-  { n: '01', t: 'Nội dung miễn phí', d: 'Video, podcast, bài viết. Cho bạn thấy cách DBL Code nhìn con người.' },
-  { n: '02', t: 'DBL Strategy Report', d: 'Báo cáo cá nhân hóa về năng lực và tiềm năng của bạn.' },
-  { n: '03', t: 'Tư vấn 1-1 / Coaching', d: 'Đi sâu vào hướng đi cụ thể cùng chuyên gia.' },
+  { n: '01', t: 'Nội dung chia sẻ', d: 'Video, podcast, bài viết giúp bạn làm quen với cách DBL Code nhìn con người.' },
+  { n: '02', t: 'DBL Strategy Report', d: 'Một bản báo cáo riêng về năng lực và tiềm năng của bạn.' },
+  { n: '03', t: 'Đồng hành 1-1', d: 'Cùng chuyên gia đi sâu vào hướng đi cụ thể của bạn.' },
 ];
 
 const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'DBL Code — Phan Quang Vinh', url: `${SITE.url}/dbl-code`, description: mod.blurb };
@@ -53,12 +53,12 @@ const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', na
         </div>
         <div>
           <span class="eyebrow">Phương pháp</span>
-          <h2 class="section-title">Bốn góc nhìn về một con người</h2>
+          <h2 class="section-title">Bốn lớp để hiểu một con người</h2>
           <div class="grid grid-2" style="margin-top:20px">
-            <div class="stat"><b>DISC</b><span>Phong cách hành vi</span></div>
-            <div class="stat"><b>Thần số học</b><span>Xu hướng và năng lượng cá nhân</span></div>
-            <div class="stat"><b>Nhóm máu</b><span>Một lớp tham chiếu bổ sung</span></div>
-            <div class="stat"><b>Tâm lý hành vi</b><span>Cách phản ứng trong tình huống thật</span></div>
+            <div class="stat"><b>DISC</b><span>Phong cách hành vi: cách bạn giao tiếp, quyết định và làm việc cùng người khác</span></div>
+            <div class="stat"><b>Thần số học</b><span>Sứ mệnh: hướng đi và giá trị cốt lõi bạn theo đuổi</span></div>
+            <div class="stat"><b>Nhóm máu</b><span>Bản năng: cách bạn phản ứng trước áp lực</span></div>
+            <div class="stat"><b>Tâm lý học</b><span>Khoa học nghiên cứu hành vi: vì sao con người hành động như vậy</span></div>
           </div>
         </div>
       </div>
@@ -68,7 +68,7 @@ const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', na
   <section class="section section-alt">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">Phễu sản phẩm</span>
+        <span class="eyebrow">Hành trình</span>
         <h2 class="section-title">Từ làm quen đến đồng hành sâu hơn</h2>
       </div>
       <div class="grid grid-3">
@@ -81,7 +81,7 @@ const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', na
         ))}
       </div>
       <div class="btn-row" style="margin-top:28px">
-        <a class="btn btn-dark" href={DBL.url} target="_blank" rel="noopener">Nhận DBL Strategy Report</a>
+        <a class="btn btn-dark" href={DBL.url} target="_blank" rel="noopener">Tìm hiểu DBL Strategy Report</a>
       </div>
     </div>
   </section>
@@ -89,20 +89,16 @@ const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', na
   <section class="section">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">Hệ sinh thái nội dung</span>
-        <h2 class="section-title">Hub và các kênh vệ tinh</h2>
+        <span class="eyebrow">Nơi mình chia sẻ</span>
+        <h2 class="section-title">Mỗi nơi giúp bạn một việc</h2>
       </div>
-      <div class="grid grid-3">
-        {channels.map((c) => (
-          <article class="card pillar" data-mod="dbl-code">
+      <div class="grid grid-2">
+        {channels.map((c, i) => (
+          <article class="card pillar" data-mod="dbl-code" style={i === channels.length - 1 && channels.length % 2 === 1 ? 'grid-column:1/-1' : undefined}>
             <h3>{c.t}</h3>
             <p>{c.d}</p>
           </article>
         ))}
-        <article class="card pillar" data-mod="dbl-code">
-          <h3>DBL Career Ambassador</h3>
-          <p>Kênh tiếp cận sinh viên FTU năm 3–4 và fresher 0–2 năm: hiểu bản thân, chọn hướng đi.</p>
-        </article>
       </div>
     </div>
   </section>

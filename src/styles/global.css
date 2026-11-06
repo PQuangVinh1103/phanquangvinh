@@ -295,8 +295,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); line-height: 1.22; color: var(--
 .stat { padding: 22px; border-radius: var(--radius); background: var(--paper); border: 1px solid var(--line); }
 .stat b { display: block; font-family: var(--font-label); font-size: 1.9rem; color: var(--forest); font-weight: 600; line-height: 1.1; }
 .stat span { font-size: .9rem; color: var(--muted); }
-.stat-row.two { grid-template-columns: repeat(2, 1fr); }
-@media (max-width: 640px) { .stat-row, .stat-row.two { grid-template-columns: 1fr; } }
+@media (max-width: 640px) { .stat-row { grid-template-columns: 1fr; } }
 
 .fit { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
 .fit .card.yes { border-top: 5px solid var(--leaf); }

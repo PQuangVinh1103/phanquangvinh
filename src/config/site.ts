@@ -10,7 +10,7 @@ export const SITE = {
   alternateName: 'Vinh Nghiền Ngẫm',
   jobTitle: 'Phát triển Con người & Sự nghiệp',
   description:
-    'Phan Quang Vinh (Kelvin), Hà Nội: ghi lại những gì mình làm ở ba mảng cà phê, phát triển con người và sự nghiệp, tài sản mã hóa (RWA) tại Việt Nam. Có nguồn, có số, có tình huống thật.',
+    'Phan Quang Vinh (Kelvin), Hà Nội: kể lại cách mình làm việc ở cà phê nông sản, phát triển con người và sự nghiệp, tài sản mã hóa (RWA) tại Việt Nam, cùng những điều học được trên đường.',
   email: 'kelvinphan1mil@gmail.com',
   zalo: 'https://zalo.me/0978155397',
   zaloPhone: '0978.155.397',
@@ -95,7 +95,7 @@ export const MODULES: CategoryInfo[] = [
     name: 'Cà phê',
     short: 'Cà phê',
     path: '/ca-phe',
-    blurb: 'Chuyện thị trường cà phê và kinh doanh quanh ly cà phê, kể có nguồn.',
+    blurb: 'Chuyện thị trường cà phê và kinh doanh quanh ly cà phê, kể lại nhẹ nhàng và dễ hiểu.',
     disclaimer:
       'Nội dung chia sẻ kiến thức, không phải khuyến nghị đầu tư và không cam kết lợi nhuận. Các ví dụ số có ghi "giả định" là số tự đặt để minh họa.',
   },
@@ -117,6 +117,16 @@ export const MODULES: CategoryInfo[] = [
   },
 ];
 
+// Lời kể ngắn về từng lĩnh vực. Dùng chung cho trang chủ và trang Về Vinh để không lệch nhau.
+export const FIELD_STORY: Record<ModuleSlug, string> = {
+  'ca-phe':
+    'Mình hay bắt đầu từ chuyện đời thường: vì sao giá cà phê lên xuống, người trồng thật sự nhận được bao nhiêu. Mình tìm hiểu rồi kể lại, và làm cầu nối tới các buổi học về thị trường cùng HAP Commodities Consulting.',
+  'dbl-code':
+    'Ở DBL Code, mình thiết kế sản phẩm và lan tỏa giá trị, cùng tinh thần đồng hành. Với mỗi người, đó là giúp bạn đưa ra những quyết định lớn về cuộc sống và sự nghiệp sao cho đúng với chính mình. Với doanh nghiệp, đó là giúp lựa chọn và tối ưu các quyết định về nhân sự, từ tuyển dụng, lãnh đạo đến phát triển đội ngũ.',
+  'tai-san-so':
+    'Đây là một thị trường hoàn toàn mới ở Việt Nam, đang đi từng bước theo khung thí điểm của Chính phủ. Mình tham gia ở khâu phát triển dự án, nên có dịp nhìn thị trường này từ bên trong. Những gì học được, mình viết lại bằng ngôn ngữ dễ hiểu, kèm đường dẫn về văn bản gốc.',
+};
+
 export const GOC_VINH: CategoryInfo = {
   slug: 'goc-vinh',
   name: 'Góc Vinh',
@@ -130,7 +140,7 @@ export const NONG_SAN: CategoryInfo = {
   name: 'Nông sản',
   short: 'Nông sản',
   path: '/chuyen-muc/nong-san',
-  blurb: 'Sầu riêng, xuất khẩu nông sản và những bài toán phía sau mã vùng trồng, kể có nguồn.',
+  blurb: 'Sầu riêng, xuất khẩu nông sản và những bài toán phía sau mã vùng trồng.',
 };
 
 export const CATEGORIES: CategoryInfo[] = [...MODULES, NONG_SAN, GOC_VINH];

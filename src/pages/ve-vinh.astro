@@ -1,21 +1,20 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { SITE, SOCIAL } from '../config/site';
+import { SITE, SOCIAL, FIELD_STORY } from '../config/site';
 
 const projects = (await getCollection('projects')).sort((a, b) => b.data.order - a.data.order);
 
-const pillars = [
-  ['Tài chính &amp; đầu tư', 'Tài chính quốc tế, phái sinh, tokenization (RWA), thị trường tài sản mã hóa.'],
-  ['Quy trình &amp; tư duy hệ thống', 'Phân tích điểm nghẽn, tối ưu vận hành, biến việc lặp lại thành quy trình.'],
-  ['AI &amp; tự động hóa', 'Python, n8n, prompt engineering, no-code/low-code.'],
-  ['Học nhanh &amp; triển khai', 'Dùng AI để rút ngắn thời gian học và đưa ý tưởng thành sản phẩm chạy thật.'],
+const methods = [
+  { t: 'Dựng video tự động', d: 'Một bộ công cụ đóng gói sẵn để dựng và hoàn thiện video nhanh hơn, mà chất lượng vẫn đồng đều.' },
+  { t: 'Research thông tin', d: 'Một quy trình tìm, đối chiếu và ghi lại nguồn, để mỗi bài viết dựa trên dữ liệu kiểm được.' },
+  { t: 'Hệ thống hóa truyền thông', d: 'Từ ý tưởng, kịch bản đến lịch đăng và chăm sóc người xem, mỗi bước đều có quy trình riêng.' },
 ];
 
 const roles = [
-  { tag: 'Mảng 01', t: 'Cà phê', d: 'Làm kênh Vinh Nghiền Ngẫm và giới thiệu webinar, khóa học về thị trường cà phê.', href: '/ca-phe' },
-  { tag: 'Mảng 02', t: 'Manager tại DBL Code', d: 'Bao quát vận hành, lên kế hoạch, giao việc cho đội content, marketing, HR, kinh doanh.', href: '/dbl-code' },
-  { tag: 'Mảng 03', t: 'Tài sản số', d: 'Trợ lý Tổng giám đốc tại một công ty tài sản số: nhận chỉ thị, triển khai, đảm bảo tiến độ.', href: '/tai-san-so' },
+  { tag: 'Lĩnh vực 01', t: 'Cà phê và nông sản', d: FIELD_STORY['ca-phe'], href: '/ca-phe' },
+  { tag: 'Lĩnh vực 02', t: 'Con người · DBL Code', d: FIELD_STORY['dbl-code'], href: '/dbl-code' },
+  { tag: 'Lĩnh vực 03', t: 'Tài sản số', d: FIELD_STORY['tai-san-so'], href: '/tai-san-so' },
 ];
 
 const jsonLd = {
@@ -24,14 +23,14 @@ const jsonLd = {
   mainEntity: { '@type': 'Person', name: SITE.name, url: SITE.url, sameAs: SOCIAL.map((s) => s.url), alumniOf: 'Đại học Ngoại thương' },
 };
 ---
-<BaseLayout title="Về Vinh — Phan Quang Vinh (Kelvin)" description="Phan Quang Vinh (Kelvin), Hà Nội. Cử nhân Tài chính Quốc tế FTU. Làm ba mảng: cà phê, phát triển con người và sự nghiệp, tài sản số. Nhận dự án tự động hóa và AI." jsonLd={jsonLd}>
+<BaseLayout title="Về Vinh — Phan Quang Vinh (Kelvin)" description="Phan Quang Vinh (Kelvin), Hà Nội. Tốt nghiệp Đại học Ngoại thương, ngành Tài chính Quốc tế. Làm việc ở cà phê nông sản, quản lý con người và tài sản số. Nhận dự án tự động hóa và AI." jsonLd={jsonLd}>
   <section class="hero">
     <div class="container hero-grid">
       <div>
         <span class="eyebrow">Về Vinh</span>
-        <h1>Mình là Vinh. Mình dựng <span class="accent">hệ thống</span> để việc tự chạy.</h1>
+        <h1>Mình là Vinh. Mình thích hiểu sâu một việc, <span class="accent">rồi đặt nó vào bức tranh lớn.</span></h1>
         <p class="hero-lead">
-          Mình là Phan Quang Vinh (Kelvin), ở Hà Nội. Học Tài chính Quốc tế ở Ngoại thương. Giờ mình làm ba mảng song song và dùng AI để giữ chúng chạy được.
+          Tốt nghiệp Đại học Ngoại thương, ngành Tài chính Quốc tế. Mình đang công tác ở Hà Nội, làm việc về lĩnh vực tư vấn cà phê nông sản, quản lý con người và tài sản số. Ở đây mình kể cách mình làm và điều mình học được.
         </p>
         <div class="btn-row">
           <a class="btn btn-dark" href="#lien-he">Liên hệ</a>
@@ -46,8 +45,7 @@ const jsonLd = {
 
   <section class="section-tight">
     <div class="container">
-      <div class="stat-row">
-        <div class="stat"><b>3,61 / 4,0</b><span>GPA ngành Tài chính Quốc tế, Đại học Ngoại thương</span></div>
+      <div class="stat-row two">
         <div class="stat"><b>~83.000 trang</b><span>báo cáo do hệ thống n8n tự tạo trong 2 ngày</span></div>
         <div class="stat"><b>3 giờ</b><span>dựng một website hoàn chỉnh bằng AI, làm một mình</span></div>
       </div>
@@ -58,7 +56,7 @@ const jsonLd = {
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Đang làm</span>
-        <h2 class="section-title">Ba mảng song song</h2>
+        <h2 class="section-title">Công việc của mình</h2>
       </div>
       <div class="grid grid-3">
         {roles.map((r) => (
@@ -76,14 +74,15 @@ const jsonLd = {
   <section class="section section-alt">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">Năng lực</span>
-        <h2 class="section-title">Bốn trụ cột</h2>
+        <span class="eyebrow">Cách mình làm việc</span>
+        <h2 class="section-title">Mình dùng AI để việc gọn và nhanh hơn</h2>
+        <p class="section-sub">Công cụ chỉ là phương tiện. Mình đóng gói những phần lặp lại thành quy trình, để thời gian dành cho phần cần suy nghĩ.</p>
       </div>
-      <div class="grid grid-4">
-        {pillars.map(([t, d]) => (
+      <div class="grid grid-3">
+        {methods.map((m) => (
           <article class="card">
-            <h3 set:html={t}></h3>
-            <p set:html={d}></p>
+            <h3>{m.t}</h3>
+            <p>{m.d}</p>
           </article>
         ))}
       </div>
@@ -94,7 +93,7 @@ const jsonLd = {
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Dự án</span>
-        <h2 class="section-title">Những thứ mình đã dựng</h2>
+        <h2 class="section-title">Vài việc mình đã làm</h2>
         <p class="section-sub">Nhận làm theo dự án: tự động hóa quy trình, báo cáo, CRM, website.</p>
       </div>
       <div class="grid grid-3">
@@ -119,7 +118,7 @@ const jsonLd = {
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Liên hệ</span>
-        <h2 class="section-title">Nhắn mình</h2>
+        <h2 class="section-title">Cứ nhắn mình nhé</h2>
         <p class="section-sub">Zalo là nhanh nhất. Email cho việc cần gửi tài liệu.</p>
       </div>
       <div class="btn-row">

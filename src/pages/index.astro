@@ -3,36 +3,15 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PostCard from '../components/PostCard.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
 import WebinarPromo from '../components/WebinarPromo.astro';
-import { SITE, SOCIAL, MODULES } from '../config/site';
+import { SITE, SOCIAL, MODULES, FIELD_STORY } from '../config/site';
 import { getPublishedPosts } from '../lib/posts';
 
 const latest = (await getPublishedPosts()).slice(0, 3);
 
 const pillars = [
-  {
-    mod: 'ca-phe',
-    no: 'Mảng 01',
-    title: 'Cà phê',
-    text: 'Chuyện thị trường cà phê và kinh doanh quanh ly cà phê. Mình tìm hiểu, kể lại có nguồn. Từ đó mở ra webinar và khóa học về thị trường hàng hóa.',
-    points: ['Kênh Vinh Nghiền Ngẫm ☕', 'Webinar miễn phí', 'Khóa Bí Mật Giao Dịch Cà Phê Robusta'],
-    cta: 'Vào mảng Cà phê',
-  },
-  {
-    mod: 'dbl-code',
-    no: 'Mảng 02',
-    title: 'DBL Code',
-    text: 'Hệ thống giải mã năng lực con người. Mình là Manager: bao quát vận hành, lên kế hoạch, giao việc cho đội content, marketing, HR và kinh doanh.',
-    points: ['DISC + thần số học + tâm lý hành vi', 'DBL Strategy Report', 'Hệ sinh thái kênh nội dung'],
-    cta: 'Vào mảng DBL Code',
-  },
-  {
-    mod: 'tai-san-so',
-    no: 'Mảng 03',
-    title: 'Tài sản số',
-    text: 'Tài sản mã hóa (TSMH), RWA và khung pháp lý tại Việt Nam. Giải thích bằng ngôn ngữ thường, dẫn về văn bản gốc.',
-    points: ['TSMH và RWA là gì', 'Nghị quyết 05/NQ-CP', 'Thuật ngữ và vai trò các bên'],
-    cta: 'Vào mảng Tài sản số',
-  },
+  { mod: 'ca-phe', no: 'Lĩnh vực 01', title: 'Cà phê và nông sản', text: FIELD_STORY['ca-phe'], cta: 'Đi vào cà phê và nông sản' },
+  { mod: 'dbl-code', no: 'Lĩnh vực 02', title: 'Con người · DBL Code', text: FIELD_STORY['dbl-code'], cta: 'Đi vào DBL Code' },
+  { mod: 'tai-san-so', no: 'Lĩnh vực 03', title: 'Tài sản số', text: FIELD_STORY['tai-san-so'], cta: 'Đi vào tài sản số' },
 ];
 
 const person = {
@@ -54,30 +33,30 @@ const website = { '@context': 'https://schema.org', '@type': 'WebSite', name: SI
     <div class="container hero-grid">
       <div>
         <span class="eyebrow">Phan Quang Vinh · Kelvin</span>
-        <h1>Ba mảng mình đang làm thật: <span class="accent">cà phê, phát triển con người &amp; sự nghiệp, tài sản số.</span></h1>
+        <h1>Mình thích hiểu sâu một việc, <span class="accent">rồi đặt nó vào bức tranh lớn.</span></h1>
         <p class="hero-lead">
-          Mình là Phan Quang Vinh, ở Hà Nội. Ở đây mình ghi lại những gì mình làm, học và rút ra. Có nguồn. Có số. Có tình huống thật.
+          Tốt nghiệp Đại học Ngoại thương, ngành Tài chính Quốc tế. Mình đang công tác ở Hà Nội, làm việc về lĩnh vực tư vấn cà phê nông sản, quản lý con người và tài sản số. Ở đây mình kể cách mình làm và điều mình học được.
         </p>
         <div class="btn-row">
-          <a class="btn btn-dark" href="#ba-mang">Xem ba mảng</a>
+          <a class="btn btn-dark" href="#viec-dang-lam">Xem mình đang làm gì</a>
           <a class="btn btn-outline" href="/bai-viet">Đọc bài viết</a>
         </div>
       </div>
       <div class="portrait">
         <img src="/pictures/opt/vinh-portrait.jpg" alt="Phan Quang Vinh (Kelvin)" width="800" height="1000" fetchpriority="high" />
-        <span class="portrait-tag">Hà Nội · Tài chính Quốc tế FTU</span>
+        <span class="portrait-tag">Hà Nội</span>
       </div>
     </div>
   </section>
 
   <div class="container"><WebinarPromo campaign="trang-chu" /></div>
 
-  <section class="section" id="ba-mang">
+  <section class="section" id="viec-dang-lam">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">Mình làm gì</span>
-        <h2 class="section-title">Ba mảng, mỗi mảng một trang riêng</h2>
-        <p class="section-sub">Mỗi mảng có bài viết, tài nguyên và lối vào riêng. Chọn mảng bạn quan tâm.</p>
+        <span class="eyebrow">Công việc của mình</span>
+        <h2 class="section-title">Những việc mình đang theo đuổi</h2>
+        <p class="section-sub">Mỗi nơi một câu chuyện riêng. Bạn cứ chọn nơi bạn quan tâm.</p>
       </div>
       <div class="grid grid-3">
         {pillars.map((p) => (
@@ -85,7 +64,6 @@ const website = { '@context': 'https://schema.org', '@type': 'WebSite', name: SI
             <span class="pillar-no">{p.no}</span>
             <h3>{p.title}</h3>
             <p>{p.text}</p>
-            <ul>{p.points.map((pt) => <li>{pt}</li>)}</ul>
             <a class="card-link" href={MODULES.find((m) => m.slug === p.mod)!.path}>{p.cta} →</a>
           </article>
         ))}
@@ -103,26 +81,26 @@ const website = { '@context': 'https://schema.org', '@type': 'WebSite', name: SI
   <section class="section">
     <div class="container">
       <div class="section-head">
-        <span class="eyebrow">Làm việc cùng mình</span>
-        <h2 class="section-title">Ba cách để bắt đầu</h2>
+        <span class="eyebrow">Cùng làm việc</span>
+        <h2 class="section-title">Nếu bạn muốn làm việc cùng mình</h2>
       </div>
       <div class="grid grid-3">
         <article class="card num-card">
           <span class="num">01</span>
           <h3>Tự động hóa &amp; AI</h3>
-          <p>Dựng quy trình bằng n8n và AI: báo cáo tự động, CRM, marketing automation, website. Nhận làm theo dự án.</p>
+          <p>Bạn có một quy trình đang rối? Mình ngồi lại cùng bạn, nhìn cả bức tranh trước, rồi mới chọn công cụ. Mình dùng n8n và AI để việc chạy nhanh và gọn hơn.</p>
           <a class="card-link" href={SITE.zalo} target="_blank" rel="noopener noreferrer">Nhắn mình qua Zalo →</a>
         </article>
         <article class="card num-card">
           <span class="num">02</span>
           <h3>Học về thị trường cà phê</h3>
-          <p>Webinar miễn phí và khóa học do HAP Academy tổ chức, giảng viên David Dũng. Mình là người giới thiệu.</p>
+          <p>Webinar miễn phí và khóa học do HAP Commodities Consulting tổ chức, giảng viên David Dũng. Mình làm cầu nối giới thiệu.</p>
           <a class="card-link" href="/ca-phe#hoc">Xem lối vào →</a>
         </article>
         <article class="card num-card">
           <span class="num">03</span>
           <h3>Hiểu mình, dùng người đúng</h3>
-          <p>DBL Strategy Report giúp bạn đọc năng lực và tiềm năng của bản thân, hoặc của đội ngũ bạn đang quản lý.</p>
+          <p>DBL Strategy Report giúp bạn hiểu rõ năng lực và tiềm năng của mình, hoặc của đội ngũ bạn đang dẫn dắt.</p>
           <a class="card-link" href="/dbl-code">Xem DBL Code →</a>
         </article>
       </div>

@@ -8,13 +8,6 @@ import { getPublishedPosts } from '../lib/posts';
 const mod = MODULES.find((m) => m.slug === 'dbl-code')!;
 const posts = (await getPublishedPosts('dbl-code')).slice(0, 3);
 
-const doing = [
-  'Bao quát tiến độ vận hành toàn bộ hệ sinh thái DBL Code.',
-  'Lên phương án và kế hoạch triển khai.',
-  'Giao việc cho nhân sự: content, marketing, HR, kinh doanh.',
-  'Không làm thực thi trực tiếp. Vai trò là manager.',
-];
-
 const channels = [
   { t: 'YouTube DBL Code', d: 'Kênh trung tâm. Video dài trên 10 phút, phân tích sâu.' },
   { t: 'DBL Career · Sói Học Việc', d: 'TikTok cho Gen Z và nhân viên văn phòng: chuyện công sở, chọn hướng đi.' },
@@ -31,13 +24,13 @@ const funnel = [
 
 const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', name: 'DBL Code — Phan Quang Vinh', url: `${SITE.url}/dbl-code`, description: mod.blurb };
 ---
-<BaseLayout title="DBL Code: giải mã năng lực, dùng người đúng" description="DBL Code là hệ thống giải mã năng lực và khai phá tiềm năng con người, kết hợp DISC, thần số học, nhóm máu và tâm lý học hành vi. Phan Quang Vinh là Manager." jsonLd={jsonLd}>
+<BaseLayout title="DBL Code: giải mã năng lực, dùng người đúng" description="DBL Code là hệ thống giải mã năng lực và khai phá tiềm năng con người, kết hợp DISC, thần số học, nhóm máu và tâm lý học hành vi." jsonLd={jsonLd}>
   <section class="mod-hero" data-mod="dbl-code">
     <div class="container">
-      <span class="eyebrow on-dark">Mảng 02 · DBL Code™</span>
+      <span class="eyebrow on-dark">Lĩnh vực 02 · DBL Code™</span>
       <h1>Hiểu người đúng để <span class="accent">dùng người đúng.</span></h1>
       <p class="lead">
-        DBL Code là hệ thống giải mã năng lực và khai phá tiềm năng con người, kết hợp DISC, thần số học, nhóm máu và tâm lý học hành vi. Mình là Manager, phụ trách bao quát vận hành.
+        DBL Code là hệ thống giải mã năng lực và khai phá tiềm năng con người, kết hợp DISC, thần số học, nhóm máu và tâm lý học hành vi. Mình thiết kế sản phẩm và lan tỏa giá trị của hệ thống này tới từng người.
       </p>
       <div class="btn-row">
         <a class="btn btn-primary" href={DBL.url} target="_blank" rel="noopener">Tới dblcode.com</a>
@@ -51,14 +44,16 @@ const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', na
       <div class="grid grid-2">
         <div>
           <span class="eyebrow">Vai trò của mình</span>
-          <h2 class="section-title">Mình làm gì ở DBL Code</h2>
-          <ul class="card" style="margin-top:20px;padding:26px 26px 26px 44px;list-style:disc">
-            {doing.map((d) => <li>{d}</li>)}
-          </ul>
+          <h2 class="section-title">Mình đồng hành cùng DBL Code thế nào</h2>
+          <div class="card" style="margin-top:20px;padding:26px">
+            <p>Mình thiết kế sản phẩm và lan tỏa giá trị của DBL Code, cùng một tinh thần đồng hành.</p>
+            <p>Với mỗi cá nhân, đó là giúp bạn đưa ra những quyết định lớn về cuộc sống và sự nghiệp sao cho đúng với chính mình.</p>
+            <p>Với doanh nghiệp, đó là giúp lựa chọn và tối ưu các quyết định về nhân sự, từ tuyển dụng, lãnh đạo đến phát triển đội ngũ.</p>
+          </div>
         </div>
         <div>
           <span class="eyebrow">Phương pháp</span>
-          <h2 class="section-title">Bốn lớp nhìn con người</h2>
+          <h2 class="section-title">Bốn góc nhìn về một con người</h2>
           <div class="grid grid-2" style="margin-top:20px">
             <div class="stat"><b>DISC</b><span>Phong cách hành vi</span></div>
             <div class="stat"><b>Thần số học</b><span>Xu hướng và năng lượng cá nhân</span></div>
@@ -74,7 +69,7 @@ const jsonLd = { '@context': 'https://schema.org', '@type': 'CollectionPage', na
     <div class="container">
       <div class="section-head">
         <span class="eyebrow">Phễu sản phẩm</span>
-        <h2 class="section-title">Ba bước, từ miễn phí đến chuyên sâu</h2>
+        <h2 class="section-title">Từ làm quen đến đồng hành sâu hơn</h2>
       </div>
       <div class="grid grid-3">
         {funnel.map((f) => (

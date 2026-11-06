@@ -3,11 +3,11 @@
 **Stack thật:** Astro 5 (SSR) + Decap CMS (trang /admin) + Markdoc + CSS thuần (không Tailwind) — deploy Vercel, remote GitLab (có thêm remote `github`).
 **Ngôn ngữ:** chỉ tiếng Việt. Xưng "mình", gọi "bạn". Câu ngắn, thẳng, không motivational.
 
-## Định vị (chốt 29/10/2026)
-Tên giữ nguyên **Phan Quang Vinh**. Website xoay quanh 3 mảng Kelvin đang làm, mỗi mảng một module:
+## Định vị (chốt 29/10/2026, chỉnh giọng 06/11/2026)
+Tên giữ nguyên **Phan Quang Vinh**. Kelvin là người **sâu sắc, hệ thống, bao quát**. AI/n8n chỉ là cách làm việc cho hiệu quả, không đưa lên H1 hay thẻ giới thiệu. Giọng mềm, kể chuyện, không liệt kê chi tiết. Trên web gọi là "lĩnh vực", không dùng chữ "mảng". Bỏ GPA, bỏ "Cử nhân Ngoại thương"; học vấn chỉ ghi một lần trong đoạn giới thiệu. Lời kể từng lĩnh vực nằm ở `FIELD_STORY` trong `site.ts` (dùng chung trang chủ và Về Vinh). Website có 3 lĩnh vực, mỗi lĩnh vực một module:
 - **Cà phê** (`/ca-phe`): kênh Vinh Nghiền Ngẫm ☕, webinar miễn phí, khóa Bí Mật Giao Dịch Cà Phê Robusta.
-- **DBL Code** (`/dbl-code`): Kelvin là Manager. Link `dblcode.com`.
-- **Tài sản số** (`/tai-san-so`): TSMH, RWA, NQ 05/NQ-CP.
+- **DBL Code** (`/dbl-code`): Kelvin thiết kế sản phẩm, lan tỏa giá trị; giúp cá nhân ra quyết định lớn, giúp doanh nghiệp tối ưu quyết định nhân sự. Link `dblcode.com`.
+- **Tài sản số** (`/tai-san-so`): TSMH, RWA, NQ 05/NQ-CP. Kể khách quan về thị trường và phần việc của riêng Kelvin, không nêu doanh nghiệp, không nêu chức danh.
 Ngoài ra: `/bai-viet` (blog), `/chuyen-muc/[cat]`, `/ve-vinh` (about + dự án + liên hệ), `/rss.xml`, `/sitemap.xml`, `/api/subscribe`.
 Mục "Góc Vinh" (`goc-vinh`) là chuyên mục chung cho AI, năng suất, suy nghĩ cá nhân.
 

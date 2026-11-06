@@ -23,7 +23,7 @@ Cùng "bộ" với nhận diện khóa Robusta (kem · xanh rừng · vàng đ�
 - `vercel.json`: redirect link cũ (`/blog`, `/about`, `/projects`, `/travel`).
 
 ## Quy tắc nội dung (bắt buộc)
-- Số liệu và tuyên bố thật phải có nguồn; số tự đặt ghi "giả định" (tick `hasAssumption`). Mục Cà phê: chỉ tick `verified` (Đã kiểm nguồn) khi mọi số liệu kiểm được.
+- Số liệu và tuyên bố thật phải có nguồn; số tự đặt ghi "giả định" (tick `hasAssumption`). Mục Cà phê: chỉ tick `verified` khi mọi số liệu kiểm được. **Kiểm nguồn là việc nội bộ**: báo cho Kelvin trong chat, không viết câu thanh minh trong bài. Huy hiệu "Đã kiểm nguồn" và hộp "Nguồn tham khảo" cuối bài thì giữ (Kelvin chốt 06/11/2026). Chi tiết và danh sách câu cấm: `../.claude/rules/04-nguon-va-chu-thich-anh.md`.
 - Không cam kết lợi nhuận. Không nêu tên MXV. Không ghi giá khóa, không ghi số suất, không nhắc "3 buổi coaching" hay "699K" (chi tiết ưu đãi chỉ ở trang khóa).
 - Không đưa DBL Code vào nội dung mảng Cà phê. Không đưa thông tin nội bộ VINDAS (mật) lên web.
 - Dữ liệu khóa/webinar lấy từ thư mục `~/Documents/BÍ MẬT GIAO DỊCH CÀ PHÊ ROBUSTA/` (đọc `CLAUDE.md` và `Landing page.../docs/HE-THONG.md` trong đó), không fetch web.

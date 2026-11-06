@@ -124,7 +124,7 @@ export const FIELD_STORY: Record<ModuleSlug, string> = {
   'dbl-code':
     'Ở DBL Code, mình thiết kế sản phẩm và lan tỏa giá trị, cùng tinh thần đồng hành. Với mỗi người, đó là giúp bạn đưa ra những quyết định lớn về cuộc sống và sự nghiệp sao cho đúng với chính mình. Với doanh nghiệp, đó là giúp lựa chọn và tối ưu các quyết định về nhân sự, từ tuyển dụng, lãnh đạo đến phát triển đội ngũ.',
   'tai-san-so':
-    'Đây là một thị trường hoàn toàn mới ở Việt Nam, đang đi từng bước theo khung thí điểm của Chính phủ. Mình tham gia ở khâu phát triển dự án, nên có dịp nhìn thị trường này từ bên trong. Những gì học được, mình viết lại bằng ngôn ngữ dễ hiểu, kèm đường dẫn về văn bản gốc.',
+    'Đây là một thị trường hoàn toàn mới ở Việt Nam, đang đi từng bước theo khung thí điểm của Chính phủ. Mình tham gia ở khâu phát triển dự án, nên có dịp nhìn thị trường này từ bên trong. Những gì học được, mình viết lại bằng ngôn ngữ dễ hiểu.',
 };
 
 export const GOC_VINH: CategoryInfo = {

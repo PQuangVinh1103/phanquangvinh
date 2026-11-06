@@ -92,7 +92,7 @@ const jsonLd = {
           <article class="card">
             <span class="pill" data-cat="ca-phe">Kênh nội dung</span>
             <h3>{COFFEE_CHANNEL.name}</h3>
-            <p>Video ngắn: một hiện tượng, một bản chất, kèm nguồn. Handle {COFFEE_CHANNEL.handle}.</p>
+            <p>Video ngắn: một hiện tượng, một bản chất. Handle {COFFEE_CHANNEL.handle}.</p>
             <div class="links-row">
               {COFFEE_CHANNEL.links.map((l) => <a class="chip" href={l.url} target="_blank" rel="noopener noreferrer">{l.label}</a>)}
             </div>
@@ -129,7 +129,7 @@ const jsonLd = {
       </div>
       {posts.length > 0
         ? <div class="grid grid-3">{posts.map((p) => <PostCard post={p} />)}</div>
-        : <div class="empty"><strong>Bài đầu tiên đang được kiểm nguồn.</strong>Mình chỉ đăng khi mọi số liệu đều kiểm được.</div>}
+        : <div class="empty"><strong>Bài đầu tiên sắp lên.</strong>Mình đang hoàn thiện, bạn quay lại sau nhé.</div>}
       <div class="btn-row" style="margin-top:28px"><a class="btn btn-outline" href="/chuyen-muc/ca-phe">Xem tất cả bài về cà phê</a></div>
     </div>
   </section>
